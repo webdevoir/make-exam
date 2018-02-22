@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  references: 
+  points: 1
+  type: 
+  body: MyText
+  position: 1
+
+two:
+  references: 
+  points: 1
+  type: 
+  body: MyText
+  position: 1
