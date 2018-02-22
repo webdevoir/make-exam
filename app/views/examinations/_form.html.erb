@@ -1,0 +1,25 @@
+ <%= link_to "Back to all exams", examinations_path %>
+
+    <h2>Submit a exam!</h2>
+    <%= form_for @exam  do |f| %>
+      <div>
+        <%= f.label :name %><br>
+        <%= f.text_field :name %>
+      </div>
+      <div>
+      	<%= f.password_field :password, placeholder: "Password", class: 'form-control' %>
+       </div>
+        <div class="form-group">
+            <%= f.password_field :password_confirmation, placeholder: "Password Confirmation", class: 'form-control' %>
+      	<div>
+        <%= f.label :intro %><br>
+        <%= f.text_area :intro %>
+      </div>
+      <div>
+        <%= f.label :conclusion %><br>
+        <%= f.text_area :conclusion %>
+      </div>
+      <div>
+        <%= f.submit "Submit" %> 
+      </div>
+    <% end %>

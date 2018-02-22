@@ -9,6 +9,7 @@ class ExaminationsController < ApplicationController
 
   def new
     @exam = Examination.new
+    @exam = current_user.examinations.build
   end
 
   def edit
@@ -16,11 +17,12 @@ class ExaminationsController < ApplicationController
   end
 
   def create
-    @exam = Examination.new(exam_params)
+    @exam = current_user.examinations.new(exam_params)
 
     if @exam.save
       redirect_to examinations_path
     else
+      logger.info @exam.errors.full_messages
       render :new
     end
   end
@@ -45,7 +47,7 @@ class ExaminationsController < ApplicationController
 
       def exam_params
         params.require(:examination).permit(
-          :name, :intro, :conclusion, :passcode
+          :name, :intro, :conclusion, :passcode, :password, :password_confirmation
         )
       end
 end

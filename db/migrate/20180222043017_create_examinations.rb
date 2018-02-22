@@ -3,7 +3,7 @@ class CreateExaminations < ActiveRecord::Migration[5.1]
     create_table :examinations do |t|
       t.references :user, foreign_key: true
       t.string :name
-      t.string :passwordpassword_digest
+      t.string :password_digest
       t.text :intro
       t.text :conclusion
       t.string :passcode

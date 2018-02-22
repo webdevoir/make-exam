@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 20180222043017) do
   create_table "examinations", force: :cascade do |t|
     t.bigint "user_id"
     t.string "name"
-    t.string "passwordpassword_digest"
+    t.string "password_digest"
     t.text "intro"
     t.text "conclusion"
     t.string "passcode"

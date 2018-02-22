@@ -1,2 +1,9 @@
-<h1>Examinations#index</h1>
-<p>Find me in app/views/examinations/index.html.erb</p>
+<h1>Make an Exam</h1>
+    <%= link_to "Submit a exam!", new_examination_path %>
+    <hr>
+    <% @exams.each do |exam| %>
+      <h2><%= link_to exam.name, examination_path(exam) %></h2>
+      <h3><%= exam.created_at %></h3>
+      <h4>Intro<%= exam.intro %></h4>
+      <hr>
+    <% end %>
