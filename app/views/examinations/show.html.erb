@@ -8,9 +8,11 @@
     <h3> <%= @exam.questions.count if @exam.questions.count > 0 %> Questions for: <em><%= @exam.name %></em></h3>
     <% if current_user %>
       <% @exam.questions.each do |question| %>
-      	<p> <%= question.position %> out of <%= @exam.questions.count %> </p>
-        <p><%= question.body %></p>
-        <p><%= question.points %></p>
+      	<hr>
+      	<p> <%= question.position %> out of <%= @exam.questions.count %> (<%= link_to "edit", edit_examination_question_path(@exam, question) %>, <%= link_to "delete", examination_question_path(@exam, question), method: :delete, data: {confirm: "Are you sure you want to delete  #{question.position}?"} %>)</p>
+        <p>Question: <%= question.body %></p>
+        <p>Type: <%= question.question_type %></p>
+        <p>Points: <%= question.points %></p>
       <% end %>
       <p><%= link_to "add a question!", new_examination_question_path(@exam) %></p>
     <% else %>

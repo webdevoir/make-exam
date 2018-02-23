@@ -1,9 +1,9 @@
 <h1>Make an Exam</h1>
-    <%= link_to "Submit a exam!", new_examination_path %>
+    <%= link_to "Submit an exam!", new_examination_path %>
     <hr>
     <% @exams.each do |exam| %>
-      <h2><%= link_to exam.name, examination_path(exam) %></h2>
-      <h3><%= exam.created_at %></h3>
-      <h4>Intro<%= exam.intro %></h4>
+      <h2>Name: <%= link_to exam.name, examination_path(exam) %></h2>
+      <h3>Date Created: <%= exam.created_at %></h3>
+      <h4>Intro: <%= exam.intro %></h4>
       <hr>
     <% end %>

@@ -14,23 +14,36 @@ class QuestionsController < ApplicationController
   end
 
   def edit
+    @question  = Question.find(params[:id])
+    @exam = Examination.where(id: @question.examination_id).first
   end
 
   def create
-        @exam = Examination.find(params[:examination_id])
-        @question = @exam.questions.build(question_params)
-        if @exam.questions.count > 0
-          @question.position = 1
-        else @question.position = @exam.questions.count + 1 
+    @exam = Examination.find(params[:examination_id])
+    @question = @exam.questions.build(question_params)
+    if @exam.questions.count > 0
+      @question.position = 1
+    else 
+      @question.position = @exam.questions.count + 1 
+    end
 
-        if @question.save
-          redirect_to @exam, notice: "question created successfully"
-        else
-          render :new
-        end
-      end
+    if @question.save
+      redirect_to @exam, notice: "question created successfully"
+    else
+      render :new
+    end
+  end
 
   def update
+    @exam = Examination.find(params[:examination_id])
+    @question  = Question.find(params[:id])
+
+    if @question.update_attributes(question_params)
+      redirect_to @exam, notice: "question updated successfully"
+    else
+      flash[:error] = "#{@question.errors.count} errors prevented question from being updated."
+      render :edit
+    end
 
   end
 
@@ -38,7 +51,7 @@ class QuestionsController < ApplicationController
     @question  = Question.find(params[:id])
       @question.destroy
       flash[:alert] =  "The question was deleted successfully!"
-      redirect_back(fallback_location: root_path)
+      redirect_back(fallback_location: examinations_path)
   end
 
   private
