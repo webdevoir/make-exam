@@ -10,7 +10,7 @@ class QuestionsController < ApplicationController
 
   def new
     @exam = Examination.find(params[:examination_id])
-    @question = @exa.questions.build
+    @question = @exam.questions.build
   end
 
   def edit
@@ -18,7 +18,10 @@ class QuestionsController < ApplicationController
 
   def create
         @exam = Examination.find(params[:examination_id])
-        @question = @exa.questions.build(question_params)
+        @question = @exam.questions.build(question_params)
+        if @exam.questions.count > 0
+          @question.position = 1
+        else @question.position = @exam.questions.count + 1 
 
         if @question.save
           redirect_to @exam, notice: "question created successfully"
@@ -41,6 +44,6 @@ class QuestionsController < ApplicationController
   private
 
     def question_params
-      params.require(:question).permit(:points, :type, :body, :position)
+      params.require(:question).permit(:points, :question_type, :body, :position)
     end
 end

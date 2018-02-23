@@ -4,3 +4,15 @@
     <h3><%= @exam.intro %></h3>
     <h3><%= @exam.created_at %></h3>
       <h4>Intro: <%= @exam.intro %></h4>
+
+    <h3> <%= @exam.questions.count if @exam.questions.count > 0 %> Questions for: <em><%= @exam.name %></em></h3>
+    <% if current_user %>
+      <% @exam.questions.each do |question| %>
+      	<p> <%= question.position %> out of <%= @exam.questions.count %> </p>
+        <p><%= question.body %></p>
+        <p><%= question.points %></p>
+      <% end %>
+      <p><%= link_to "add a question!", new_examination_question_path(@exam) %></p>
+    <% else %>
+      <p>Please <%= link_to "log in", new_session_path %> to see reviews and add your own.</p> 
+    <% end %>
