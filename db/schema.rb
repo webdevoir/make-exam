@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 20180223050059) do
 
   create_table "questions", force: :cascade do |t|
     t.bigint "examination_id"
-    t.integer "points"
+    t.integer "points", default: 1
     t.string "question_type"
     t.text "body"
     t.integer "position"

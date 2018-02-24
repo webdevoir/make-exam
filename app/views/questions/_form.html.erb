@@ -28,7 +28,7 @@
   </div>
     <%= f.fields_for :answers do |ans_f| %>
     <p>
-        <%= ans_f.radio_button :correct, "correct" %> <%= ans_f.text_field :body %>
+        <%= ans_f.radio_button :correct, true %> <%= ans_f.text_field :body %>
         <%= ans_f.check_box :_destroy %>
         <%= ans_f.label :_destroy, "Remove" %>
     </p>
