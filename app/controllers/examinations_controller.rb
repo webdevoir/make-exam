@@ -7,6 +7,10 @@ class ExaminationsController < ApplicationController
     @exam = Examination.find(params[:id])
   end
 
+  def take
+    @exam = Examination.find(params[:id])
+  end
+
   def new
     @exam = Examination.new
     @exam = current_user.examinations.build

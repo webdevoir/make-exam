@@ -2,6 +2,9 @@ Rails.application.routes.draw do
 
 
   resources :examinations do
+  	member do
+    	get   :take
+  	end
   	resources :questions do
   		resources :answers
   	end
