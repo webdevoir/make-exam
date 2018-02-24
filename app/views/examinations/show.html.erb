@@ -7,13 +7,27 @@
 
     <h3> <%= @exam.questions.count if @exam.questions.count > 0 %> Questions for: <em><%= @exam.name %></em></h3>
     <% if current_user %>
-      <% @exam.questions.each do |question| %>
-      	<hr>
-      	<p> <%= question.position %> out of <%= @exam.questions.count %> (<%= link_to "edit", edit_examination_question_path(@exam, question) %>, <%= link_to "delete", examination_question_path(@exam, question), method: :delete, data: {confirm: "Are you sure you want to delete  #{question.position}?"} %>)</p>
-        <p>Question: <%= question.body %></p>
-        <p>Type: <%= question.question_type %></p>
-        <p>Points: <%= question.points %></p>
+    <table>
+    	<tr>
+    		<th>#</th>
+    		<th>Question</th>
+    		<th>Manage</th>
+    		<th>Type</th>
+    		<th>Points</th>
+    		<th>Answers</th>
+    	</tr>
+      <% @exam.questions.each_with_index do |question, i| %>
+      <% index = i + 1 %>
+      <tr>
+      	<td><%= index %></td>
+      	<td><%= link_to truncate(question.body, :ommision => "... ", :length => 50), edit_examination_question_path(@exam, question) %></td>
+      	<td>(<%= link_to "delete", examination_question_path(@exam, question), method: :delete, data: {confirm: "Are you sure you want to delete  #{question.position}?"} %>)</td>
+      	<td><%= question.question_type %></td>
+      	<td><%= question.points %></td>
+      	<td><%= question.answers.count %></td> 	
+     </tr>
       <% end %>
+     </table>
       <p><%= link_to "add a question!", new_examination_question_path(@exam) %></p>
     <% else %>
       <p>Please <%= link_to "log in", new_session_path %> to see reviews and add your own.</p> 

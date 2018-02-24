@@ -6,11 +6,18 @@ class QuestionsController < ApplicationController
   end
 
   def show
+    @exam = Examination.find(params[:examination_id])
+    @question  = Question.find(params[:id])
   end
 
   def new
     @exam = Examination.find(params[:examination_id])
     @question = @exam.questions.build
+    (1..4).each do |n|
+      ans =  @question.answers.build
+      ans.order = n
+      ans.save
+    end
   end
 
   def edit
@@ -22,9 +29,9 @@ class QuestionsController < ApplicationController
     @exam = Examination.find(params[:examination_id])
     @question = @exam.questions.build(question_params)
     if @exam.questions.count > 0
-      @question.position = 1
-    else 
       @question.position = @exam.questions.count + 1 
+    else 
+      @question.position = 1
     end
 
     if @question.save
@@ -57,6 +64,6 @@ class QuestionsController < ApplicationController
   private
 
     def question_params
-      params.require(:question).permit(:points, :question_type, :body, :position)
+      params.require(:question).permit(:points, :question_type, :body, :position, answers_attributes: [:id, :_destroy, :points, :answer_type, :body, :position])
     end
 end

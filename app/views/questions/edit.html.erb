@@ -26,5 +26,19 @@
     <%= f.label :points %><br>
     <%= f.select :points, [1 ,2, 3, 4, 5, 6, 7, 8, 9 , 10]%>
   </div>
+    <%= f.fields_for :answers do |ans_f| %>
+    <p>
+        <%= ans_f.radio_button :correct, "correct" %> <%= ans_f.text_field :body %>
+        <%= ans_f.check_box :_destroy %>
+        <%= ans_f.label :_destroy, "Remove" %>
+    </p>
+  <% end %>
+
+
+
+
+
+
+
   <div><%= f.submit "Submit" %></div>
 <% end %>

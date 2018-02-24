@@ -4,6 +4,7 @@
     <% @exams.each do |exam| %>
       <h2>Name: <%= link_to exam.name, examination_path(exam) %></h2>
       <h3>Date Created: <%= exam.created_at %></h3>
-      <h4>Intro: <%= exam.intro %></h4>
+      <h3>Intro: <%= exam.intro %></h3>
+      <h3>Questions: <%= exam.questions.count %></h3>
       <hr>
     <% end %>

@@ -2,7 +2,9 @@ Rails.application.routes.draw do
 
 
   resources :examinations do
-  	resources :questions
+  	resources :questions do
+  		resources :answers
+  	end
   end
 
   devise_for :users
