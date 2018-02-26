@@ -1,6 +1,6 @@
     <%= link_to "Back to all exams", examinations_path %><br/>
 
-    <h2><%= @exam.name %> (<%= link_to "edit", edit_examination_path(@exam) %>, <%= link_to "delete", examination_path(@exam), method: :delete, data: {confirm: "You sure?"} %>, <%= link_to "take exam",take_examination_path(@exam) %>)</h2>
+    <h2><%= @exam.name %> (<%= link_to "edit", edit_examination_path(@exam) %>, <%= link_to "delete", examination_path(@exam), method: :delete, data: {confirm: "You sure?"} %>, <%= link_to "take exam",new_examination_score_path(@exam) %>)</h2>
     <h3><%= @exam.intro %></h3>
     <h3><%= @exam.created_at %></h3>
       <h4>Intro: <%= @exam.intro %></h4>

@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   	member do
     	get   :take
   	end
+    resources :scores
   	resources :questions do
   		resources :answers
   	end

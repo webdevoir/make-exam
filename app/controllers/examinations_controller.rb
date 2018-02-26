@@ -9,6 +9,9 @@ class ExaminationsController < ApplicationController
 
   def take
     @exam = Examination.find(params[:id])
+    @score = @exam.scores.build
+    @score.user_id = current_user.id
+    @score.save
   end
 
   def new
@@ -35,7 +38,7 @@ class ExaminationsController < ApplicationController
     @exam = Examination.find(params[:id])
 
     if @exam.update_attributes(exam_params)
-      redirect_to exam_path(@exam)
+      redirect_to examination_path(@exam)
     else
       render :edit
     end
@@ -51,7 +54,7 @@ class ExaminationsController < ApplicationController
 
       def exam_params
         params.require(:examination).permit(
-          :name, :intro, :conclusion, :passcode, :password, :password_confirmation
-        )
+          :name, :intro, :conclusion, :passcode, :password, :password_confirmation,
+          responses_attributes: [:id, :_destroy, :answer_id])
       end
 end

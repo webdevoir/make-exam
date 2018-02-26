@@ -1,0 +1,31 @@
+<%= link_to "Back to all exams", examinations_path %><br/>
+
+    <h2><%= @exam.name %></h2>
+    <h3><%= @exam.intro %></h3>
+
+
+
+
+<%= form_for [@exam, @score] do |f| %>
+  <%= f.hidden_field :examination_id, value: @exam.id  %>
+  <%= fields_for :responses do |res_f| %>
+   <% @exam.questions.each_with_index do |question, i| %>
+            <% index = i + 1 %>
+            <h2>Question #<%=index%></h2><span style="font-size: 24px; font-weight: normal">(<%= question.points %> Points)</span>
+            <hr>
+            <h3><%= question.body %></h3>
+            <% question.answers.each do |ans| %>
+              <table>
+                <tr>
+                  <td><%= res_f.check_box :answer_id %></td>
+                  <td><%= ans.body %></td>
+                </tr>
+              </table>
+            <% end %>
+          <% end %>
+        <% end %>
+
+  <%= f.submit 'Submit' %>
+<% end %>
+
+

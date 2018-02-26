@@ -3,19 +3,24 @@
     <h2><%= @exam.name %></h2>
     <h3><%= @exam.intro %></h3>
 
-    
-
-      <% @exam.questions.each_with_index do |question, i| %>
-        <% index = i + 1 %>
-        <h2>Question #<%=index%></h2>
-        <hr>
-        <h3><%= question.body %></h3>
-        <% question.answers.each do |ans| %>
-          <table>
-            <tr>
-              <td>radio</td>
-              <td><%= ans.body %></td>
-            </tr>
-          </table>
+    <%= form_for @exam  do |f| %>
+      <%= f.hidden_field :name, value: @exam.name  %>
+      <%= fields_for :responses do |res_f| %>
+        <% @exam.questions.each_with_index do |question, i| %>
+          <% index = i + 1 %>
+          <h2>Question #<%=index%></h2><span style="font-size: 24px; font-weight: normal">(<%= question.points %> Points)</span>
+          <hr>
+          <h3><%= question.body %></h3>
+          <% question.answers.each do |ans| %>
+            <table>
+              <tr>
+                <td><%= res_f.check_box :answer_id , ans.id, :examination_id , ans.id  %></td>
+                <td><%= ans.body %></td>
+              </tr>
+            </table>
+          <% end %>
         <% end %>
       <% end %>
+
+      <%= f.submit 'Submit' %>
+    <% end %>
