@@ -16,7 +16,6 @@ class QuestionsController < ApplicationController
     (1..4).each do |n|
       ans =  @question.answers.build
       ans.order = n
-      ans.save
     end
   end
 
