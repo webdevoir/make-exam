@@ -3,6 +3,7 @@ class CreateResponses < ActiveRecord::Migration[5.1]
     create_table :responses do |t|
       t.references :answer, foreign_key: true
       t.references :score, foreign_key: true
+      t.references :question
       t.timestamps
     end
   end

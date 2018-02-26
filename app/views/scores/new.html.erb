@@ -1,4 +1,14 @@
 <%= link_to "Back to all exams", examinations_path %><br/>
+<% if @score.errors.any? %>
+    <div>
+      <%= pluralize(@score.errors.count, "error") %> prevented the score from being saved:
+      <ul>
+        <% @score.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
     <h2><%= @exam.name %></h2>
     <h3><%= @exam.intro %></h3>
@@ -6,26 +16,31 @@
 
 
 
+
+
+
 <%= form_for [@exam, @score] do |f| %>
-  <%= f.hidden_field :examination_id, value: @exam.id  %>
-  <%= fields_for :responses do |res_f| %>
-   <% @exam.questions.each_with_index do |question, i| %>
-            <% index = i + 1 %>
-            <h2>Question #<%=index%></h2><span style="font-size: 24px; font-weight: normal">(<%= question.points %> Points)</span>
-            <hr>
-            <h3><%= question.body %></h3>
-            <% question.answers.each do |ans| %>
-              <table>
-                <tr>
-                  <td><%= res_f.check_box :answer_id %></td>
-                  <td><%= ans.body %></td>
-                </tr>
-              </table>
-            <% end %>
-          <% end %>
-        <% end %>
+  <%= f.hidden_field :user_id, value: current_user.id  %>
+  
+    <%= f.fields_for :responses do |res_f| %>
+
+      <h2>Question # <%= res_f.object.question.position %></h2>
+      
+      <span style="font-size: 24px; font-weight: normal">
+        (<%= res_f.object.question.points %> Points)
+      </span>
+      <hr> 
+      <h3><%= res_f.object.question.body %></h3>
+      <p><%= res_f.collection_radio_buttons :answer_id, res_f.object.question.answers, :id, :body do |b| %></p>
+        <div>
+          <%= b.radio_button %>
+          <%= b.label %>
+          <%= res_f.hidden_field :question_id, value: res_f.object.question.id %>
+
+        </div>
+      <% end %>
+    <% end %>
+
 
   <%= f.submit 'Submit' %>
 <% end %>
-
-
