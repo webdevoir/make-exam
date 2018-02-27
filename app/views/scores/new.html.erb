@@ -13,12 +13,6 @@
     <h2><%= @exam.name %></h2>
     <h3><%= @exam.intro %></h3>
 
-
-
-
-
-
-
 <%= form_for [@exam, @score] do |f| %>
   <%= f.hidden_field :user_id, value: current_user.id  %>
   
