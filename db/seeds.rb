@@ -20,7 +20,9 @@ User.create! [
 	password_confirmation: password,
 	firstname: "Employer",
 	lastname:  "Name",
-	age: Faker::Number.between(1, 100),
+	age: ['12-19', '20+'].sample,
+	country: "Canada",
+	
 ]
 
 User.create! [
@@ -30,7 +32,8 @@ User.create! [
 	password_confirmation: password,
 	firstname: "Employer2",
 	lastname:  "Name2",
-	age: Faker::Number.between(1, 100),
+	age: ['12-19', '20+'].sample,
+	country: "Brazil",
 ]
 
 p "Created #{User.count} users"
