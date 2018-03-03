@@ -1,9 +1,9 @@
 branch-defaults:
   master:
-    environment: make-exam-env
+    environment: exam-make-env
     group_suffix: null
 global:
-  application_name: make-exam
+  application_name: exam-make
   branch: null
   default_ec2_keyname: aws-eb
   default_platform: Ruby 2.5 (Puma)
