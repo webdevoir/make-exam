@@ -5,4 +5,9 @@ class Examination < ApplicationRecord
   has_many :scores
   has_secure_password
 
+
+  def self.search(search)
+    where('name ILIKE :search OR intro ILIKE :search OR conclusion ILIKE :search', search: "%#{search}%")
+  end
+
 end

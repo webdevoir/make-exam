@@ -1,5 +1,12 @@
-<h1>Make an Exam</h1>
-    <%= link_to "Submit an exam!", new_examination_path %>
+<!--<h1>Make an Exam</h1>
+     <%= link_to "Submit an exam!", new_examination_path %>  -->
+    <div class= "row" style= "clear: both; margin-top: 50px;">
+      <%= form_tag examinations_path, :method => 'get' do %>
+      <%= text_field_tag :search, params[:search], placeholder: "Search Exams", class: "form-control", style: "width:50%;float: left" %>
+      <%= submit_tag "Search", class: "form-control", style: "width:auto;float: left; margin-left: 25px;" %>
+      <% end %>
+  </div>
+  <div  class= "row"  style= "clear: both;">
     <hr>
     <% @exams.each do |exam| %>
       <h2>Name: <%= link_to exam.name, examination_path(exam) %></h2>
@@ -8,3 +15,4 @@
       <h3>Questions: <%= exam.questions.count %></h3>
       <hr>
     <% end %>
+   </div>
