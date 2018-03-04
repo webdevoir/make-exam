@@ -1,0 +1,53 @@
+<nav class="navbar navbar-default">
+      <div class="container">
+          <% if current_user
+              logo_link = "/"
+            else  
+              logo_link = "/"
+             end %>
+
+             
+          <div class="navbar-header"><%= link_to (image_tag "logo.jpg" , style: 'height:45px;width:auto;'), logo_link, class: "navbar-left" %>
+              <button data-toggle="collapse" data-target="#navcol-1" class="navbar-toggle collapsed"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+          </div>
+          <div class="collapse navbar-collapse" id="navcol-1">
+              <ul class="nav navbar-nav navbar-right">
+                  
+                  <% if current_user %>    
+                      <li role="presentation" class="nav_links"><%= link_to "New Exam", new_examination_path%></li>
+                      <li role="presentation" class="nav_links"><%= link_to "Search Exams", examinations_path%></li>
+             
+                      
+                  <% else %>
+                    <li role="presentation" class="nav_links"><%= link_to "Log In", new_user_session_path %></li>
+                    <li role="presentation" class="nav_links"><%= link_to "Sign Up", new_user_registration_path %></li>
+                    <li role="presentation" class="nav_links" ><%= link_to "Blog", logo_link%></li>
+                    <li role="presentation" class="nav_links" ><%= link_to "Advertisers", logo_link%></li>
+                    <li role="presentation" class="nav_links" ><a href="/">About Us</a></li>
+                    <li role="presentation" class="nav_links" ><%= link_to "FAQ", logo_link%></li>
+                    <li role="presentation" class="nav_links" ><%= link_to "Help", logo_link%></li>
+                      
+                  <% end %>
+              
+                  <li role="presentation" class="nav_links" ><%= link_to "Contact Us", logo_link%></li>
+                  
+
+
+                  
+                  <% if current_user %>
+                    <li role="presentation"><%= link_to "Log out", destroy_user_session_path, method: :delete %></li>
+
+                  <% end %>
+              </ul>
+          </div>
+      </div>
+  </nav>
+
+  <script>
+    $(document).ready(function() {
+      // $(".nav a").on("click", function(){
+      //    $(".nav").find(".active").removeClass("active");
+      //    $(this).parent().addClass("active");
+      // });
+      });
+  </script>
