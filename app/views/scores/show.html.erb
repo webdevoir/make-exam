@@ -31,7 +31,15 @@
         <p><%= ans %></p>
 
         <h3>Correct Answer:</h3>
-        <p><%= ques.answers.where(correct: true).first.body %></p>
+        <% corr = ques.answers.where(correct: true).first
+        if corr
+          corr = corr.body
+        else
+         corr = "No Correct Answer Set"
+        end %>
+
+        <p><%= corr %></p>
+ 
 
 
 

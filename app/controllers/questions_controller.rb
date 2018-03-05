@@ -27,15 +27,36 @@ class QuestionsController < ApplicationController
   def create
     @exam = Examination.find(params[:examination_id])
     @question = @exam.questions.build(question_params)
+    ans_params = params[:question][:answers_attributes]
+    @correct_ans = false
+    ans_params.each do |k, v|
+      # logger.info "##########################################"
+      # logger.info v
+      if @correct_ans == false
+       @correct_ans =  v.has_key?(:correct)
+      end
+     # logger.info @correct_ans
+    end
+
     if @exam.questions.count > 0
       @question.position = @exam.questions.count + 1 
     else 
       @question.position = 1
     end
 
+    # logger.info "##########################################"
+    # logger.info "correct ans ==> #{@correct_ans}"
+    # logger.info "##########################################"
+    # if @correct_ans == true && @question.save
     if @question.save
+      # logger.info "#############   question saved and correct ans #################"
       redirect_to @exam, notice: "question created successfully"
+    # elsif @question.save
+    #   # logger.info "#############   question saved and no correct ans #################"
+    #   flash[:error] = "You need a correct answer"
+    #   render :new
     else
+      # logger.info "#############   question not saved #################"
       render :new
     end
   end

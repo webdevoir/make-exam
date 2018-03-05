@@ -7,4 +7,16 @@ class Question < ApplicationRecord
 
 	validates_presence_of :body
 	validates_presence_of :question_type
+
+	validate :has_correct_ans?
+
+	 private
+
+	 def has_correct_ans?
+	  errors.add(:correct, "You must select at least one correct answer") unless
+	  # self.answers.exists?(correct: true)
+	  # answers.exists?(correct: true)
+	  answers.map{ |x| x[:correct]}.include? true
+
+	 end
 end
