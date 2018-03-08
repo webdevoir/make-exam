@@ -18,11 +18,11 @@
     <h3> Your Score: <%= @percent %>% (<%= @correct_pts %> out of <%= @total_pts %>)</h3>
     <% @exam.questions.each_with_index do |ques, i| %>
       <% index = i + 1 %>
-      <div style="clear: both">
+      <div style="clear: both; margin-top: 50px;">
         <span class="non_header" style="font-weight: bold;">Question #<%= index %></span>
         <span class="non_header">(<%= ques.points %> Points)</span>
       </div>
-        <hr>
+        <hr class="hr_exam">
         <h3>Your Answer:</h3>
         <% res = @score.responses.where(question_id: ques.id).first 
         if res

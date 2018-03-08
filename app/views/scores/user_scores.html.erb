@@ -26,7 +26,7 @@
 	      <h3>Date Taken: <%= score.created_at.strftime("%b %d, %Y")  %></h3>
 	      <h3> Your Score: <%= @percent %>% (<%= correct_pts %> out of <%= total_pts %>)</h3>
 	      <%= button_to "View Score", examination_score_path(exam, score), method: "get", class: "exam_button" %>
-	      <hr>
+	      <hr class="hr_exam">
 	    <% end %>
 	   </div>
 
