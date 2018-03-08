@@ -17,7 +17,6 @@ class ScoresController < ApplicationController
   	if @score.save
         redirect_to examination_score_path(@exam, @score)
     else
-      logger.info "################################################"
       logger.info @score.errors.full_messages
       redirect_to root_path, error: "#{@score.errors.full_messages} errors prevented this profile from being created"
     end
@@ -38,12 +37,16 @@ class ScoresController < ApplicationController
       	end
       @percent = (@correct_pts.to_f / @total_pts.to_f) * 100
       end
-      logger.info "################################################"
-      logger.info "correct questions = #{@correct_res.count}"
-      logger.info "correct responses = #{@correct_res}"
-      logger.info "score = #{@correct_pts} / #{@total_pts}"
+      # logger.info "################################################"
+      # logger.info "correct questions = #{@correct_res.count}"
+      # logger.info "correct responses = #{@correct_res}"
+      # logger.info "score = #{@correct_pts} / #{@total_pts}"
       logger.info @percent
+  end
 
+  def user_scores
+    @user = User.find_by(id: current_user.id)
+    @scores = Score.where(user_id: @user.id)
   end
 
    protected

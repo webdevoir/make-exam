@@ -1,3 +1,5 @@
+<%= render 'scores/banner_ad' %>
+
 <%= link_to "Back to all exams", examinations_path %><br/>
 <% if @score.errors.any? %>
     <div>
@@ -18,12 +20,12 @@
   
     <%= f.fields_for :responses do |res_f| %>
 
-      <h2>Question # <%= res_f.object.question.position %></h2>
+      <h2 class="question_no">Question # <%= res_f.object.question.position %></h2>
       
-      <span style="font-size: 24px; font-weight: normal">
+      <span style="font-size: 30px; font-weight: normal">
         (<%= res_f.object.question.points %> Points)
       </span>
-      <hr> 
+      <hr class="hr_exam">
       <h3><%= res_f.object.question.body %></h3>
       <p><%= res_f.collection_radio_buttons :answer_id, res_f.object.question.answers, :id, :body do |b| %></p>
         <div>
@@ -35,6 +37,6 @@
       <% end %>
     <% end %>
 
-
-  <%= f.submit 'Submit' %>
+  </br></br></br></br>  
+  <%= f.submit 'Submit', class: "exam_button" %>
 <% end %>

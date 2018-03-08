@@ -9,7 +9,7 @@
         <% @exam.questions.each_with_index do |question, i| %>
           <% index = i + 1 %>
           <h2>Question #<%=index%></h2><span style="font-size: 24px; font-weight: normal">(<%= question.points %> Points)</span>
-          <hr>
+          <hr class="hr_exam">
           <h3><%= question.body %></h3>
           <% question.answers.each do |ans| %>
             <table>

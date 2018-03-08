@@ -14,8 +14,6 @@ class Question < ApplicationRecord
 
 	 def has_correct_ans?
 	  errors.add(:correct, "You must select at least one correct answer") unless
-	  # self.answers.exists?(correct: true)
-	  # answers.exists?(correct: true)
 	  answers.map{ |x| x[:correct]}.include? true
 
 	 end

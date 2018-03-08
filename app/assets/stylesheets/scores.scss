@@ -4,5 +4,30 @@
 
 .non_header {
 	font-size: 24px;
-	font-weight: normal
+	font-weight: normal;
+}
+
+.correct {
+	color: #387c33;
+	font-weight: bold;
+	font-size: 24px;
+    margin-left: 2px;	
+    margin-bottom: 500px;
+}
+.correct img {
+	margin-right: 5px;
+	margin-bottom: 2px;
+	height: 20px;
+}
+.incorrect {
+	color: #e42224;
+    font-weight: bold;
+    font-size: 24px;
+    margin-left: 2px;
+    // margin-bottom: 50px;
+ }
+ .incorrect img {
+	margin-right: 5px;
+	margin-bottom: 2px;
+	height: 20px;
 }

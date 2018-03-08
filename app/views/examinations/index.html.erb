@@ -1,18 +1,20 @@
 <!--<h1>Make an Exam</h1>
      <%= link_to "Submit an exam!", new_examination_path %>  -->
-    <div class= "row" style= "clear: both; margin-top: 50px;">
+     <%= render 'scores/banner_ad' %>
+    <div  style= "clear: both; margin-top: 50px;">
       <%= form_tag examinations_path, :method => 'get' do %>
       <%= text_field_tag :search, params[:search], placeholder: "Search Exams", class: "form-control", style: "width:50%;float: left" %>
       <%= submit_tag "Search", class: "form-control", style: "width:auto;float: left; margin-left: 25px;" %>
       <% end %>
   </div>
-  <div  class= "row"  style= "clear: both;">
+  <div    style= "clear: both;">
     <hr>
     <% @exams.each do |exam| %>
       <h2>Name: <%= link_to exam.name, examination_path(exam) %></h2>
-      <h3>Date Created: <%= exam.created_at %></h3>
+      <h3>Date Created: <%= exam.created_at.strftime("%b %d, %Y")  %></h3>
       <h3>Intro: <%= exam.intro %></h3>
       <h3>Questions: <%= exam.questions.count %></h3>
-      <hr>
+      <%= button_to "Take Exam", new_examination_score_path(exam), method: "get", class: "exam_button" %>
+      <hr class="hr_exam">
     <% end %>
    </div>

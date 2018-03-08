@@ -1,3 +1,5 @@
+<%= render 'scores/banner_ad' %>
+
 <%= link_to "Back to all exams", examinations_path %><br/>
 <% if @score.errors.any? %>
     <div>
@@ -29,17 +31,22 @@
          ans = "No Answer"
         end %>
         <p><%= ans %></p>
+        <% if res.answer.correct %>
+          <span class="correct"><%= image_tag "tick.png" %>Correct</span>
+        <% else %>
+          <span class="incorrect"><%= image_tag "cross.png" %> Incorrect</span>
+        
 
-        <h3>Correct Answer:</h3>
-        <% corr = ques.answers.where(correct: true).first
-        if corr
-          corr = corr.body
-        else
-         corr = "No Correct Answer Set"
-        end %>
+          <h3>Correct Answer:</h3>
+          <% corr = ques.answers.where(correct: true).first
+          if corr
+            corr = corr.body
+          else
+           corr = "No Correct Answer Set"
+          end %>
 
-        <p><%= corr %></p>
- 
+          <p><%= corr %></p>
+        <% end %>
 
 
 
