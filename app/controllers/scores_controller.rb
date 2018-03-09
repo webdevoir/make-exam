@@ -8,6 +8,12 @@ class ScoresController < ApplicationController
 	    	logger.info res
 
 	    end
+      #  @exam.answers.each do |ans|
+      #   res = @score.responses.build(question_id: ans.question.id)
+      #   logger.info question.id
+      #   logger.info res
+
+      # end
 	end
 
   def create

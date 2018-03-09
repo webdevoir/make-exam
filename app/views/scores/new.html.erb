@@ -34,7 +34,16 @@
           <%= res_f.hidden_field :question_id, value: res_f.object.question.id %>
 
         </div>
-      <% end %>
+      <% end %>  
+  <!--        <p><%= res_f.collection_check_boxes :answer_id, res_f.object.question.answers, :id, :body do |b| %></p>
+        <div>
+          <%= b.check_box %>
+          <%= b.label %>
+          <%= res_f.hidden_field :question_id, value: res_f.object.question.id %>
+
+        </div>
+      <% end %>   -->
+
     <% end %>
 
   </br></br></br></br>  
