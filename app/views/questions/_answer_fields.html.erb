@@ -1,0 +1,12 @@
+  <div class="nested-fields">
+      <div class="form-group row">
+        <div class="question_radio">
+          <%= f.radio_button :correct, true %> 
+        </div>
+        <div class="question_answer_body">
+          <%= f.text_area :body %>
+        </div>
+
+        <%= link_to_remove_association (image_tag "cross.png"), f, class: "remove_answer" %>
+      </div>
+    </div>

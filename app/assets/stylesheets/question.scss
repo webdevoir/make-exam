@@ -12,6 +12,7 @@
 	max-width: 100%;
 	height: 30px;
 	width: 100%;
+	overflow:hidden;
 }
 
 .question_radio {
@@ -41,7 +42,21 @@
 	height:75px; 
 	margin-bottom: 20px;
 }
+.remove_answer {
+	margin-left: 15px;
+	margin-top: 10px;
+}
+.form-group{
+	vertical-align:middle;
+	 line-height: 28px;
 
+}
+.remove_answer:hover {
+	-webkit-filter: invert(40%) grayscale(100%) brightness(40%) sepia(100%) hue-rotate(-50deg) saturate(400%) contrast(2);
+      filter: grayscale(100%) brightness(40%) sepia(100%) hue-rotate(180deg) saturate(600%) contrast(0.8);
+  transition: all 0.8s ease;
+  cursor: pointer;
+}
 @media screen and (max-width: 500px) {
 
 .question_answer_body {

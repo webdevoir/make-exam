@@ -32,7 +32,9 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'devise'
 gem 'awesome_print', require: 'ap'
 gem 'faker'
-
+gem "cocoon"
+gem 'jquery-rails'
+gem 'jquery-ui-rails'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

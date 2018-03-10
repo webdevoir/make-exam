@@ -32,22 +32,14 @@
       <%= f.select :points, [1 ,2, 3, 4, 5, 6, 7, 8, 9 , 10], {},{ class: "form-control" }%>
     </div>
   </div>
+  <p>Enter the answer choices, and mark which answer is correct</p>
   <div style="clear: both;">
-    <p>Enter the answer choices, and mark which answer is correct</p>
+    
     <%= f.fields_for :answers do |ans_f| %>
-    <div class="form-group row">
-      <div class="question_radio">
-        <%= ans_f.radio_button :correct, true %> 
-      </div>
-      <div class="question_answer_body">
-        <%= ans_f.text_area :body %>
-      </div>
-      <div class="question_destroy col-form-label">
-        <%= ans_f.label :_destroy, "Remove" %>
-        <%= ans_f.check_box :_destroy %>
-      </div>
-    </div>
+       <%= render 'answer_fields', f: ans_f %>
+    
   <% end %>
+  <%= link_to_add_association 'add answer', f, :answers %>
 </div>
     <div><%= f.submit "Submit", class: 'form-control' %></div>
   <% end %>
