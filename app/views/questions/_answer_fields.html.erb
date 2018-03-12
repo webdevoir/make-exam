@@ -7,6 +7,6 @@
           <%= f.text_area :body %>
         </div>
 
-        <%= link_to_remove_association (image_tag "cross.png"), f, class: "remove_answer" %>
+        <%= link_to_remove_association (image_tag "cross.png"), f, class: "remove_answer",  data: {confirm: 'Remove answer?'} %>
       </div>
     </div>
