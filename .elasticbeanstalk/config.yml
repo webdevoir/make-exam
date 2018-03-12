@@ -1,4 +1,6 @@
 branch-defaults:
+  cocoon:
+    environment: make-exam-env
   master:
     environment: make-exam-env
     group_suffix: null

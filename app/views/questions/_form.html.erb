@@ -65,5 +65,14 @@
         }
 
       });
+
+
+       $("input:radio").on('click', function() {
+        $("input:radio").prop('checked', false);
+        $(this).prop('checked', true);
+     });
+
+
+
     });
  </script>
