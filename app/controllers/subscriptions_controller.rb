@@ -21,6 +21,11 @@ class SubscriptionsController < ApplicationController
   	end
   end
 
+  def show
+  	@subscription  = Subscription.find(params[:id])
+  	@user = User.find_by(id: @subscription.user_id)
+  end
+
   def paypal_checkout
 	  user = User.find_by(id: current_user.id)
 	#   subscription = user.subscriptions.build

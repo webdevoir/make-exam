@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
 
 
-  resources :subscriptions
+  resources :subscriptions do
+  end
   get 'paypal/checkout', to: 'subscriptions#paypal_checkout'
+  get 'upgrade', to: 'subscriptions#upgrade'
 
   resources :examinations do
   	member do
