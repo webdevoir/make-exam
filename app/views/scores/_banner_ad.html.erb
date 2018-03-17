@@ -1,5 +1,8 @@
-<% if current_user.age == "12-19" %>
-  <%= image_tag "coke_ad.png", class: "banner_ad" %>
-<% else %>
-  <%= image_tag "Johnsonville.jpg", class: "banner_ad" %>
+<% unless upgraded? %>
+
+	<% if current_user.age == "12-19" %>
+	  <%= image_tag "coke_ad.png", class: "banner_ad" %>
+	<% else %>
+	  <%= image_tag "Johnsonville.jpg", class: "banner_ad" %>
+	<% end %>
 <% end %>

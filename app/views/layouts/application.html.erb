@@ -27,7 +27,7 @@
 			<% end %>
 			<% if user_signed_in? %>
 			  Logged in as <strong><%= current_user.firstname %></strong>
-				<% if Subscription.find_by(user_id: current_user.id) %>
+				<% if upgraded? %>
 					  (<span style="color: green">upgraded</span>).
 				<% end %>
 			  <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
