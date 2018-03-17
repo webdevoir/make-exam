@@ -24,4 +24,6 @@ Rails.application.routes.draw do
   root to: 'examinations#index'
 
   get 'user_scores' => 'scores#user_scores'
+
+  get "/pages/:page" => "pages#show"
 end

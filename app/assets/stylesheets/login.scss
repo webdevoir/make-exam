@@ -4,6 +4,9 @@
 	margin-right: calc((100vw - 600px)/2);
 	// background-color: #fff;
 	padding: 80px;
+    min-height: calc(100vh - (75px + 40px));
+    /* 80px header + 40px footer = 120px  */
+
 }
 
 .login_container input {

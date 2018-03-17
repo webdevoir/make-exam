@@ -1,4 +1,17 @@
     <%= link_to "Back to all exams", examinations_path %><br/>
+<% unless current_user.id == @exam.user_id %>
+    <div class="container-white">
+      <div class="job_display_desc col-md-12">  
+          <div class="checkmark">
+            <%= image_tag "caution.png" %></a>
+            <h3>You do not have permission to edit this exam!</h3>
+          </div>
+      </div>
+    <%= button_to "Return to home",root_path, :method => "get", class: "btn btn-default", id: "apply_button_apps_page" %>
+
+    </div>
+
+<% else %>
 
     <h2><%= @exam.name %> (<%= link_to "edit", edit_examination_path(@exam) %>, <%= link_to "delete", examination_path(@exam), method: :delete, data: {confirm: "You sure?"} %>, <%= link_to "take exam",new_examination_score_path(@exam) %>)</h2>
     <h3><%= @exam.intro %></h3>
@@ -32,3 +45,5 @@
     <% else %>
       <p>Please <%= link_to "log in", new_session_path %> to see reviews and add your own.</p> 
     <% end %>
+
+<% end %>

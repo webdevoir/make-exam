@@ -3,6 +3,8 @@ class ExaminationsController < ApplicationController
     if params[:search]
       @exams = Examination.search(params[:search])
         # @jobs = @jobs.order(:created_at).reverse_order.page(params[:page]).per(15) 
+    elsif params[:user_exams]
+      @exams = Examination.where(user_id: current_user.id)
     else
       @exams = Examination.all
       # @jobs = @jobs.order(:created_at).reverse_order.page(params[:page]).per(15) 
