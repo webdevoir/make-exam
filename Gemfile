@@ -35,6 +35,7 @@ gem 'faker'
 gem "cocoon"
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
+gem 'paypal-recurring'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
