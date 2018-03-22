@@ -57,6 +57,23 @@
   transition: all 0.8s ease;
   cursor: pointer;
 }
+.question-number{
+	font-size: 20px;
+	float: left;
+}
+.question-prev-next {
+	font-size: 20px;
+	float: right;
+}
+.question-header {
+	margin-bottom: 40px;
+}
+.question_buttons {
+	width: auto !important;
+	float: left;
+	padding: 0 20px !important;
+	margin: 0 10px;
+}
 @media screen and (max-width: 500px) {
 
 .question_answer_body {

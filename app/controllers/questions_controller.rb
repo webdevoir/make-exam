@@ -1,5 +1,6 @@
 class QuestionsController < ApplicationController
   # before_action :set_question, only: [:show, :edit, :update, :destroy]
+  before_action :redirect_cancel, only: [:create, :update]
 
   def index
     @questions = Question.all
@@ -64,9 +65,10 @@ class QuestionsController < ApplicationController
   def update
     @exam = Examination.find(params[:examination_id])
     @question  = Question.find(params[:id])
-
-    if @question.update_attributes(question_params)
-      redirect_to @exam, notice: "question updated successfully"
+    if params["add"] && @question.update_attributes(question_params)
+      redirect_to new_examination_question_path(@exam), notice: "question updated successfully"
+    elsif @question.update_attributes(question_params)
+      flash[:alert] =  "The question was updated successfully!"
     else
       flash[:error] = "#{@question.errors.count} errors prevented question from being updated."
       render :edit
@@ -86,5 +88,10 @@ class QuestionsController < ApplicationController
     def question_params
       params.require(:question).permit(:points, :question_type, :body, :position, 
         answers_attributes: [:id, :_destroy, :points, :type, :body, :correct])
+    end
+
+    def redirect_cancel
+      @exam = Examination.find(params[:examination_id])
+      redirect_to examination_path(@exam) if params[:cancel]
     end
 end

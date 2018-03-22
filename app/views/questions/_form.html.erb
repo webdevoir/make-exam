@@ -3,7 +3,29 @@
 <div class="col-md-8 col-sm-12">
 
 <h2>Write a question for <em><%= @exam.name %></em>.</h2>
-
+<div class="question-header">
+<% if @question.position %>
+  <span class="question-number">Question <%= @question.position %> out of <%= @exam.questions.count %></span>
+<% else %>
+  <span class="question-number">Question <%= @exam.questions.count + 1%> out of <%= @exam.questions.count + 1 %></span>
+<% end %>
+  <span class="question-prev-next">
+    <% prev = Question.find_by(examination_id: @exam.id, position: @exam.questions.count) if !@question.position %>
+    <% prev = Question.find_by(examination_id: @exam.id, position: @question.position - 1) if @question.position%>
+    <% if prev %>
+      <%= link_to "Prev", edit_examination_question_path(@exam, prev), id: "prevlink" %>
+    <% else %>
+      Prev
+    <% end %>
+     /
+    <% next_ques = Question.find_by(examination_id: @exam.id, position: @question.position + 1) if @question.position%>
+    <% if next_ques %>
+      <%= link_to "Next", edit_examination_question_path(@exam, next_ques), id: "nextlink" %>
+    <% else %>
+      Next
+    <% end %>
+  </span>
+</div>
 <%= form_for([@exam, @question]) do |f| %>
   <% if @question.errors.any? %>
     <div>
@@ -18,8 +40,7 @@
     </div>
   <% end %>
 
-  <div>
-    <%= f.label :body, "Question Body" %><br>
+  <div style="clear: both;">
     <%= f.text_area :body, class: "question_new_body"%>
   </div>
   <div class="question_type_points">
@@ -41,7 +62,10 @@
   <% end %>
   <%= link_to_add_association 'add answer', f, :answers %>
 </div>
-    <div><%= f.submit "Submit", class: 'form-control' %></div>
+    <div><%= f.submit "Save", class: 'form-control question_buttons exam_button' %></div>
+    <div><%= f.submit "Save and Add Question", name: "add", class: 'form-control question_buttons exam_button' %></div>
+<!--     <div><%= f.submit "Cancel", name: "cancel", class: 'form-control question_buttons' %></div> -->
+    <%= button_tag t('buttons.cancel'), type: "submit", name: "cancel", value: true, class: 'form-control question_buttons exam_button' %>
   <% end %>
 </div>
 
@@ -72,7 +96,39 @@
         $(this).prop('checked', true);
      });
 
+    var dirty = false;
+    var originalFormData = $('form').serialize();
 
+    function checkFormChanged() {
+        if(originalFormData !== $('form').serialize()) {
+          dirty = true;
+      }
+    };
 
+    $('#prevlink').click(function (e){
+      if (dirty == true){
+        var popup = window.confirm("Continue without saving changes?");
+          if (popup) {
+            console.log("confirmed");
+          } else {
+            e.preventDefault();
+            console.log(" not confirmed");
+          }
+    
+      }
     });
+    $('input , textarea, select').on('keyup', function () {
+      checkFormChanged()
+    });
+
+
+     // Popup if leaving page with chages
+     // $(window).bind('beforeunload', function(e){
+     //            if(dirty)
+     //                return "You made some changes and it's not saved?";
+     //            else 
+     //                e=null; // i.e; if form state change show warning box, else don't show it.
+     //        });
+    
+});
  </script>
