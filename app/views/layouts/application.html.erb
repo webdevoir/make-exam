@@ -39,7 +39,7 @@
 			<% end %>
     	<%= yield %>
 
- </div>
+    <% unless current_page?(new_user_session_path) %></div><% end %> 
  <%= render 'layouts/footer' %>
   </body>
 </html>
