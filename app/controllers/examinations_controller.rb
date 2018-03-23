@@ -35,7 +35,7 @@ class ExaminationsController < ApplicationController
     @exam = current_user.examinations.new(exam_params)
 
     if @exam.save
-      redirect_to examinations_path
+      redirect_to new_examination_question_path(@exam)
     else
       logger.info @exam.errors.full_messages
       render :new

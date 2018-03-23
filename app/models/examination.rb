@@ -3,7 +3,10 @@ class Examination < ApplicationRecord
   has_many :questions, dependent: :destroy
   has_many :answers, :through => :questions
   has_many :scores
-  has_secure_password
+  has_secure_password :validations => false
+
+  validates_presence_of :name
+  validates_presence_of :intro
 
 
   def self.search(search)
