@@ -8,7 +8,7 @@
             <%= submit_tag "Search", class: "form-control", style: "width:auto;float: left; margin-left: 25px;" %>
             <% end %>
         </div>
-        <div    style= "clear: both;">
+        <div  class="exam-index"  style= "clear: both;">
           <hr>
           <% @exams.each do |exam| %>
             <h2>Name: <%= link_to exam.name, examination_path(exam) %></h2>
@@ -16,6 +16,7 @@
             <h3>Intro: <%= exam.intro %></h3>
             <h3>Questions: <%= exam.questions.count %></h3>
             <%= button_to "Take Exam", new_examination_score_path(exam), method: "get", class: "exam_button" %>
+            <%= button_to "Edit Exam", examination_path(exam), method: "get", class: "exam_button" if @user_exams%>
             <hr class="hr_exam">
           <% end %>
          </div>

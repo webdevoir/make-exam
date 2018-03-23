@@ -21,8 +21,8 @@ Rails.application.routes.draw do
         registrations: 'users/registrations',
       }
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  root to: 'examinations#index'
-
+  # root to: 'examinations#index'
+  root to: 'pages#landing'
   get 'user_scores' => 'scores#user_scores'
 
   get "/pages/:page" => "pages#show"

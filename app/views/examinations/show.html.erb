@@ -14,33 +14,34 @@
 <% else %>
 
     <h2><%= @exam.name %> (<%= link_to "edit", edit_examination_path(@exam) %>, <%= link_to "delete", examination_path(@exam), method: :delete, data: {confirm: "You sure?"} %>, <%= link_to "take exam",new_examination_score_path(@exam) %>)</h2>
-    <h3><%= @exam.intro %></h3>
-    <h3><%= @exam.created_at %></h3>
+    <h3>Crated: <%= @exam.created_at.strftime("%b %d, %Y") %></h3>
       <h4>Intro: <%= @exam.intro %></h4>
 
     <h3> <%= @exam.questions.count if @exam.questions.count > 0 %> Questions for: <em><%= @exam.name %></em></h3>
     <% if current_user %>
-    <table>
-    	<tr>
-    		<th>#</th>
-    		<th>Question</th>
-    		<th>Manage</th>
-    		<th>Type</th>
-    		<th>Points</th>
-    		<th>Answers</th>
-    	</tr>
-      <% @exam.questions.each_with_index do |question, i| %>
-      <% index = i + 1 %>
-      <tr>
-      	<td><%= index %></td>
-      	<td><%= link_to truncate(question.body, :ommision => "... ", :length => 50), edit_examination_question_path(@exam, question) %></td>
-      	<td>(<%= link_to "delete", examination_question_path(@exam, question), method: :delete, data: {confirm: "Are you sure you want to delete  #{question.position}?"} %>)</td>
-      	<td><%= question.question_type %></td>
-      	<td><%= question.points %></td>
-      	<td><%= question.answers.count %></td> 	
-     </tr>
-      <% end %>
-     </table>
+    <div class="table-responsive">
+      <table class="table">
+      	<tr>
+      		<th>#</th>
+      		<th>Question</th>
+      		<th>Manage</th>
+      		<th>Type</th>
+      		<th>Points</th>
+      		<th>Answers</th>
+      	</tr>
+        <% @exam.questions.each_with_index do |question, i| %>
+        <% index = i + 1 %>
+        <tr>
+        	<td><%= index %></td>
+        	<td><%= link_to truncate(question.body, :ommision => "... ", :length => 50), edit_examination_question_path(@exam, question) %></td>
+        	<td>(<%= link_to "edit", edit_examination_question_path(@exam, question) %>, <%= link_to "delete", examination_question_path(@exam, question), method: :delete, data: {confirm: "Are you sure you want to delete  #{question.position}?"} %>)</td>
+        	<td><%= question.question_type %></td>
+        	<td><%= question.points %></td>
+        	<td><%= question.answers.count %></td> 	
+       </tr>
+        <% end %>
+       </table>
+    </div>
       <p><%= link_to "add a question!", new_examination_question_path(@exam) %></p>
     <% else %>
       <p>Please <%= link_to "log in", new_session_path %> to see reviews and add your own.</p> 
