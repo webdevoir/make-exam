@@ -27,7 +27,8 @@
 			  <p class="alert alert-danger"><%= alert %></p>
 			<% end %>
 			<% if user_signed_in? %>
-			  Logged in as <strong><%= current_user.firstname %></strong>
+				<% username = current_user.firstname ? current_user.firstname : current_user.firstname %>
+			  Logged in as <strong><%= username %></strong>
 				<% if upgraded? %>
 					  (<span style="color: green">upgraded</span>).
 				<% end %>
