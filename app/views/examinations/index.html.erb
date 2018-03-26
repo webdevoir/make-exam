@@ -13,7 +13,7 @@
           <% @exams.each do |exam| %>
             <h2>Name: <%= link_to exam.name, examination_path(exam) %></h2>
             <h3>Date Created: <%= exam.created_at.strftime("%b %d, %Y")  %></h3>
-            <h3>Intro: <%= exam.intro %></h3>
+            <h3>Description: <%= exam.intro %></h3>
             <h3>Questions: <%= exam.questions.count %></h3>
             <%= button_to "Take Exam", new_examination_score_path(exam), method: "get", class: "exam_button" %>
             <%= button_to "Edit Exam", examination_path(exam), method: "get", class: "exam_button" if @user_exams%>

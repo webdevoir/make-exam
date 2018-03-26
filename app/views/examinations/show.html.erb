@@ -15,7 +15,7 @@
 
     <h2><%= @exam.name %> (<%= link_to "edit", edit_examination_path(@exam) %>, <%= link_to "delete", examination_path(@exam), method: :delete, data: {confirm: "You sure?"} %>, <%= link_to "take exam",new_examination_score_path(@exam) %>)</h2>
     <h3>Crated: <%= @exam.created_at.strftime("%b %d, %Y") %></h3>
-      <h4>Intro: <%= @exam.intro %></h4>
+      <h4>Description: <%= @exam.intro %></h4>
 
     <h3> <%= @exam.questions.count if @exam.questions.count > 0 %> Questions for: <em><%= @exam.name %></em></h3>
     <% if current_user %>
