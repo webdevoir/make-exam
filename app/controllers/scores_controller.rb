@@ -36,11 +36,28 @@ class ScoresController < ApplicationController
       @correct_pts = 0
       @total_pts = @exam.questions.sum(:points)
       res.each do |res|
-      	if res.answer.correct
-      		@correct_res.push res.id
-      		points = res.question.points
-      		@correct_pts = @correct_pts + points
-      	end
+        if res.question.question_type == "Multi-Response"
+          multi_correct = []
+          res.question.answers.each do |ans|
+              multi_correct.push ans.id if ans.correct 
+          end
+          if multi_correct.sort == res.answer_ids.sort
+            @correct_res.push res.id
+            points = res.question.points
+            @correct_pts = @correct_pts + points
+          end
+        else
+
+        	if res.answer_ids.length <= 1
+            ans_id = res.answer_ids[0]
+            answer = Answer.find_by(id: ans_id)
+            if  answer && answer.correct
+          		@correct_res.push res.id
+          		points = res.question.points
+          		@correct_pts = @correct_pts + points
+            end
+        	end
+        end
       @percent = (@correct_pts.to_f / @total_pts.to_f) * 100
       end
       # logger.info "################################################"

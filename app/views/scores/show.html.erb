@@ -27,29 +27,65 @@
           <span class="non_header">(<%= ques.points %> Points)</span>
         </div>
           <hr class="hr_exam">
-          <h3>Your Answer:</h3>
+          <% if ques.question_type == "Multi-Response" %>
+            <h3>Your Answers:</h3>
+          <% else %>
+            <h3>Your Answer:</h3>
+          <% end %>
           <% res = @score.responses.where(question_id: ques.id).first 
           if res
-           ans = Answer.where(id: res.answer_id).first.body 
-          else
-           ans = "No Answer"
+           # ans = Answer.where(id: res.answer_id).first.body 
+           ans = res.answers
+          # else
+          #  ans = "No Answer"
           end %>
-          <p><%= ans %></p>
-          <% if res && res.answer.correct %>
+          <p><% ans.each do |answ| %>
+              <p>(<%= answ.order %>) <%= answ.body %></p>
+            <% end %></p>
+
+       <% if ques.question_type == "Multi-Response"
+          multi_correct = []
+          res.question.answers.each do |ans|
+              multi_correct.push ans.id if ans.correct 
+          end
+          if multi_correct.sort == res.answer_ids.sort
+            response_correct = true
+          end
+        else
+
+          if res.answer_ids.length <= 1
+            ans_id = res.answer_ids[0]
+            answer = Answer.find_by(id: ans_id)
+            if  answer && answer.correct
+              response_correct = true
+            end
+          end
+        end %>
+
+
+          <% if res && response_correct%>
             <span class="correct"><%= image_tag "tick.png" %>Correct</span>
           <% else %>
             <span class="incorrect"><%= image_tag "cross.png" %> Incorrect</span>
           
-
+          <% if ques.question_type == "Multi-Response" %>
+            <h3>Correct Answers:</h3>
+          <% else %>
             <h3>Correct Answer:</h3>
-            <% corr = ques.answers.where(correct: true).first
-            if corr
-              corr = corr.body
-            else
+          <% end %>
+            <% corr = ques.answers.where(correct: true)
+            if corr.length > 0 && ques.question_type == "Multi-Response"
+              corr.each do |corr| %>
+
+                <p>(<%= corr.order %>) <%= corr.body %></p>
+            <%  end
+            elsif corr 
+              corr = ques.answers.where(correct: true).first %>
+               <p><%= corr.body %></p>
+            <%else
              corr = "No Correct Answer Set"
             end %>
 
-            <p><%= corr %></p>
           <% end %>
 
 
