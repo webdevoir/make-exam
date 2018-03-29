@@ -27,22 +27,15 @@
       </span>
       <hr class="hr_exam">
       <h3><%= res_f.object.question.body %></h3>
-      <p><%= res_f.collection_radio_buttons :answer_id, res_f.object.question.answers, :id, :body do |b| %></p>
-        <div>
-          <%= b.radio_button %>
-          <%= b.label %>
-          <%= res_f.hidden_field :question_id, value: res_f.object.question.id %>
 
-        </div>
-      <% end %>  
-  <!--        <p><%= res_f.collection_check_boxes :answer_id, res_f.object.question.answers, :id, :body do |b| %></p>
+     <p><%= res_f.collection_check_boxes :answer_ids, res_f.object.question.answers, :id, :body do |b| %></p>
         <div>
           <%= b.check_box %>
           <%= b.label %>
           <%= res_f.hidden_field :question_id, value: res_f.object.question.id %>
 
         </div>
-      <% end %>   -->
+      <% end %>
 
     <% end %>
 

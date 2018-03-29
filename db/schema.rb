@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180324160111) do
+ActiveRecord::Schema.define(version: 20180329192527) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,14 +49,22 @@ ActiveRecord::Schema.define(version: 20180324160111) do
     t.index ["examination_id"], name: "index_questions_on_examination_id"
   end
 
-  create_table "responses", force: :cascade do |t|
+  create_table "responseanswers", force: :cascade do |t|
+    t.bigint "response_id"
     t.bigint "answer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["answer_id"], name: "index_responseanswers_on_answer_id"
+    t.index ["response_id"], name: "index_responseanswers_on_response_id"
+  end
+
+  create_table "responses", force: :cascade do |t|
+    t.text "answer_ids"
     t.bigint "score_id"
     t.bigint "question_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "selected"
-    t.index ["answer_id"], name: "index_responses_on_answer_id"
     t.index ["question_id"], name: "index_responses_on_question_id"
     t.index ["score_id"], name: "index_responses_on_score_id"
   end
@@ -108,7 +116,8 @@ ActiveRecord::Schema.define(version: 20180324160111) do
   add_foreign_key "answers", "questions"
   add_foreign_key "examinations", "users"
   add_foreign_key "questions", "examinations"
-  add_foreign_key "responses", "answers"
+  add_foreign_key "responseanswers", "answers"
+  add_foreign_key "responseanswers", "responses"
   add_foreign_key "responses", "scores"
   add_foreign_key "scores", "examinations"
   add_foreign_key "scores", "users"

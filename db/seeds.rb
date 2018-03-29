@@ -22,6 +22,7 @@ User.create! [
 	lastname:  "Name",
 	age: ['12-19', '20+'].sample,
 	country: "Canada",
+	username: "Employer",
 	
 ]
 
@@ -34,6 +35,8 @@ User.create! [
 	lastname:  "Name2",
 	age: ['12-19', '20+'].sample,
 	country: "Brazil",
+	username: "Employer2",
+	
 ]
 
 p "Created #{User.count} users"
@@ -57,12 +60,12 @@ exams = Examination.all
 exams.each do |exam|
 	quest_count = 1
 	10.times do
-		Question.create! [
+		Question.new(
 		examination_id: exam.id,
 		question_type: "Multiple Choice",
 		body: Faker::FamilyGuy.quote,
 		position: quest_count
-	]
+	).save(validate: false)
 	quest_count +=1
 	end
 

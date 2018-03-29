@@ -59,6 +59,6 @@ class ScoresController < ApplicationController
 
       def score_params
         params.require(:score).permit(:examination_id, :user_id,
-          responses_attributes: [:id, :answer_id, :question_id, :selected])
+          responses_attributes: [:id, :question_id, :selected, :answer_ids => []])
       end
 end
