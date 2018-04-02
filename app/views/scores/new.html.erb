@@ -39,7 +39,11 @@
 
                 </div>
             <% end %>
-
+        <% elsif res_f.object.question.question_type == "Fill in the blank" %> 
+            <div class="question_answer_body">
+              <%= res_f.text_area :fill_blank %>
+              <%= res_f.hidden_field :question_id, value: res_f.object.question.id %>
+            </div>
         <% else %>    
          <p><%= res_f.collection_radio_buttons :answer, res_f.object.question.answers, :id, :body do |b| %></p>
 

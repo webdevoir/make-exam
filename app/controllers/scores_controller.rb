@@ -46,6 +46,17 @@ class ScoresController < ApplicationController
             points = res.question.points
             @correct_pts = @correct_pts + points
           end
+
+        elsif res.question.question_type == "Fill in the blank"
+          ques_fill_blank = res.question.answers.first.body
+          if  ques_fill_blank && res.question.answers.first.correct
+            if  ques_fill_blank == res.fill_blank
+              @correct_res.push res.id
+              points = res.question.points
+              @correct_pts = @correct_pts + points
+            end
+          end
+
         else
 
         	if res.answer_ids.length <= 1
@@ -75,6 +86,6 @@ class ScoresController < ApplicationController
 
       def score_params
         params.require(:score).permit(:examination_id, :user_id,
-          responses_attributes: [:id, :question_id, :selected, :answer, :answer_ids => []])
+          responses_attributes: [:id, :question_id, :selected, :answer, :fill_blank, :answer_ids => []])
       end
 end

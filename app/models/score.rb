@@ -11,6 +11,6 @@ class Score < ApplicationRecord
   private
 
  def no_answer_id?(att)
-  att['answer_ids'].blank? && att['answer'].blank?
+  att['answer_ids'].blank? && att['answer'].blank? && att['fill_blank'].blank?
  end
 end
