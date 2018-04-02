@@ -1,4 +1,5 @@
 
+
     <%= render 'scores/banner_ad' %>
 
     <%= link_to "Back to all exams", examinations_path %><br/>
@@ -26,28 +27,29 @@
           <span class="non_header">(<%= ques.points %> Points)</span>
         </div>
           <hr class="hr_exam">
-          <h3>Your Answer:</h3>
+          <% if ques.question_type == "Multiple Response" %>
+            <h3>Your Answers:</h3>
+          <% else %>
+            <h3>Your Answer:</h3>
+          <% end %>
           <% res = @score.responses.where(question_id: ques.id).first 
-          if res && res.answers && res.answers.length > 0
-           ans_multi = res.answers
+          if res && res.answers
+           ans = res.answers
           elsif res && res.answer
-            ans = Answer.find_by(id: res.answer)
+            ans = res.answer
           #  ans = "No Answer"
           end %>
-
-           <% if ans_multi && ans_multi.length > 0 %>
-            <p><% ans_multi.each do |answ| %>
+          <% if ans && ans.length > 0 %>
+            <p><% ans.each do |answ| %>
                 <p>(<%= answ.order %>) <%= answ.body %></p>
               <% end %></p>
           <% elsif ans %>    
-       
-          <p><p>(<%= ans.order %>) <%= ans.body %></p> </p>
+              <p>(<%= ans.order %>) <%= ans.body %></p>
           <% else %>
               <p>No Answer</p>
           <% end %>
 
-
- <% if ques.question_type == "Multiple Response"
+       <% if ques.question_type == "Multiple Response"
           multi_correct = []
           res.question.answers.each do |ans|
               multi_correct.push ans.id if ans.correct 
@@ -95,3 +97,5 @@
 
 
         <% end %>
+
+

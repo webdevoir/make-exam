@@ -27,18 +27,61 @@
       </span>
       <hr class="hr_exam">
       <h3><%= res_f.object.question.body %></h3>
+      <div class="score_questions">
+        <% if res_f.object.question.question_type == "Multiple Response" %>
+              <h4>Check all that apply:</h4>
 
-     <p><%= res_f.collection_check_boxes :answer_ids, res_f.object.question.answers, :id, :body do |b| %></p>
-        <div>
-          <%= b.check_box %>
-          <%= b.label %>
-          <%= res_f.hidden_field :question_id, value: res_f.object.question.id %>
+             <p><%= res_f.collection_check_boxes :answer_ids, res_f.object.question.answers, :id, :body do |b| %></p>
+                <div style="clear: both;">
+                  <div class="score_input"><%= b.check_box %></div>
+                  <div class="score_input_label"><%= b.label %></div>
+                  <%= res_f.hidden_field :question_id, value: res_f.object.question.id %>
 
-        </div>
-      <% end %>
+                </div>
+            <% end %>
+
+        <% else %>    
+         <p><%= res_f.collection_radio_buttons :answer, res_f.object.question.answers, :id, :body do |b| %></p>
+
+                <div style="clear: both;">
+                  <div class="score_input"><%= b.radio_button %></div>
+                  <div class="score_input_label"><%= b.label %></div>
+                  <%= res_f.hidden_field :question_id, value: res_f.object.question.id %>
+
+                </div>
+            <% end %>
+
+        <% end %>
+      </div>
 
     <% end %>
 
   </br></br></br></br>  
   <%= f.submit 'Submit', class: "exam_button" %>
 <% end %>
+
+
+<script>
+  $( function() {
+    // test = $('.score_input').find("[type='radio']").prop('name');
+    // console.log(test);
+    // test2 = $('.score_input').find("[type='checkbox']").prop('name');
+    // console.log(test2);
+    // new_test = test + "[]"
+    // $('.score_input').find("[type='radio']").prop('name', new_test);
+    // test = $('.score_input').find("[type='radio']").prop('name');
+    // console.log(test);
+
+
+  // $('.score_input').find("[type='radio']").each(function() {
+  //   test = $(this).prop('name')
+  //   console.log(test);
+  //   new_test = test + "[]"
+  //   $(this).prop('name', new_test);
+  //   test = $(this).prop('name')
+  //   console.log(test);
+  // });
+ 
+
+    });
+ </script>

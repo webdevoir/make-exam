@@ -36,7 +36,7 @@ class ScoresController < ApplicationController
       @correct_pts = 0
       @total_pts = @exam.questions.sum(:points)
       res.each do |res|
-        if res.question.question_type == "Multi-Response"
+        if res.question.question_type == "Multiple Response"
           multi_correct = []
           res.question.answers.each do |ans|
               multi_correct.push ans.id if ans.correct 
@@ -49,8 +49,7 @@ class ScoresController < ApplicationController
         else
 
         	if res.answer_ids.length <= 1
-            ans_id = res.answer_ids[0]
-            answer = Answer.find_by(id: ans_id)
+            answer = Answer.find_by(id: res.answer)
             if  answer && answer.correct
           		@correct_res.push res.id
           		points = res.question.points
@@ -76,6 +75,6 @@ class ScoresController < ApplicationController
 
       def score_params
         params.require(:score).permit(:examination_id, :user_id,
-          responses_attributes: [:id, :question_id, :selected, :answer_ids => []])
+          responses_attributes: [:id, :question_id, :selected, :answer, :answer_ids => []])
       end
 end

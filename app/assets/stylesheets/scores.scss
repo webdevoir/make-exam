@@ -31,3 +31,21 @@
 	margin-bottom: 2px;
 	height: 20px;
 }
+
+.score_questions input[type=checkbox], .score_questions  input[type=radio] {
+    margin: 4px 15px 0;
+    margin-top: 1px;
+    line-height: normal;
+    transform: scale(1.5);
+}
+
+.score_input {
+	float: left;
+	width: 5%;
+}
+
+.score_input_label {
+	float: left;
+	width: 80%;
+	
+}

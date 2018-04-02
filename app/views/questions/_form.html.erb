@@ -57,8 +57,7 @@
   <div style="clear: both;">
     
     <%= f.fields_for :answers do |ans_f| %>
-       <%= render 'answer_fields', f: ans_f %>
-    
+      <%= render 'answer_fields', f: ans_f %>
   <% end %>
   <%= link_to_add_association 'add answer', f, :answers %>
 </div>
@@ -71,40 +70,48 @@
 
 <script>
   $( function() {
-      var q_type = $('#question_question_type');
 
-      q_type.click(function () {
+      var ques1 = $('#question_answers_attributes_0_body').val()
+      var ques2 = $('#question_answers_attributes_1_body').val()
+      var ques3 = $('#question_answers_attributes_2_body').val()
+      var ques4 = $('#question_answers_attributes_3_body').val()
+
+      var q_type = $('#question_question_type');
+      q_type.click(questionType);
+      function questionType() {
         var val = $(this).val();
         console.log(val);
         if (val == "True/False") {
+          $('.question_radio').find("[type='checkbox']").prop('type', "radio");
           $('#question_answers_attributes_0_body').val("True")
           $('#question_answers_attributes_1_body').val("False")
           $('#question_answers_attributes_2_body').parent().parent().hide()
           $('#question_answers_attributes_3_body').parent().parent().hide()
         } else if(val == "Multiple Choice") {
-          $('#question_answers_attributes_0_body').val("")
-          $('#question_answers_attributes_1_body').val("")
-          $('#question_answers_attributes_2_body').parent().parent().show()
-          $('#question_answers_attributes_3_body').parent().parent().show()
+          $('.question_radio').find("[type='checkbox']").prop('type', "radio");
+          $('#question_answers_attributes_0_body').val(ques1)
+          $('#question_answers_attributes_1_body').val(ques2)
+          $('#question_answers_attributes_2_body').parent().parent().show().val(ques3)
+          $('#question_answers_attributes_3_body').parent().parent().show().val(ques4)
+        } else if(val == "Multiple Response") {
+          $('.question_radio').find("[type='radio']").prop('type', "checkbox");
+          $('#question_answers_attributes_0_body').val(ques1)
+          $('#question_answers_attributes_1_body').val(ques2)
+          $('#question_answers_attributes_2_body').parent().parent().show().val(ques3)
+          $('#question_answers_attributes_3_body').parent().parent().show().val(ques4)
         }
-
-      });
-
-
+      };
        $("input:radio").on('click', function() {
         $("input:radio").prop('checked', false);
         $(this).prop('checked', true);
      });
-
     var dirty = false;
     var originalFormData = $('form').serialize();
-
     function checkFormChanged() {
         if(originalFormData !== $('form').serialize()) {
           dirty = true;
       }
     };
-
     $('#prevlink').click(function (e){
       if (dirty == true){
         var popup = window.confirm("Continue without saving changes?");
@@ -120,8 +127,6 @@
     $('input , textarea, select').on('keyup', function () {
       checkFormChanged()
     });
-
-
      // Popup if leaving page with chages
      // $(window).bind('beforeunload', function(e){
      //            if(dirty)
@@ -129,6 +134,7 @@
      //            else 
      //                e=null; // i.e; if form state change show warning box, else don't show it.
      //        });
+
     
 });
  </script>
