@@ -10,7 +10,8 @@ class Examination < ApplicationRecord
 
 
   def self.search(search)
-    where('name ILIKE :search OR intro ILIKE :search OR conclusion ILIKE :search', search: "%#{search}%")
+
+    joins(:questions).where('name ILIKE :search OR intro ILIKE :search OR questions.body ILIKE :search', search: "%#{search}%").uniq
   end
 
 end
