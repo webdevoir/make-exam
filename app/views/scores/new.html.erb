@@ -26,7 +26,7 @@
         (<%= res_f.object.question.points %> Points)
       </span>
       <hr class="hr_exam">
-      <h3><%= res_f.object.question.body %></h3>
+      <h3><%= res_f.object.question.body.html_safe %></h3>
       <div class="score_questions">
         <% if res_f.object.question.question_type == "Multiple Response" %>
               <h4>Check all that apply:</h4>

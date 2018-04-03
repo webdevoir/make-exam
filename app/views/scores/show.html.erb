@@ -26,6 +26,7 @@
           <span class="non_header">(<%= ques.points %> Points)</span>
         </div>
           <hr class="hr_exam">
+          <h3><%= ques.body.html_safe %></h3>
           <h3>Your Answer:</h3>
           <% res = @score.responses.where(question_id: ques.id).first 
           if res && res.fill_blank && res.fill_blank.length > 0

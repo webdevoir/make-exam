@@ -1,3 +1,4 @@
+
 <%= link_to "Back to exam",examination_path(@exam) %><br/>
 
 <div class="col-md-8 col-sm-12">
@@ -41,7 +42,7 @@
   <% end %>
 
   <div style="clear: both;">
-    <%= f.text_area :body, class: "question_new_body"%>
+    <%= f.text_area :body, class: "question_new_body tinymce"%>
   </div>
   <div class="question_type_points">
     <div style="float: left;">
