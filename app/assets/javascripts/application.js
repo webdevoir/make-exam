@@ -28,7 +28,13 @@ $(document).on('turbolinks:load', function () {
    		toolbar: 'bold italic underline fontsizeselect bullist numlist subscript superscript forecolor backcolor',
    		menubar: false,
    		plugins: 'link textcolor lists colorpicker textcolor',
-   		statusbar: false
+   		statusbar: false,
+
+   		 setup: function(ed) {
+	        ed.onKeyUp.add(function() {
+	            checkFormChanged()
+	        });
+	    },
 
    	});
 });

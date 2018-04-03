@@ -74,6 +74,37 @@
 	padding: 0 20px !important;
 	margin: 0 10px;
 }
+.question_sidebar a {
+	text-decoration: none;
+	color: #000;
+}
+.question_sidebar a:hover {
+	text-decoration: none;
+	color: #000;
+}
+.question_sidebar_list {
+	height: 80px;
+	overflow: hidden;
+	margin-left: 80px;
+	border-radius: 5px;
+}
+
+.question_sidebar_list:hover {
+	background: rgba(112, 245, 132, 0.90);
+	// opacity: 0.1;
+	transform: scale(1.1);
+	transition: all ease 0.5s;
+} 
+
+@media screen and (max-width: 1000px) {
+	.question_sidebar_list {
+		margin-left: 10%;
+		margin-right: 10%;
+	}
+	.question_sidebar {
+		margin-top: 15%;
+	}
+}
 @media screen and (max-width: 500px) {
 
 .question_answer_body {
