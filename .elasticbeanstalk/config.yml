@@ -1,4 +1,6 @@
 branch-defaults:
+  admin-backend:
+    environment: make-exam-env
   cocoon:
     environment: make-exam-env
   master:

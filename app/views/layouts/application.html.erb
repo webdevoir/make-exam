@@ -32,9 +32,6 @@
 				<% if upgraded? %>
 					  (<span style="color: green">upgraded</span>).
 				<% end %>
-				<% if admin? %>
-					  (<span style="color: green">ADMIN</span>).
-				<% end %>
 			  <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
 			  <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
 			<% else %>
