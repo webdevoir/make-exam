@@ -109,33 +109,35 @@
       var type = "<%= @question.question_type %>";
       questionType(type);
       function questionType(ent) {
-        if (ent) {
+        if (ent && ent.length > 1) {
           var val = ent;
+          console.log("There is an ent");
         } else {
           var val = $(this).val();
+          console.log("No ent");
         }
         console.log(val);
         if (val == "True/False") {
           $('.question_radio').find("[type='checkbox']").prop('type', "radio");
-          $('#question_answers_attributes_0_body').val("True")
-          $('#question_answers_attributes_1_body').val("False")
+          $('#question_answers_attributes_0_body').val("True").parent().parent().show()
+          $('#question_answers_attributes_1_body').val("False").parent().parent().show()
           $('#question_answers_attributes_2_body').parent().parent().hide()
           $('#question_answers_attributes_3_body').parent().parent().hide()
         } else if(val == "Multiple Choice") {
           $('.question_radio').find("[type='checkbox']").prop('type', "radio");
-          $('#question_answers_attributes_0_body').val(ques1)
-          $('#question_answers_attributes_1_body').val(ques2)
+          $('#question_answers_attributes_0_body').parent().parent().show().val(ques1)
+          $('#question_answers_attributes_1_body').parent().parent().show().val(ques2)
           $('#question_answers_attributes_2_body').parent().parent().show().val(ques3)
           $('#question_answers_attributes_3_body').parent().parent().show().val(ques4)
         } else if(val == "Multiple Response") {
           $('.question_radio').find("[type='radio']").prop('type', "checkbox");
-          $('#question_answers_attributes_0_body').val(ques1)
-          $('#question_answers_attributes_1_body').val(ques2)
+          $('#question_answers_attributes_0_body').parent().parent().show().val(ques1)
+          $('#question_answers_attributes_1_body').parent().parent().show().val(ques2)
           $('#question_answers_attributes_2_body').parent().parent().show().val(ques3)
           $('#question_answers_attributes_3_body').parent().parent().show().val(ques4)
         } else if(val == "Fill in the blank") {
           $('.question_radio').find("[type='radio']").prop('type', "radio");
-          $('#question_answers_attributes_0_body').val(ques1)
+          $('#question_answers_attributes_0_body').parent().parent().show().val(ques1)
           $('#question_answers_attributes_1_body').parent().parent().hide()
           $('#question_answers_attributes_2_body').parent().parent().hide()
           $('#question_answers_attributes_3_body').parent().parent().hide()
