@@ -4,13 +4,21 @@ class Admin::ApplicationController < ApplicationController
 
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  helper_method :upgraded?
+  # helper_method :admin?
+  
    protected
 
 	  def upgraded?
 	    Subscription.find_by(user_id: current_user.id)
 	  end
 
-	  helper_method :upgraded?
+	  # def admin?
+	  #   user = User.find_by(id: current_user.id)
+	  #   return true if user.role == "Admin"
+	  # end
+
+
 
 	  def configure_permitted_parameters
 	    added_attrs = [:username, :email, :password, :password_confirmation, :remember_me]
