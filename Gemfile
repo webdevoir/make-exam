@@ -37,6 +37,7 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'paypal-recurring'
 gem 'tinymce-rails'
+gem 'kaminari'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
