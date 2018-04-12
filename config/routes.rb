@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  get 'ads/new'
+
+  get 'ads/edit'
+
+  get 'ads/destroy'
+
   namespace :admin do
     resources :dashboard, only: [:landing]
     root to: "/admin/dashboard#landing"
