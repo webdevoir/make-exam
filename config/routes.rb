@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :dashboard, only: [:landing]
     root to: "/admin/dashboard#landing"
+    resources :ads, only: [:new, :create, :edit, :update, :index, :destroy]
   end
 
   resources :ads

@@ -1,0 +1,68 @@
+<div class="container-fluid content_dashboard">
+
+  <br />
+  <br />
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <tr>
+        <th>Company Name</th>
+        <th>Email</th>
+        <th>Status</th>     
+        <th>Manage</th>
+        <th>Contact Person</th>
+        <th>Phone Number</th>
+
+        <th>Countries</th>
+        <th>Months Active</th>
+        <th>Age Range</th>
+        <th>Link</th>
+<!--         <th>Sign Up</th>
+        <th>Updated</th>
+        <th>ID #</th> -->
+      </tr>
+
+       <% @ads.each do |ad|  %>
+      <tr>
+        <td><%= ad.compname %></td>
+        <td><%= ad.email %></td>
+       <td>STATUS</td>
+        <td>(<%= link_to "edit", edit_admin_ad_path(ad) %>, <%= link_to "delete", admin_ad_path(ad), method: :delete, data: {confirm: "Are you sure you want to delete #{ad.id}?"} %>)</td>
+        <td><%= ad.contact %></td>
+        <td><%= ad.phoneno %></td>
+
+        <td>
+              <% if ad.countries && ad.countries.length > 0 && ad.countries.kind_of?(Array) %>
+                <%  ad.countries.each do |adv| %>
+                  <% if adv.length > 0 %>
+                    <%= adv %>,
+                  <%end %>
+                <%end %>
+              <% elsif ad.countries %>
+                <%= ad.countries %>
+              <% else %>
+                None
+              <% end %>
+            </td>
+         <td>
+              <% if ad.months && ad.months.length > 0 && ad.months.kind_of?(Array) %>
+                <%  ad.months.each do |adv| %>
+                  <% if adv.length > 0 %>
+                    <%= adv %>,
+                  <%end %>
+                <%end %>
+              <% elsif ad.months %>
+                <%= ad.months %>
+              <% else %>
+                None
+              <% end %>
+            </td>
+        <td><%= ad.age %></td>
+        <td><%= ad.url %></td>
+      </tr>
+      <% end %>
+
+    </table>
+  </div>
+
+            <hr>
+</div>
