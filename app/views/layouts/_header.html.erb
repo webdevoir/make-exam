@@ -13,12 +13,27 @@
           <div class="collapse navbar-collapse" id="navcol-1">
               <ul class="nav navbar-nav navbar-right">
                   
+                  <% if current_user && current_user.role == "Admin" %>  
+                   <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Admin
+                      </a>
+                   
+                        <ul class="dropdown-menu">
+                        <li><%= link_to "Dashboard", admin_root_path, class: "dropdown-item" %></li>
+                        <li><%= link_to "Ads", admin_ads_path, class: "dropdown-item" %></li>
+                      </ul>
+ 
+               
+                    </li>
+                  <% end %>
+
                   <% if current_user %>    
                       <li role="presentation" class="nav_links"><%= link_to "New Exam", new_examination_path%></li>
                       <li role="presentation" class="nav_links"><%= link_to "Search Exams", examinations_path%></li>
                       <li role="presentation" class="nav_links"><%= link_to "Your Exams", examinations_path(:user_exams => current_user.id,)%></li>
                       <li role="presentation" class="nav_links"><%= link_to "Your Scores", user_scores_path%></li>
-             
+
                       
                   <% else %>
                     <li role="presentation" class="nav_links"><%= link_to "Log In", new_user_session_path %></li>
