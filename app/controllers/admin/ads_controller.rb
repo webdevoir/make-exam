@@ -39,9 +39,24 @@ class Admin::AdsController < Admin::BaseAdminController
   	 redirect_to root_path, notice: "#{@ad.id} was deleted successfully!"
   end
 
+  def activate 
+    @ad = Ad.find(params[:ad_id])
+    if @ad.status == "active"
+      @ad.status = "inactive"
+    else
+      @ad.status = "active"
+    end
+    if @ad.save
+      redirect_to admin_ads_path,  notice: "ad:#{@ad.id}'s' status has been changed to #{@ad.status.capitalize}"
+    else
+      flash[:error] = "#{@ad.errors.count} errors prevented this job from being updated"
+      redirect_to admin_ads_path
+    end
+  end  
+
     protected
 
       def ad_params
-        params.require(:ad).permit(:id, :compname, :email, :contact, :phoneno, :age, :image, :url, :countries => [], :months => [])
+        params.require(:ad).permit(:id, :compname, :email, :contact, :phoneno, :age, :image, :url, :status,  :countries => [], :months => [])
       end
 end

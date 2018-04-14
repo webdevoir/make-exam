@@ -16,6 +16,7 @@
         <th>Months Active</th>
         <th>Age Range</th>
         <th>Link</th>
+        <th>Image</th>
 <!--         <th>Sign Up</th>
         <th>Updated</th>
         <th>ID #</th> -->
@@ -25,7 +26,7 @@
       <tr>
         <td><%= ad.compname %></td>
         <td><%= ad.email %></td>
-       <td>STATUS</td>
+        <td class="active_link"><%= link_to ad.status.capitalize,   admin_ad_activate_path(ad), data: {confirm: "Are you sure you want to change the status for  #{ad.id}?"} %> </td>
         <td>(<%= link_to "edit", edit_admin_ad_path(ad) %>, <%= link_to "delete", admin_ad_path(ad), method: :delete, data: {confirm: "Are you sure you want to delete #{ad.id}?"} %>)</td>
         <td><%= ad.contact %></td>
         <td><%= ad.phoneno %></td>
@@ -58,6 +59,7 @@
             </td>
         <td><%= ad.age %></td>
         <td><%= ad.url %></td>
+        <td><%= link_to "View", ad.image_url.to_s %></td>
       </tr>
       <% end %>
 
@@ -66,3 +68,16 @@
 
             <hr>
 </div>
+
+<script>
+  $( function() {
+    $('.active_link a').each(function() {
+      test = $(this);
+      if (test.html() == "Active"){
+        test.css("color","green");
+      } else {
+        test.css("color","red");
+      }
+    });
+  });
+</script>

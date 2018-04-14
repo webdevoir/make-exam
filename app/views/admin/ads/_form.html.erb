@@ -44,10 +44,9 @@
 		    <%= f.select :age, [['12-19 Years Old', '12-19'], ['20+ Years Old', '20+']], {}%>
 		  </div>
 		  <div>
-          <%= f.label :image, "Upload ad image"%><br>
-          <%= f.text_field :image, class: 'form-control exam_forms' %>
-          <p>Make file upload!</p>
-         </div>
+        <%= f.label :image %><br>
+        <%= f.file_field :image , class: 'form-control exam_forms' %>
+      </div>
          <div>
           <%= f.label :url, "URL for ad link"%><br>
           <%= f.text_field :url, class: 'form-control exam_forms' %>
