@@ -5,9 +5,11 @@ class AdsController < ApplicationController
 
   def create
     @ad = Ad.new(ad_params)
-    @ad.status = "inactive"
+    @ad.status = "pending"
 
-     if @ad.save
+     if @ad.save && current_user.role == "Admin"
+      redirect_to admin_ads_path, notice: "Ad Submitted successfully!"
+     elsif @ad.save
         redirect_to root_path, notice: "Ad Submitted successfully!"
       else
         flash[:error] = @ad.errors.full_messages.to_sentence
@@ -21,7 +23,9 @@ class AdsController < ApplicationController
 
   def update
    	@ad = Ad.find(params[:id])
-    if @ad.update_attributes(ad_params)
+    if @ad.update_attributes(ad_params) && current_user.role == "Admin"
+      redirect_to admin_ads_path, notice: "Ad Submitted successfully!"
+    elsif @ad.update_attributes(ad_params)
       redirect_to root_path, notice: "Ad updated successfully"
     else
       flash[:error] = "#{@ad.errors.count} errors prevented certificate from being updated."
