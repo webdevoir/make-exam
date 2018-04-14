@@ -9,9 +9,10 @@ class Admin::AdsController < Admin::BaseAdminController
 
   def create
     @ad = Ad.new(ad_params)
+    @ad.status = "inactive"
 
      if @ad.save
-        redirect_to root_path, notice: "Ad Submitted successfully!"
+        redirect_to admin_ads_path, notice: "Ad Submitted successfully!"
       else
         flash[:error] = @ad.errors.full_messages.to_sentence
         render :new, notice: "Ad could not be created!"
@@ -25,7 +26,7 @@ class Admin::AdsController < Admin::BaseAdminController
   def update
    	@ad = Ad.find(params[:id])
     if @ad.update_attributes(ad_params)
-      redirect_to root_path, notice: "Ad updated successfully"
+      redirect_to admin_ads_path, notice: "Ad updated successfully"
     else
       flash[:error] = "#{@ad.errors.count} errors prevented certificate from being updated."
       render :edit

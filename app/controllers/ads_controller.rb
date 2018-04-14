@@ -5,6 +5,7 @@ class AdsController < ApplicationController
 
   def create
     @ad = Ad.new(ad_params)
+    @ad.status = "inactive"
 
      if @ad.save
         redirect_to root_path, notice: "Ad Submitted successfully!"

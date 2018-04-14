@@ -12,6 +12,13 @@ class ApplicationController < ActionController::Base
 
 	  helper_method :upgraded?
 
+	  def display_ad
+	  	ads = Ad.where(status: "active")
+	  	current_ad = ads.sample
+	  	return current_ad
+	  end
+
+	  helper_method :display_ad
 
 	  def configure_permitted_parameters
 	    added_attrs = [:username, :email, :password, :password_confirmation, :remember_me]
