@@ -68,6 +68,7 @@ class ScoresController < ApplicationController
             end
         	end
         end
+      
       @percent = (@correct_pts.to_f / @total_pts.to_f) * 100
       end
       # logger.info "################################################"

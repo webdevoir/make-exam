@@ -17,8 +17,11 @@
 
       <h2><%= @exam.name %></h2>
       <h3><%= @exam.intro %></h3>
-
-      <h3> Your Score: <%= @percent.round(0) %>% (<%= @correct_pts %> out of <%= @total_pts %>)</h3>
+      <% if @percent %>
+        <h3> Your Score: <%= @percent.round(0) %>% (<%= @correct_pts %> out of <%= @total_pts %>)</h3>
+      <% else %>
+        <h3 style="color: red">Error</h3>
+      <% end %>
       <% @exam.questions.each_with_index do |ques, i| %>
         <% index = i + 1 %>
         <div style="clear: both; margin-top: 50px;">
@@ -50,8 +53,8 @@
               <p>No Answer</p>
           <% end %>
 
-
-         <% if ques.question_type == "Multiple Response"
+       
+         <% if res && ques.question_type == "Multiple Response"
           multi_correct = []
           res.question.answers.each do |ans|
               multi_correct.push ans.id if ans.correct 
@@ -76,6 +79,7 @@
             end
           end
         end %>
+      
 
 
           <% if res && response_correct%>
