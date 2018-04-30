@@ -15,26 +15,25 @@
 //= require tinymce
 //= require rails-ujs
 //= require cocoon
-//= require turbolinks
 //= require_tree .
 
 
 
-$(document).on('turbolinks:load', function () {
-   tinymce.remove();
-   tinymce.init({
-   		selector:'.tinymce',
-   		branding: false,
-   		toolbar: 'bold italic underline fontsizeselect bullist numlist subscript superscript forecolor backcolor',
-   		menubar: false,
-   		plugins: 'link textcolor lists colorpicker textcolor',
-   		statusbar: false,
+// $(document).on('turbolinks:load', function () {
+//    tinymce.remove();
+//    tinymce.init({
+//    		selector:'.tinymce',
+//    		branding: false,
+//    		toolbar: 'bold italic underline fontsizeselect bullist numlist subscript superscript forecolor backcolor',
+//    		menubar: false,
+//    		plugins: 'link textcolor lists colorpicker textcolor',
+//    		statusbar: false,
 
-   		 setup: function(ed) {
-	        ed.onKeyUp.add(function() {
-	            checkFormChanged()
-	        });
-	    },
+//    		 setup: function(ed) {
+// 	        ed.onKeyUp.add(function() {
+// 	            checkFormChanged()
+// 	        });
+// 	    },
 
-   	});
-});
+//    	});
+// });
