@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+
   namespace :admin do
     resources :dashboard, only: [:landing]
     root to: "/admin/dashboard#landing"
@@ -9,6 +10,8 @@ Rails.application.routes.draw do
   end
 
   resources :ads
+
+  resources :posts
 
   resources :subscriptions do
   end
