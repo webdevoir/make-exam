@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
    protected
 
 	  def upgraded?
-	    Subscription.find_by(user_id: current_user.id)
+	    Subscription.find_by(user_id: current_user.id) if current_user
 	  end
 
 	  helper_method :upgraded?

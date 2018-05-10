@@ -86,8 +86,16 @@ questions.each do |ques|
 
 end
 
-
-
-
-
 p "Created #{Answer.count} Answers"
+
+Post.destroy_all
+
+50.times do
+	Post.create! [
+		title: Faker::Beer.name,
+		body: Faker::RickAndMorty.quote,
+		user_id: [1, 2].sample
+	]
+	
+end
+p "Created #{Post.count} posts"
