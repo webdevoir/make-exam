@@ -13,7 +13,7 @@
 
   <body>
   	<%= render 'layouts/header' %>
- 	<% unless current_location?(controller:'sessions', action:'new')  || current_page?(root_path)%>
+ 	<% unless current_location?(controller:'sessions', action:'new')  || current_page?(root_path) || current_page?('/pages/profile')%>
   		<div class="container white">
   	<% end %> 
 

@@ -1,0 +1,177 @@
+<div class="profile-container">
+<% @employer = current_user %>
+	<div class="prime-container">
+			<div class="col-md-4 col-12 prime-profile-logo">
+		    	<div class="prime_logo"><%= print_image ('profile-icon.png') %></div>
+		    	<div class="profile-links">
+		    		<%= link_to examinations_path(:user_exams => current_user.id) do %>
+
+		    			<div class="profile-link-inner">
+		    				<span class=profile-link-header>Exams</span>
+		    				<span class=profile-link-data><%= @employer.examinations.count %></span>
+		    			</div>
+		    		<% end %>
+		    	</div>
+		    	<div class="profile-links">
+		    		<%= link_to user_scores_path do %>
+		    		
+		    		<div class="profile-link-inner">
+		    				<span class=profile-link-header>Scores</span>
+		    				<span class=profile-link-data><%= @employer.scores.count %></span>
+		    			</div>
+		    		<% end %>
+		    	
+		    	</div>
+		    	<div class="profile-links">
+		    		<%= link_to posts_path do %>
+		    		
+		    		<div class="profile-link-inner">
+		    				<span class=profile-link-header>Forum Posts</span>
+		    				<span class=profile-link-data><%= @employer.posts.count %></span>
+		    			</div>
+		    		<% end %>
+		    	
+		    	</div>
+		    </div>
+			<div class="col-md-8 col-12 prime-main">
+				<h2><%= @employer.firstname %></h2>
+				<hr>
+				<div class="row">
+					<h3>Recent Scores</h3>
+				</div>
+				<div class="row">
+		
+				<div class="violations-table">
+					<table class="table">
+				      <tr>
+
+				        
+				        
+				        <th>Exam Name</th>
+				        <th>Date Taken</th>
+				        <th>Your Score</th>
+				      </tr>
+				
+				      <% @scores = Score.where(user_id: current_user.id).limit(5) %>
+				       <% if @scores.length > 0 %>
+		    			<% @scores.each do |score| %>
+
+		    			<% exam = score.examination
+						     res = score.responses
+						      @correct_res = []
+						      @correct_pts = 0
+						      @total_pts = exam.questions.sum(:points)
+						      res.each do |res|
+				        if res.question.question_type == "Multiple Response"
+				          multi_correct = []
+				          res.question.answers.each do |ans|
+				              multi_correct.push ans.id if ans.correct 
+				          end
+				          if multi_correct.sort == res.answer_ids.sort
+				            @correct_res.push res.id
+				            points = res.question.points
+				            @correct_pts = @correct_pts + points
+				          end
+
+				        elsif res.question.question_type == "Fill in the blank"
+				          ques_fill_blank = res.question.answers.first.body
+				          if  ques_fill_blank && res.question.answers.first.correct
+				            if  ques_fill_blank == res.fill_blank
+				              @correct_res.push res.id
+				              points = res.question.points
+				              @correct_pts = @correct_pts + points
+				            end
+				          end
+
+				        else
+
+				        	if res.answer_ids.length <= 1
+				            answer = Answer.find_by(id: res.answer)
+					            if  answer && answer.correct
+					          		@correct_res.push res.id
+					          		points = res.question.points
+					          		@correct_pts = @correct_pts + points
+					            end
+				        	end
+				        end
+				      
+				      @percent = (@correct_pts.to_f / @total_pts.to_f) * 100
+				      
+
+
+				      # end
+				      %>
+
+				  
+				      <tr>
+				   
+				        
+				       <td><%= score.examination.name %></td>
+				   		<td><%= score.created_at.strftime("%b %d, %Y")  %></td>
+				        <% if @percent %>
+					      <td> <%= @percent.round(0) %>% (<%= @correct_pts %> out of <%= @total_pts %>)</td>
+					      <% else %>
+					        <td> style="color: red">Error</td>
+					      <% end %>
+				        
+				      </tr>
+				      <% end %>
+				   <% end %>
+				  <% end %>
+
+
+				    </table>
+				  </div>
+				 </div>
+				 <div style="clear:both; margin-bottom: 40px;"></div>
+				<h3>Recent Blog Posts</h3>
+				<div class="row">
+		
+				<div class="violations-table">
+					<table class="table">
+				      <tr>
+
+				        
+				        
+				        <th>Post Title</th>
+				        <th>Date</th>
+				        <th>Comments</th>
+				      </tr>
+				
+				      <% @posts = Post.where(user_id: current_user.id).limit(5) %>
+				       <% if @posts.length > 0 %>
+		    			<% @posts.each do |post| %>
+
+				  
+				      <tr>
+				   
+				        
+				       <td><%= post.title %></td>
+				   		<td><%= post.created_at.strftime("%b %d, %Y")  %></td>
+				        <% if post.comments %>
+					      <td> <%= post.comments.count %></td>
+					      <% else %>
+					        <td> style="color: red">None</td>
+					      <% end %>
+				        
+				      </tr>
+				      <% end %>
+				   <% end %>
+				
+
+
+				    </table>
+				  </div>
+				 </div>
+				
+		
+	
+
+				
+		    </div>
+		</div>
+	</div>
+
+		
+</div>
+

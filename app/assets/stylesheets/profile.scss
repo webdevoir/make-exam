@@ -1,0 +1,112 @@
+.profile-container {
+	background-color: #fff;
+	padding: 20px !important;
+
+	min-height: calc(100vh - (75px + 20px));
+}
+
+.prime-container {
+	margin-top: 60px;
+}
+.prime-profile-logo {
+	padding: 7px;
+	box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+    border: 2px solid #d4d2d2;
+    min-width: 350px;
+    max-width: 400px;
+}
+.prime_logo {
+	max-width: 350px;
+	height:  350px;
+	padding: 7.5% 0 7.5% 15%;
+	overflow: hidden;
+	position: relative;
+	// border:15px solid #007bff;
+	// border-radius: 50%;
+}
+.prime_logo img{
+	height: 100%;
+	// width: 100%;
+	// height: 80%;
+	// border-radius: 50%;
+	float: left;
+	// margin: 15% 0 0 15%;
+
+	// border:15px solid #007bff;
+	position: absolute;
+    margin: auto; 
+    // min-height: 100%;
+    min-width: 100%;
+
+    left: -100%;
+    right: -100%;
+    top: -100%;
+    bottom: -100%;
+}
+.prime_logo:hover {
+  -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
+   opacity: 0.7;
+   -webkit-transition: -webkit-transform .8s ease-in-out;
+          transition:         transform .8s ease-in-out;
+	}
+
+.profile-links {
+	margin: 18px 0;
+}
+
+.profile-links a {
+	text-decoration: none;
+}
+.profile-link-inner{
+	height: 45px;
+	width: 100%;
+	margin: 8px 0;
+	background: #e7e7e7;
+	padding: 8px 15px;
+}
+.profile-link-inner:hover{
+	color: #70f584;
+    // text-shadow: 0 0 15px #28b62c;
+    transform: scale(1.05); 
+    transition: all 0.5s ease;
+    box-shadow: 0 0 25px  #70f584;
+    // border: 5px solid  #70f584;
+}
+.profile-link-header {
+	float: left;
+	font-family: 'raleway';
+	font-weight: 600;
+  	font-size: 25px;
+  	color: #4c4c4c;
+}
+.profile-link-data {
+	float: right;
+	padding: 0 20px;
+	background: #70f584;
+	border-radius: 25px;
+	font-family: 'raleway';
+	font-weight: 400;
+  	font-size: 20px;
+  	color: #4c4c4c;
+}
+.prime-main {
+	padding-left: 50px !important;
+	// float: right;
+}
+.prime-main h2{
+	font-size: 35px;
+	font-weight: 800;
+}
+
+@media screen and (max-width: 500px) {
+
+.prime-main {
+	padding-left: 0px !important;
+	// float: right;
+	}
+	.prime-profile-logo {
+    min-width: 100%;
+    max-width: 100%;
+	}
+}
