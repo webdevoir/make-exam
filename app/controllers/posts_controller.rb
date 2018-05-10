@@ -30,7 +30,7 @@ class PostsController < ApplicationController
   end
 
    def update
-    if @post.update_attributes(psot_params)
+    if @post.update_attributes(post_params)
       redirect_to posts_path, notice: "Post updated successfully"
     else
       flash[:error] = "#{@post.errors.count} errors prevented certificate from being updated."
@@ -41,7 +41,7 @@ class PostsController < ApplicationController
 
   def destroy
 
-  	@postle.destroy
+  	@post.destroy
   	 redirect_to roles_path, notice: "#{@post.id} was deleted successfully!"
   end
 

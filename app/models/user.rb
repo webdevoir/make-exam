@@ -3,6 +3,7 @@ class User < ApplicationRecord
   has_many :scores, dependent: :destroy
   has_many :subscriptions
   has_many :posts
+  has_many :comments
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable,

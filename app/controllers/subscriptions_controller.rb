@@ -39,7 +39,7 @@ class SubscriptionsController < ApplicationController
 			cancel_url: root_url,
 			description: "test",
 			amount: 20,
-			currency: "CAD"
+			currency: "USD"
 		)
 	response = ppr.checkout
 	if response.valid?

@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
 
 
+  get 'comments/new'
+
+  get 'comments/edit'
+
   namespace :admin do
     resources :dashboard, only: [:landing]
     root to: "/admin/dashboard#landing"
@@ -11,7 +15,9 @@ Rails.application.routes.draw do
 
   resources :ads
 
-  resources :posts
+  resources :posts do
+    resources :comments
+  end
 
   resources :subscriptions do
   end

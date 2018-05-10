@@ -99,3 +99,16 @@ Post.destroy_all
 	
 end
 p "Created #{Post.count} posts"
+Comment.destroy_all
+posts = Post.all
+posts.each do |post|
+	4.times do
+		Comment.create! [
+		post_id: post.id,
+		body: Faker::FamilyGuy.quote,
+		user_id: [1, 2].sample
+	]
+	end
+
+end
+p "Created #{Comment.count} comments"

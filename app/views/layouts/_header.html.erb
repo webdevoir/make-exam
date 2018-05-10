@@ -29,6 +29,7 @@
                   <% end %>
 
                   <% if current_user %>    
+                      <li role="presentation" class="nav_links"><%= link_to "Forum", posts_path%></li>
                       <li role="presentation" class="nav_links"><%= link_to "New Exam", new_examination_path%></li>
                       <li role="presentation" class="nav_links"><%= link_to "Search Exams", examinations_path%></li>
                       <li role="presentation" class="nav_links"><%= link_to "Your Exams", examinations_path(:user_exams => current_user.id,)%></li>
@@ -42,7 +43,7 @@
                     <li role="presentation" class="nav_links" ><%= link_to "Advertisers", new_ad_path %></a></li>
                     <li role="presentation" class="nav_links" ><a href="/">About Us</a></li>
                     <li role="presentation" class="nav_links" ><%= link_to "FAQ", logo_link%></li>
-                    <li role="presentation" class="nav_links" ><%= link_to "Help", logo_link%></li>
+                    <li role="presentation" class="nav_links" ><%= link_to "Features", logo_link%></li>
                       
                   <% end %>
               
