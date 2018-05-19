@@ -62,8 +62,8 @@
   <% end %>
   <%= link_to_add_association 'add answer', f, :answers %>
 </div>
-    <div><%= f.submit "Save", class: 'form-control question_buttons exam_button' %></div>
-    <div><%= f.submit "Save and Add Question", name: "add", class: 'form-control question_buttons exam_button' %></div>
+    <div><%= f.submit "Save", class: 'form-control question_buttons exam_button', data: { disable_with: false } %></div>
+    <div><%= f.submit "Save and Add Question", name: "add", class: 'form-control question_buttons exam_button', data: { disable_with: false } %></div>
     <%= button_tag t('buttons.cancel'), type: "submit", name: "cancel", value: true, class: 'form-control question_buttons exam_button' %>
   <% end %>
 </div>
@@ -100,10 +100,34 @@
 <script>
   $( function() {
 
-      var ques1 = $('#question_answers_attributes_0_body').val()
-      var ques2 = $('#question_answers_attributes_1_body').val()
-      var ques3 = $('#question_answers_attributes_2_body').val()
-      var ques4 = $('#question_answers_attributes_3_body').val()
+      var ques1
+      var ques2
+      var ques3
+      var ques4
+/////// Store initial answers //////////////
+       $('.question_answer_body').each(function( index ) {
+              var textBox = $(this).find('textarea')
+
+              
+              switch (index) { 
+                case 0: 
+                  ques1 = textBox.val()
+                  break;
+                case 1:
+                  ques2 = textBox.val()
+                  break;
+                case 2:
+                  ques3 = textBox.val()
+                  break;
+                case 3:
+                  ques4 = textBox.val()
+                  break;
+                default:
+                  
+              }
+            });
+//////////////////////////////////////////////////
+console.log("ques1 => " + ques1)
 
       var q_type = $('#question_question_type');
       q_type.click(questionType);
@@ -120,29 +144,110 @@
         }
         console.log(val);
         if (val == "True/False") {
+        //   $('.question_radio').find("[type='checkbox']").prop('type', "radio");
+        //   $('#question_answers_attributes_0_body').val("True").parent().parent().show()
+        //   $('#question_answers_attributes_1_body').val("False").parent().parent().show()
+        //   $('#question_answers_attributes_2_body').parent().parent().hide()
+        //   $('#question_answers_attributes_3_body').parent().parent().hide()
+        // } else if(val == "Multiple Choice") {
+        //   $('.question_radio').find("[type='checkbox']").prop('type', "radio");
+        //   $('#question_answers_attributes_0_body').parent().parent().show().val(ques1)
+        //   $('#question_answers_attributes_1_body').parent().parent().show().val(ques2)
+        //   $('#question_answers_attributes_2_body').parent().parent().show().val(ques3)
+        //   $('#question_answers_attributes_3_body').parent().parent().show().val(ques4)
+        // } else if(val == "Multiple Response") {
+        //   $('.question_radio').find("[type='radio']").prop('type', "checkbox");
+        //   $('#question_answers_attributes_0_body').parent().parent().show().val(ques1)
+        //   $('#question_answers_attributes_1_body').parent().parent().show().val(ques2)
+        //   $('#question_answers_attributes_2_body').parent().parent().show().val(ques3)
+        //   $('#question_answers_attributes_3_body').parent().parent().show().val(ques4)
+        // } else if(val == "Fill in the blank") {
+        //   $('.question_radio').find("[type='radio']").prop('type', "radio");
+        //   $('#question_answers_attributes_0_body').parent().parent().show().val(ques1)
+        //   $('#question_answers_attributes_1_body').parent().parent().hide()
+        //   $('#question_answers_attributes_2_body').parent().parent().hide()
+        //   $('#question_answers_attributes_3_body').parent().parent().hide()
+
           $('.question_radio').find("[type='checkbox']").prop('type', "radio");
-          $('#question_answers_attributes_0_body').val("True").parent().parent().show()
-          $('#question_answers_attributes_1_body').val("False").parent().parent().show()
-          $('#question_answers_attributes_2_body').parent().parent().hide()
-          $('#question_answers_attributes_3_body').parent().parent().hide()
+          $('.question_answer_body').each(function( index ) {
+            // console.log( index + ": " + $( this ).text() );
+            var textBox = $(this).find('textarea')
+            // console.log(textBox.attr('id'));
+              ////////////////
+              switch (index) { 
+                case 0: 
+                  textBox.val("True").parent().parent().show()
+                  break;
+                case 1:
+                  textBox.val("False").parent().parent().show()
+                  break;
+                default:
+                  textBox.parent().parent().hide()
+              }
+              ////////////////
+          });
         } else if(val == "Multiple Choice") {
-          $('.question_radio').find("[type='checkbox']").prop('type', "radio");
-          $('#question_answers_attributes_0_body').parent().parent().show().val(ques1)
-          $('#question_answers_attributes_1_body').parent().parent().show().val(ques2)
-          $('#question_answers_attributes_2_body').parent().parent().show().val(ques3)
-          $('#question_answers_attributes_3_body').parent().parent().show().val(ques4)
+           $('.question_radio').find("[type='checkbox']").prop('type', "radio");
+            $('.question_answer_body').each(function( index ) {
+              // console.log( index + ": " + $( this ).text() );
+              var textBox = $(this).find('textarea')
+              // console.log(textBox.attr('id'));
+              
+              switch (index) { 
+                case 0: 
+                  textBox.val(ques1).parent().parent().show()
+                  break;
+                case 1:
+                  textBox.val(ques2).parent().parent().show()
+                  break;
+                case 2:
+                  textBox.val(ques3).parent().parent().show()
+                  break;
+                case 3:
+                  textBox.val(ques4).parent().parent().show()
+                  break;
+                default:
+                  textBox.val("").parent().parent().show()
+              }
+            });
         } else if(val == "Multiple Response") {
           $('.question_radio').find("[type='radio']").prop('type', "checkbox");
-          $('#question_answers_attributes_0_body').parent().parent().show().val(ques1)
-          $('#question_answers_attributes_1_body').parent().parent().show().val(ques2)
-          $('#question_answers_attributes_2_body').parent().parent().show().val(ques3)
-          $('#question_answers_attributes_3_body').parent().parent().show().val(ques4)
+          $('.question_answer_body').each(function( index ) {
+              // console.log( index + ": " + $( this ).text() );
+              var textBox = $(this).find('textarea')
+              // console.log(textBox.attr('id'));
+              
+              switch (index) { 
+                case 0: 
+                  textBox.val(ques1).parent().parent().show()
+                  break;
+                case 1:
+                  textBox.val(ques2).parent().parent().show()
+                  break;
+                case 2:
+                  textBox.val(ques3).parent().parent().show()
+                  break;
+                case 3:
+                  textBox.val(ques4).parent().parent().show()
+                  break;
+                default:
+                  textBox.val("").parent().parent().show()
+              }
+            });
         } else if(val == "Fill in the blank") {
           $('.question_radio').find("[type='radio']").prop('type', "radio");
-          $('#question_answers_attributes_0_body').parent().parent().show().val(ques1)
-          $('#question_answers_attributes_1_body').parent().parent().hide()
-          $('#question_answers_attributes_2_body').parent().parent().hide()
-          $('#question_answers_attributes_3_body').parent().parent().hide()
+          $('.question_answer_body').each(function( index ) {
+              // console.log( index + ": " + $( this ).text() );
+              var textBox = $(this).find('textarea')
+              // console.log(textBox.attr('id'));
+               switch (index) { 
+                    case 0: 
+                      textBox.val(ques1).parent().parent().show()
+                      break;
+                    default:
+                      textBox.parent().parent().hide()
+                  }
+            });
         }
       };
        $("input:radio").on('click', function() {
