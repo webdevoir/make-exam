@@ -98,7 +98,11 @@
 	font-size: 35px;
 	font-weight: 800;
 }
-
+.emp_name_profile {
+		display: none;
+		    font-size: 35px;
+    font-weight: 800;
+	}
 @media screen and (max-width: 500px) {
 
 .prime-main {
@@ -108,5 +112,11 @@
 	.prime-profile-logo {
     min-width: 100%;
     max-width: 100%;
+	}
+		.emp_name {
+		display: none;
+	}
+	.emp_name_profile {
+		display: block;
 	}
 }

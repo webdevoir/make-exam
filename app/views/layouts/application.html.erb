@@ -16,6 +16,9 @@
  	<% unless current_location?(controller:'sessions', action:'new')  || current_page?(root_path) || current_page?('/pages/profile')%>
   		<div class="container white">
   	<% end %> 
+  	<% if current_page?('/pages/profile') %>
+  		<div class="profile-container">
+  	<% end %>
 
 		  	<% if notice %>
 			  <p class="alert alert-success"><%= notice %></p>
