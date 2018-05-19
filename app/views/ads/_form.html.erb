@@ -41,13 +41,18 @@
           </div>
          <div>
 		    <%= f.label :age %><br />
-		    <%= f.select :age, [['12-19 Years Old', '12-19'], ['20+ Years Old', '20+']], {}%>
+		    <%= f.select :age, [['K-11 Years Old', 'K-11'], ['12-19 Years Old', '12-19'], ['20+ Years Old', '20+']],{prompt: "Select Age"},{:multiple => true, class: "form-control multi-select exam_forms"}%>
 		  </div>
 		  <div>
-          <%= f.label :image, "Upload ad image"%><br>
-          <%= f.text_field :image, class: 'form-control exam_forms' %>
-          <p>Make file upload!</p>
-         </div>
+        <br /><br />
+        <p>images must be 728x90 px resolution</p> 
+        <%= f.label :image %><br>
+        <%= f.file_field :image , class: 'form-control exam_forms' %>
+      </div>
+      <p> Current Ad: </p>
+      <div class="ads-wrapper">
+       <img id="img_prev"src="#" alt="your image" class="img-thumbnail hidden"/>
+       </div><br>
          <div>
           <%= f.label :url, "URL for ad link"%><br>
           <%= f.text_field :url, class: 'form-control exam_forms' %>
@@ -57,3 +62,25 @@
         </div>
       <% end %>
     </div>
+
+
+
+<script>
+      $(function() {
+        function readURL(input) {
+          if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+              $('#img_prev').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+          }
+        }
+
+        $("#ad_image").change(function(){
+          $('#img_prev').removeClass('hidden');
+          readURL(this);
+        });
+  });
+</script>

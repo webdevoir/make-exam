@@ -6,7 +6,11 @@
 	margin-right: calc((100% - 728px)/2);
 }
 
-
+.ad_wrapper {
+	max-height: 90px;
+	max-width: 728px;
+	overflow-y: hidden;
+}
 
 @media screen and (max-width: 900px) {
 	.banner_ad {

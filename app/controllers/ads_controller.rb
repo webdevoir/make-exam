@@ -7,7 +7,7 @@ class AdsController < ApplicationController
     @ad = Ad.new(ad_params)
     @ad.status = "pending"
 
-     if @ad.save && current_user.role == "Admin"
+     if @ad.save && current_user && current_user.role == "Admin"
       redirect_to admin_ads_path, notice: "Ad Submitted successfully!"
      elsif @ad.save
         redirect_to root_path, notice: "Ad Submitted successfully!"
@@ -23,7 +23,7 @@ class AdsController < ApplicationController
 
   def update
    	@ad = Ad.find(params[:id])
-    if @ad.update_attributes(ad_params) && current_user.role == "Admin"
+    if @ad.update_attributes(ad_params) && current_user && current_user.role == "Admin"
       redirect_to admin_ads_path, notice: "Ad Submitted successfully!"
     elsif @ad.update_attributes(ad_params)
       redirect_to root_path, notice: "Ad updated successfully"
@@ -43,7 +43,7 @@ class AdsController < ApplicationController
     protected
 
       def ad_params
-        params.require(:ad).permit(:id, :compname, :email, :contact, :phoneno, :age, :image, :url, :status, :countries => [], :months => [])
+        params.require(:ad).permit(:id, :compname, :email, :contact, :phoneno, :image, :url, :status, :age => [], :countries => [], :months => [])
       end
 end
 

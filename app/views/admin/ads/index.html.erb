@@ -15,6 +15,7 @@
         <th>Countries</th>
         <th>Months Active</th>
         <th>Age Range</th>
+        <th>Cost</th>
         <th>Link</th>
         <th>Image</th>
 <!--         <th>Sign Up</th>
@@ -57,7 +58,18 @@
                 None
               <% end %>
             </td>
-        <td><%= ad.age %></td>
+        <td><% if ad.age && ad.age.length > 0 && ad.age.kind_of?(Array) %>
+                <%  ad.age.each do |adv| %>
+                  <% if adv.length > 0 %>
+                    <%= adv %>,
+                  <%end %>
+                <%end %>
+              <% elsif ad.age %>
+                <%= ad.age %>
+              <% else %>
+                None
+              <% end %></td>
+        <td><%= number_to_currency((ad.months.count + ad.countries.count + ad.age.count) * 100) %></td>
         <td><%= ad.url %></td>
         <td><%= link_to "View", ad.image_url.to_s %></td>
       </tr>

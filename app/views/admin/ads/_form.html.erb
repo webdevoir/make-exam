@@ -40,15 +40,19 @@
             <%= f.select :months, ["January", "February", "March"],{prompt: "Select Months"},{:multiple => true, class: "form-control multi-select exam_forms"}%>
           </div>
          <div>
-		    <%= f.label :age %><br />
-		    <%= f.select :age, [['K-11 Years Old', 'K-11'], ['12-19 Years Old', '12-19'], ['20+ Years Old', '20+']], {}%>
-		  </div>
+        <%= f.label :age %><br />
+        <%= f.select :age, [['K-11 Years Old', 'K-11'], ['12-19 Years Old', '12-19'], ['20+ Years Old', '20+']],{prompt: "Select Age"},{:multiple => true, class: "form-control multi-select exam_forms"}%>
+      </div>
 		  <div>
         <br /><br />
         <p>images must be 728x90 px resolution</p> 
         <%= f.label :image %><br>
         <%= f.file_field :image , class: 'form-control exam_forms' %>
       </div>
+      <p> Current Ad: </p>
+      <div class="ads-wrapper">
+        <%= link_to (image_tag @ad.image_url.to_s, class: ""), @ad.url %>
+      </div><br>
          <div>
           <%= f.label :url, "URL for ad link"%><br>
           <%= f.text_field :url, class: 'form-control exam_forms' %>
