@@ -72,7 +72,7 @@
               <% ad_age = 0 %>
                 None
               <% end %></td>
-        <td><%= number_to_currency((ad.months.count + ad.countries.count + ad.age.count) * 100) %></td>
+        <td><%= number_to_currency((ad.months.count + ad.countries.count + ad_age) * 100) %></td>
         <td><%= ad.url %></td>
         <td><%= link_to "View", ad.image_url.to_s %></td>
       </tr>
