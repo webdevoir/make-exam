@@ -59,14 +59,17 @@
               <% end %>
             </td>
         <td><% if ad.age && ad.age.length > 0 && ad.age.kind_of?(Array) %>
+                <% ad_age = ad.age.count %>
                 <%  ad.age.each do |adv| %>
                   <% if adv.length > 0 %>
                     <%= adv %>,
                   <%end %>
                 <%end %>
               <% elsif ad.age %>
+                <% ad_age = 1 %>
                 <%= ad.age %>
               <% else %>
+              <% ad_age = 0 %>
                 None
               <% end %></td>
         <td><%= number_to_currency((ad.months.count + ad.countries.count + ad.age.count) * 100) %></td>
