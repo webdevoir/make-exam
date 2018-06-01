@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-
   namespace :admin do
     resources :dashboard, only: [:landing]
     root to: "/admin/dashboard#landing"
@@ -17,7 +16,11 @@ Rails.application.routes.draw do
 
   resources :subscriptions do
   end
+
+  resources :payments
+
   get 'paypal/checkout', to: 'subscriptions#paypal_checkout'
+  get 'payment/checkout', to: 'payments#paypal_checkout'
   get 'upgrade', to: 'subscriptions#upgrade'
 
   resources :examinations do

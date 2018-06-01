@@ -4,7 +4,7 @@ class CreatePayments < ActiveRecord::Migration[5.1]
       t.string :paypal_customer_token
       t.string :paypal_payment_token
       t.string :paypal_email
-      t.ads :references
+      t.references :ad, foreign_key: true
 
       t.timestamps
     end

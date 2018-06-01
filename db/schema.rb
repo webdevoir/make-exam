@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180510033150) do
+ActiveRecord::Schema.define(version: 20180601194100) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,6 +61,16 @@ ActiveRecord::Schema.define(version: 20180510033150) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_examinations_on_user_id"
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.string "paypal_customer_token"
+    t.string "paypal_payment_token"
+    t.string "paypal_email"
+    t.bigint "ad_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ad_id"], name: "index_payments_on_ad_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -154,6 +164,7 @@ ActiveRecord::Schema.define(version: 20180510033150) do
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
   add_foreign_key "examinations", "users"
+  add_foreign_key "payments", "ads"
   add_foreign_key "posts", "users"
   add_foreign_key "questions", "examinations"
   add_foreign_key "responseanswers", "answers"

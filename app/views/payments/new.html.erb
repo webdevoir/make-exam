@@ -1,0 +1,313 @@
+<% unless @payment.paypal_payment_token %>
+
+		<h2>Please pay for your ad</h2>
+
+		Once we receive payment your ad will become active according to the options that you choose.
+
+
+        <% ad = @ad %>
+         <div class="row">
+                <div class="text-center">
+                    <h1>Costs for your ad</h1>
+                </div>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th class="text-center">Price</th>
+                            <th class="text-center">Quantity</th>
+                            <th class="text-center">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td class="col-md-9">
+                            Months Active: 
+                            <% if ad.months && ad.months.length > 0 && ad.months.kind_of?(Array) %>
+
+                                <% ad_months = 0 %>
+                                <% months_arr = [] %>
+                                <%  ad.months.each do |adv| %>
+                                  <% if adv.length > 0 %>
+                                    <% ad_months += 1
+                                    months_arr.push(adv) %>
+                                    
+                                  <%end %>
+                                <%end %>
+                                <%= months_arr.to_sentence %>
+                              <% elsif ad.months %>
+                                <% ad_months = 1 %>
+                                <%= ad.months %>
+                              <% else %>
+                                <% ad_months = 0 %>
+                                None
+                              <% end %>
+                            </td>
+
+                            <td class="col-md-1 text-center">$100</td>
+                            <td class="col-md-1 text-center"><%= ad_months %></td>
+                            <td class="col-md-1 text-center"><%= number_to_currency(ad_months * 100) %></td>
+                        </tr>
+
+                        <tr>
+                            <td class="col-md-9">
+                            Age Range: 
+                            <% if ad.age && ad.age.length > 0 && ad.age.kind_of?(Array) %>
+
+                                <% ad_age = 0 %>
+                                <% age_arr = [] %>
+                                <%  ad.age.each do |adv| %>
+                                  <% if adv.length > 0 %>
+                                    <% ad_age += 1
+                                    age_arr.push(adv) %>
+                                    
+                                  <%end %>
+                                <%end %>
+                                <%= age_arr.to_sentence %>
+                              <% elsif ad.age %>
+                                <% ad_age = 1 %>
+                                <%= ad.age %>
+                              <% else %>
+                                <% ad_age = 0 %>
+                                None
+                              <% end %>
+                            </td>
+
+                            <td class="col-md-1 text-center">$100</td>
+                            <td class="col-md-1 text-center"><%= ad_age %></td>
+                            <td class="col-md-1 text-center"><%= number_to_currency(ad_age * 100) %></td>
+                        </tr>
+
+                         <tr>
+                            <td class="col-md-9">
+                            Countries: 
+                            <% if ad.countries && ad.countries.length > 0 && ad.countries.kind_of?(Array) %>
+
+                                <% ad_countries = 0 %>
+                                <% countries_arr = [] %>
+                                <%  ad.countries.each do |adv| %>
+                                  <% if adv.length > 0 %>
+                                    <% ad_countries += 1
+                                    countries_arr.push(adv) %>
+                                    
+                                  <%end %>
+                                <%end %>
+                                <%= countries_arr.to_sentence %>
+                              <% elsif ad.countries %>
+                                <% ad_countries = 1 %>
+                                <%= ad.countries %>
+                              <% else %>
+                                <% ad_countries = 0 %>
+                                None
+                              <% end %>
+                            </td>
+
+                            <td class="col-md-1 text-center">$100</td>
+                            <td class="col-md-1 text-center"><%= ad_countries %></td>
+                            <td class="col-md-1 text-center"><%= number_to_currency(ad_countries * 100) %></td>
+                        </tr>
+
+                        <% total_cost = (ad_countries + ad_age + ad_months) * 100 %>
+                        <tr>
+         
+                            <td>   </td>
+                            <td>   </td>
+                            <td class="text-right">
+                            <p>
+                                <strong>Subtotal: </strong>
+                            </p>
+                            <p>
+                                <strong>Tax: </strong>
+                            </p></td>
+                            <td class="text-center">
+                            <p>
+                                <strong><%= number_to_currency(total_cost) %></strong>
+                            </p>
+                            <p>
+                                <strong>$0.00</strong>
+                            </p></td>
+                        </tr>
+                        <tr>
+                    
+                            <td>   </td>
+                            <td>   </td>
+                            <td class="text-right"><h4><strong>Total: </strong></h4></td>
+                            <td class="text-center text-danger"><h4><strong><%= number_to_currency(total_cost) %></strong></h4></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+</div>
+
+
+
+		<h2>Pay now</h2>
+		<div id="paypal_checkout">
+		  <%= link_to image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"), payment_checkout_path(ad_id: @payment.ad_id, cost: total_cost) %>
+		</div>
+<% else %>
+
+<% ad = @payment.ad %>
+
+	 <% if @payment && @payment.errors.any? %>
+	    <div>
+	     <%= pluralize(@payment.errors.count, "error") %> prevented the question from being saved
+	      <ul>
+	        <% @payment.errors.messages.each do |attr, msg| %>
+	          <% msg.each do |val| %>
+	        <li><%= val %></li>
+	        <% end %>
+	        <% end %>
+	      </ul>
+	    </div>
+	  <% end %>
+
+
+               <div class="row">
+                <div class="text-center">
+                    <h1>Costs for your ad</h1>
+                </div>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th class="text-center">Price</th>
+                            <th class="text-center">Quantity</th>
+                            <th class="text-center">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td class="col-md-9">
+                            Months Active: 
+                            <% if ad.months && ad.months.length > 0 && ad.months.kind_of?(Array) %>
+
+                                <% ad_months = 0 %>
+                                <% months_arr = [] %>
+                                <%  ad.months.each do |adv| %>
+                                  <% if adv.length > 0 %>
+                                    <% ad_months += 1
+                                    months_arr.push(adv) %>
+                                    
+                                  <%end %>
+                                <%end %>
+                                <%= months_arr.to_sentence %>
+                              <% elsif ad.months %>
+                                <% ad_months = 1 %>
+                                <%= ad.months %>
+                              <% else %>
+                                <% ad_months = 0 %>
+                                None
+                              <% end %>
+                            </td>
+
+                            <td class="col-md-1 text-center">$100</td>
+                            <td class="col-md-1 text-center"><%= ad_months %></td>
+                            <td class="col-md-1 text-center"><%= number_to_currency(ad_months * 100) %></td>
+                        </tr>
+
+                        <tr>
+                            <td class="col-md-9">
+                            Age Range: 
+                            <% if ad.age && ad.age.length > 0 && ad.age.kind_of?(Array) %>
+
+                                <% ad_age = 0 %>
+                                <% age_arr = [] %>
+                                <%  ad.age.each do |adv| %>
+                                  <% if adv.length > 0 %>
+                                    <% ad_age += 1
+                                    age_arr.push(adv) %>
+                                    
+                                  <%end %>
+                                <%end %>
+                                <%= age_arr.to_sentence %>
+                              <% elsif ad.age %>
+                                <% ad_age = 1 %>
+                                <%= ad.age %>
+                              <% else %>
+                                <% ad_age = 0 %>
+                                None
+                              <% end %>
+                            </td>
+
+                            <td class="col-md-1 text-center">$100</td>
+                            <td class="col-md-1 text-center"><%= ad_age %></td>
+                            <td class="col-md-1 text-center"><%= number_to_currency(ad_age * 100) %></td>
+                        </tr>
+
+                         <tr>
+                            <td class="col-md-9">
+                            Countries: 
+                            <% if ad.countries && ad.countries.length > 0 && ad.countries.kind_of?(Array) %>
+
+                                <% ad_countries = 0 %>
+                                <% countries_arr = [] %>
+                                <%  ad.countries.each do |adv| %>
+                                  <% if adv.length > 0 %>
+                                    <% ad_countries += 1
+                                    countries_arr.push(adv) %>
+                                    
+                                  <%end %>
+                                <%end %>
+                                <%= countries_arr.to_sentence %>
+                              <% elsif ad.countries %>
+                                <% ad_countries = 1 %>
+                                <%= ad.countries %>
+                              <% else %>
+                                <% ad_countries = 0 %>
+                                None
+                              <% end %>
+                            </td>
+
+                            <td class="col-md-1 text-center">$100</td>
+                            <td class="col-md-1 text-center"><%= ad_countries %></td>
+                            <td class="col-md-1 text-center"><%= number_to_currency(ad_countries * 100) %></td>
+                        </tr>
+
+                        <% total_cost = (ad_countries + ad_age + ad_months) * 100 %>
+                        <tr>
+         
+                            <td>   </td>
+                            <td>   </td>
+                            <td class="text-right">
+                            <p>
+                                <strong>Subtotal: </strong>
+                            </p>
+                            <p>
+                                <strong>Tax: </strong>
+                            </p></td>
+                            <td class="text-center">
+                            <p>
+                                <strong><%= number_to_currency(total_cost) %></strong>
+                            </p>
+                            <p>
+                                <strong>$0.00</strong>
+                            </p></td>
+                        </tr>
+                        <tr>
+                    
+                            <td>   </td>
+                            <td>   </td>
+                            <td class="text-right"><h4><strong>Total: </strong></h4></td>
+                            <td class="text-center text-danger"><h4><strong><%= number_to_currency(total_cost) %></strong></h4></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+</div>
+
+	<%= form_for @payment do |f| %>
+
+	<%= f.hidden_field :paypal_customer_token %>
+	<%= f.hidden_field :paypal_payment_token %>
+	<%= f.hidden_field :paypal_email %>
+    <%= f.hidden_field :ad_id, value: ad.id %>
+
+		 
+	  <div class="actions">
+	    <%= f.submit "Complete Payment", class: "btn btn-success btn-lg btn-block" %>
+	  </div>
+	<% end %>
+<% end %>

@@ -9,8 +9,10 @@ class AdsController < ApplicationController
 
      if @ad.save && current_user && current_user.role == "Admin"
       redirect_to admin_ads_path, notice: "Ad Submitted successfully!"
-     elsif @ad.save
-        redirect_to root_path, notice: "Ad Submitted successfully!"
+     # elsif @ad.save
+     #    redirect_to root_path, notice: "Ad Submitted successfully!"
+       elsif @ad.save
+        redirect_to new_payment_path(ad_id: @ad.id), notice: "Ad Submitted successfully!"
       else
         flash[:error] = @ad.errors.full_messages.to_sentence
         render :new, notice: "Ad could not be created!"

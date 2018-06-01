@@ -4,6 +4,8 @@ class Ad < ApplicationRecord
 	serialize :months
 	serialize :age
 
+	has_many :payments
+
 	mount_uploader :image, ImageUploader
 
 	validates_presence_of :compname

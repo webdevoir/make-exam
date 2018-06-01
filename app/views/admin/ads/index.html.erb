@@ -47,21 +47,30 @@
             </td>
          <td>
               <% if ad.months && ad.months.length > 0 && ad.months.kind_of?(Array) %>
+
+                <% ad_months = 0 %>
+                <% months_arr = [] %>
                 <%  ad.months.each do |adv| %>
                   <% if adv.length > 0 %>
-                    <%= adv %>,
+                    <% ad_months += 1
+                    months_arr.push(adv) %>
+                    
                   <%end %>
                 <%end %>
+                <%= months_arr.to_sentence %>
               <% elsif ad.months %>
+                <% ad_months = 1 %>
                 <%= ad.months %>
               <% else %>
+                <% ad_months = 0 %>
                 None
               <% end %>
             </td>
         <td><% if ad.age && ad.age.length > 0 && ad.age.kind_of?(Array) %>
-                <% ad_age = ad.age.count %>
+                
                 <%  ad.age.each do |adv| %>
                   <% if adv.length > 0 %>
+                    <% ad_age += 1 %>
                     <%= adv %>,
                   <%end %>
                 <%end %>
@@ -72,7 +81,7 @@
               <% ad_age = 0 %>
                 None
               <% end %></td>
-        <td><%= number_to_currency((ad.months.count + ad.countries.count + ad_age) * 100) %></td>
+        <td><%= number_to_currency((ad_months + ad.countries.count + ad_age) * 100) %></td>
         <td><%= ad.url %></td>
         <td><%= link_to (image_tag ad.image_url.to_s, class: "ad-table-img"), ad.url %></td>
       </tr>
