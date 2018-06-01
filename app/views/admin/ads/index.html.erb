@@ -7,7 +7,9 @@
       <tr>
         <th>Company Name</th>
         <th>Email</th>
-        <th>Status</th>     
+        <th>Status</th>    
+        <th>Payment Date</th> 
+        <th>Payment Amount</th> 
         <th>Manage</th>
         <th>Contact Person</th>
         <th>Phone Number</th>
@@ -29,59 +31,80 @@
         <td><%= ad.email %></td>
         <td class="active_link"><%= link_to ad.status.capitalize,   admin_ad_activate_path(ad), data: {confirm: "Are you sure you want to change the status for  #{ad.id}?"} %> </td>
         <td>(<%= link_to "edit", edit_admin_ad_path(ad) %>, <%= link_to "delete", admin_ad_path(ad), method: :delete, data: {confirm: "Are you sure you want to delete #{ad.id}?"} %>)</td>
+        <% pay = Payment.find_by(ad_id: ad.id) %>
+        <% if pay %>
+          <td><%= pay.created_at.strftime("%b %d, %Y")  %></td>
+          <td><%= number_to_currency(pay.amount.to_f) %> (<%= link_to "invoice", payment_path(pay)  %>)</td>
+        <% else %>
+          <td style="color:red">None</td>
+          <td style="color:red">None</td>
+        <% end %>
         <td><%= ad.contact %></td>
         <td><%= ad.phoneno %></td>
 
         <td>
               <% if ad.countries && ad.countries.length > 0 && ad.countries.kind_of?(Array) %>
-                <%  ad.countries.each do |adv| %>
-                  <% if adv.length > 0 %>
-                    <%= adv %>,
-                  <%end %>
-                <%end %>
-              <% elsif ad.countries %>
-                <%= ad.countries %>
-              <% else %>
-                None
-              <% end %>
+
+                                <% ad_countries = 0 %>
+                                <% countries_arr = [] %>
+                                <%  ad.countries.each do |adv| %>
+                                  <% if adv.length > 0 %>
+                                    <% ad_countries += 1
+                                    countries_arr.push(adv) %>
+                                    
+                                  <%end %>
+                                <%end %>
+                                <%= countries_arr.length %>
+                              <% elsif ad.countries %>
+                                <% ad_countries = 1 %>
+                                <%= ad.countries %>
+                              <% else %>
+                                <% ad_countries = 0 %>
+                                None
+                              <% end %>
             </td>
          <td>
-              <% if ad.months && ad.months.length > 0 && ad.months.kind_of?(Array) %>
+             <% if ad.months && ad.months.length > 0 && ad.months.kind_of?(Array) %>
 
-                <% ad_months = 0 %>
-                <% months_arr = [] %>
-                <%  ad.months.each do |adv| %>
-                  <% if adv.length > 0 %>
-                    <% ad_months += 1
-                    months_arr.push(adv) %>
-                    
-                  <%end %>
-                <%end %>
-                <%= months_arr.to_sentence %>
-              <% elsif ad.months %>
-                <% ad_months = 1 %>
-                <%= ad.months %>
-              <% else %>
-                <% ad_months = 0 %>
-                None
-              <% end %>
+                                <% ad_months = 0 %>
+                                <% months_arr = [] %>
+                                <%  ad.months.each do |adv| %>
+                                  <% if adv.length > 0 %>
+                                    <% ad_months += 1
+                                    months_arr.push(adv) %>
+                                    
+                                  <%end %>
+                                <%end %>
+                                <%= months_arr.length %>
+                              <% elsif ad.months %>
+                                <% ad_months = 1 %>
+                                <%= ad.months %>
+                              <% else %>
+                                <% ad_months = 0 %>
+                                None
+                              <% end %>
             </td>
-        <td><% if ad.age && ad.age.length > 0 && ad.age.kind_of?(Array) %>
-                
-                <%  ad.age.each do |adv| %>
-                  <% if adv.length > 0 %>
-                    <% ad_age += 1 %>
-                    <%= adv %>,
-                  <%end %>
-                <%end %>
-              <% elsif ad.age %>
-                <% ad_age = 1 %>
-                <%= ad.age %>
-              <% else %>
-              <% ad_age = 0 %>
-                None
-              <% end %></td>
-        <td><%= number_to_currency((ad_months + ad.countries.count + ad_age) * 100) %></td>
+        <td> <% if ad.age && ad.age.length > 0 && ad.age.kind_of?(Array) %>
+
+                                <% ad_age = 0 %>
+                                <% age_arr = [] %>
+                                <%  ad.age.each do |adv| %>
+                                  <% if adv.length > 0 %>
+                                    <% ad_age += 1
+                                    age_arr.push(adv) %>
+                                    
+                                  <%end %>
+                                <%end %>
+                                <%= age_arr.length %>
+                              <% elsif ad.age %>
+                                <% ad_age = 1 %>
+                                <%= ad.age %>
+                              <% else %>
+                                <% ad_age = 0 %>
+                                None
+                              <% end %></td>
+                              <% total_cost = (ad_countries + ad_age + ad_months) * 100 %>
+        <td><%= number_to_currency(total_cost) %></td>
         <td><%= ad.url %></td>
         <td><%= link_to (image_tag ad.image_url.to_s, class: "ad-table-img"), ad.url %></td>
       </tr>

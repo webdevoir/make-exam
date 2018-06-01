@@ -3,9 +3,11 @@ class PaymentsController < ApplicationController
   	  @ad = Ad.find(params[:ad_id])
 	  @payment = @ad.payments.build
 	  if params[:PayerID]
+
 	    @payment.paypal_customer_token = params[:PayerID]
 	    @payment.paypal_payment_token = params[:token]
 	    @payment.paypal_email = PayPal::Recurring.new(token: params[:token]).checkout_details.email
+	    @payment.amount = PayPal::Recurring.new(token: params[:token]).checkout_details.amount
 	  end
   end
 
@@ -51,6 +53,6 @@ class PaymentsController < ApplicationController
   private
 
   def payment_params
-    params.require(:payment).permit(:paypal_customer_token, :paypal_payment_token, :paypal_email, :ad_id)
+    params.require(:payment).permit(:paypal_customer_token, :paypal_payment_token, :paypal_email, :ad_id, :amount)
   end
 end
