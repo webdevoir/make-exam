@@ -16,6 +16,7 @@ class PaymentsController < ApplicationController
   	# @payment.ad_id = Ad.find(params[:ad_id])
   	if @payment.save
   		redirect_to @payment, notice: "thanks for paying for your ad"
+  		MainMailer.ad_paid(@payment).deliver
   	else
   		logger.info "$$$$$$$$$$$$$$$$  #{@payment.errors.full_messages.to_sentence} $$$$$$$$$$$$$$$$$$$$$$$"
   		render :new, ad_id: @payment.ad_id
