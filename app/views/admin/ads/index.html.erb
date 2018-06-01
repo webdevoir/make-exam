@@ -74,8 +74,9 @@
               <% end %></td>
         <td><%= number_to_currency((ad.months.count + ad.countries.count + ad_age) * 100) %></td>
         <td><%= ad.url %></td>
-        <td><%= link_to "View", ad.image_url.to_s %></td>
+        <td><%= link_to (image_tag ad.image_url.to_s, class: "ad-table-img"), ad.url %></td>
       </tr>
+     
       <% end %>
 
     </table>

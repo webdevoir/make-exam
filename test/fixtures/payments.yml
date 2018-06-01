@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  paypal_customer_token: MyString
+  paypal_payment_token: MyString
+  paypal_email: MyString
+  references: 
+
+two:
+  paypal_customer_token: MyString
+  paypal_payment_token: MyString
+  paypal_email: MyString
+  references: 

@@ -4,6 +4,20 @@
 
 		<p>ie: If you wish to advertise in United States for three months in the 12-19 age category and you would like three ads out of the possible ten rotating ads this would total 1,125.00 US dollars for the ads.
 		We reserve the right to restrict displaying ads if we deem them to be inappropriate for the advertising audience. Receipt of payment and submission of advertising information by email is no guarantee of banner ads being placed. We review each ad that is submitted on an individual case-by-case study to determine if it is suitable for posting on makeanexam.com. This is a first-come-first-serve basis service.</p>
+
+  <% if @ad.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@ad.errors.count, "error") %> prohibited this ad from being created:</h2>
+
+      <ul>
+      <% @ad.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
       <%= form_for @ad  do |f| %>
         <div>
           <%= f.label :compname, "Company Name" %><br>

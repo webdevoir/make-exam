@@ -37,7 +37,7 @@ class AdsController < ApplicationController
   def destroy
   	@ad = Ad.find(params[:id])
   	@ad.destroy
-  	 redirect_to root_path, notice: "#{@ad.id} was deleted successfully!"
+  	 redirect_to admin_ads_path, notice: "#{@ad.id} was deleted successfully!"
   end
 
     protected
