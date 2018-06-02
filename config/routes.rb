@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     root to: "/admin/dashboard#landing"
     resources :ads, only: [:new, :create, :edit, :update, :index, :destroy] do
       get   :activate
+      get   :payment
     end
   end
 

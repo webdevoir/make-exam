@@ -23,6 +23,7 @@ class PaymentsController < ApplicationController
   	end
   end
 
+
   def show
   	@payment = Payment.find(params[:id])
   	# @ad = Ad.find_by(id: @payment.ad_id)

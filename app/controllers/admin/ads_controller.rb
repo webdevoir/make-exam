@@ -55,6 +55,14 @@ class Admin::AdsController < Admin::BaseAdminController
     end
   end  
 
+  def payment
+    # @ad = Ad.find(params[:id])
+    @ad = Ad.find(params[:ad_id])
+    # @ad = Ad.find(10)
+    MainMailer.ad_pay_request(@ad).deliver
+    redirect_to admin_ads_path,  notice: "Payment request sent"
+  end
+
     protected
 
       def ad_params

@@ -8,9 +8,10 @@
         <th>Company Name</th>
         <th>Email</th>
         <th>Status</th>    
+        <th>Manage</th>
         <th>Payment Date</th> 
         <th>Payment Amount</th> 
-        <th>Manage</th>
+        
         <th>Contact Person</th>
         <th>Phone Number</th>
 
@@ -37,7 +38,8 @@
           <td><%= number_to_currency(pay.amount.to_f) %> (<%= link_to "invoice", payment_path(pay)  %>)</td>
         <% else %>
           <td style="color:red">None</td>
-          <td style="color:red">None</td>
+          <td>  <%= link_to "Request Payment", admin_ad_payment_path(ad) %></td>
+
         <% end %>
         <td><%= ad.contact %></td>
         <td><%= ad.phoneno %></td>

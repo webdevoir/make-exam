@@ -1,0 +1,20 @@
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Hi <%= @ad.contact %></h1>
+    <p>
+      An ad has been crated on Makeanexam.com and is waiting for payment.
+    </p>
+    <p>Please follow the link below to complete payment</p>
+
+    	<%= link_to "Pay for ad", new_payment_url(ad_id: @ad.id)%>
+
+    <p>Thanks</p>
+    <p>The Makeanexam.com team</p>
+  </body>
+</html>

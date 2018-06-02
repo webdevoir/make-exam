@@ -7,4 +7,8 @@ class MainMailerPreview < ActionMailer::Preview
   def ad_paid_preview
     MainMailer.ad_paid(Payment.last)
   end
+
+  def ad_pay_request_preview
+    MainMailer.ad_pay_request(Ad.last)
+  end
 end
