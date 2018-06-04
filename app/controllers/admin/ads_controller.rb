@@ -5,6 +5,11 @@ class Admin::AdsController < Admin::BaseAdminController
 
   def new
     @ad = Ad.new
+    @date = Date.today
+    @months = []
+    (0..11).each do |m|
+      @months << [@date.next_month(m).strftime("%b %Y"), @date.next_month(m).strftime("%b %Y")]
+    end
   end
 
   def create
@@ -21,6 +26,11 @@ class Admin::AdsController < Admin::BaseAdminController
 
   def edit
   	 @ad = Ad.find(params[:id])
+    @date = Date.today
+    @months = []
+    (0..11).each do |m|
+      @months << [@date.next_month(m).strftime("%b %Y"), @date.next_month(m).strftime("%b %Y")]
+    end
   end
 
   def update

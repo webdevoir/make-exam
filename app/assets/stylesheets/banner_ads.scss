@@ -1,7 +1,7 @@
 .banner_ad {
 	clear:both;
-	width: 728px;
-	margin: 15px auto;
+	width: 100%;
+	// margin: 15px auto;
 	margin-left: calc((100% - 728px)/2);
 	margin-right: calc((100% - 728px)/2);
 }
@@ -10,6 +10,7 @@
 	max-height: 90px;
 	max-width: 728px;
 	overflow-y: hidden;
+	margin: 15px auto;
 }
 
 @media screen and (max-width: 900px) {

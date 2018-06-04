@@ -35,8 +35,22 @@ class ApplicationController < ActionController::Base
 	  helper_method :upgraded?
 
 	  def display_ad
+      date = Date.today.strftime("%b %Y")
+      if current_user
+        age = current_user.age
+        country = current_user.country
+      else
+        age = "n/a"
+        country = "n/a"
+      end
 	  	ads = Ad.where(status: "active")
-	  	current_ad = ads.sample
+      ads_slot = []
+      ads.each do |ad|
+        if (ad.months.include? date) && (ad.age.include? age)  && (ad.countries.include? country)
+          ads_slot.push(ad)
+        end
+      end
+	  	current_ad = ads_slot.sample
 	  	return current_ad
 	  end
 
