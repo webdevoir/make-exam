@@ -13,8 +13,9 @@ class SubscriptionsController < ApplicationController
   	@subscription = Subscription.new(subscription_params)
   	@subscription.user_id = current_user.id
   	@subscription.expiry = DateTime.now + 1.year
-  	if @subscription.save
+  	if @subscription.save_with_payment
   		redirect_to @subscription, notice: "thanks for subscribing"
+
   	else
   		logger.info "$$$$$$$$$$$$$$$$  #{@subscription.errors.full_messages.to_sentence} $$$$$$$$$$$$$$$$$$$$$$$"
   		render :new
@@ -52,6 +53,7 @@ class SubscriptionsController < ApplicationController
   private
 
   def subscription_params
-    params.require(:subscription).permit(:paypal_customer_token, :paypal_payment_token, :paypal_email)
+    params.require(:subscription).permit(:paypal_customer_token, :paypal_payment_token, :paypal_email, :stripe_card_token
+)
   end
 end

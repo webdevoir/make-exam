@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180601221815) do
+ActiveRecord::Schema.define(version: 20180610193253) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -134,6 +134,7 @@ ActiveRecord::Schema.define(version: 20180601221815) do
     t.datetime "expiry"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "stripe_card_token"
     t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end
 
