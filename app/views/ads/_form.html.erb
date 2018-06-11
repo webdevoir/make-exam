@@ -44,14 +44,18 @@
             <%= f.label :countries, "Countries for ad to appear" %><br>
             <%= f.select :countries, ['Canada', 'Australia', 'United Kingdom', 'United States', 'New Zealand', 'Brazil', 'Mexico', 'Germany', 'Japan', 'Rest of the World'],{prompt: "Select Country"},{:multiple => true, class: "form-control exam_forms multi-select"}%>
           </div>
-<!--          <div>
-          <%= f.label :months, "Months for ad to appear"%><br>
-          <%= f.text_field :months, class: 'form-control exam_forms' %>
-          <p>Make array!</p>
-         </div> -->
-         <div>
+              <div>
             <%= f.label :months, "Months for ad to appear" %><br>
-            <%= f.select :months, ["January", "February", "March"],{prompt: "Select Months"},{:multiple => true, class: "form-control multi-select exam_forms"}%>
+            <% unless @months && @months.length > 1
+                  @date = Date.today
+                  @months = []
+                  (0..11).each do |m|
+                    @months << [@date.next_month(m).strftime("%b %Y"), @date.next_month(m).strftime("%b %Y")]
+                  end
+                end %>
+
+
+            <%= f.select :months, options_for_select(@months),{prompt: "Select Months"}, {:multiple => true, class: "form-control exam_forms multi-select"} %>
           </div>
          <div>
 		    <%= f.label :age %><br />

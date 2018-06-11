@@ -32,6 +32,13 @@
           </div>
           <div>
             <%= f.label :months, "Months for ad to appear" %><br>
+              <% unless @months && @months.length > 1
+                  @date = Date.today
+                  @months = []
+                  (0..11).each do |m|
+                    @months << [@date.next_month(m).strftime("%b %Y"), @date.next_month(m).strftime("%b %Y")]
+                  end
+                end %>
             <%= f.select :months, options_for_select(@months),{prompt: "Select Months"}, {:multiple => true, class: "form-control exam_forms multi-select"} %>
           </div>
          <div>
