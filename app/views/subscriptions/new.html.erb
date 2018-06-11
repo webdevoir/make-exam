@@ -1,129 +1,94 @@
 <% unless @subscription.paypal_payment_token %>
+    <div id="before-pay">
+		
 
-		<h2>Upgrade your account!</h2>
-
-		Features of upgraded accounts:
-		<ul>
-			<li>Remove ads from search exam pages, make an exam pages and question pages</li>
-			<li>Unlimited questions per test</li>
-			<li>See who has taken your exam</li>
-            <li>Access to Forum</li>
-            <li>Access to Blogs</li>
-            <li>Respond to Private Messages</li>
-            <li>All this for $19.99/year USD</li>
-		</ul>
-
-
-
+		<div id="features">
+            <h2>Upgrade your account!</h2>
+            Features of upgraded accounts:
+    		<ul>
+    			<li>Remove ads from search exam pages, make an exam pages and question pages</li>
+    			<li>Unlimited questions per test</li>
+    			<li>See who has taken your exam</li>
+                <li>Access to Forum</li>
+                <li>Access to Blogs</li>
+                <li>Respond to Private Messages</li>
+                <li>All this for $19.99/year USD</li>
+    		</ul>
+        </div>
 
 
-
-		<h2>Upgrade now</h2>
+        <h3>Choose Payment Method</h3>
 
          <div class="field">
-            <%= label_tag :card_number, "Credit Card Number" %>
-            <%= text_field_tag :card_number, nil, name: nil %>
-          </div>
-          <div class="field">
-            <%= label_tag :card_code, "Security Code on Card (CVV)" %>
-            <%= text_field_tag :card_code, nil, name: nil %>
-          </div>
-          <div class="field">
-            <%= label_tag :card_month, "Card Expiration" %>
-            <%= select_month nil, {add_month_numbers: true}, {name: nil, id: "card_month"} %>
-            <%= select_year nil, {start_year: Date.today.year, end_year: Date.today.year+15}, {name: nil, id: "card_year"} %>
-          </div>
-          <div id="stripe_error">
-              <noscript>JavaScript is not enabled and is required for this form. First enable it in your web browser settings.</noscript>
+            <%= radio_button_tag :pay_with, :card, true %>
+            <%= label_tag :pay_with_card do %>
+              <%= image_tag "visa.png" %>
+              <%= image_tag "mastercard.png" %>
+              <%= image_tag "discover.png" %>
+              <%= image_tag "american_express.png" %>
+              <%= image_tag "jcb.png" %>
+            <% end %>
+            </br>
+            <%= radio_button_tag :pay_with, :paypal %>
+            <%= label_tag :pay_with_paypal do %>
+              <%= image_tag "paypal.png" %>
+            <% end %>
           </div>
 
 
 
-            <%= button_tag "Upgrade", data: { disable_with: "Please wait..." }, class: "btn btn-success", id: "stripe-submit" %>
+
+
+
+		
+
+         <div id="billing_fields">
+             <div class="field">
+                <%= label_tag :card_number, "Credit Card Number" %></br>
+                <%= text_field_tag :card_number, nil, name: nil, class: "form-control" %>
+              </div>
+              <div class="field">
+                <%= label_tag :card_code, "Security Code on Card (CVV)" %></br>
+                <%= text_field_tag :card_code, nil, name: nil, class: "form-control" %>
+              </div>
+              <div class="field">
+                <%= label_tag :card_month, "Card Expiration" %></br>
+                <%= select_month nil, {add_month_numbers: true}, {name: nil, id: "card_month", class: "form-control cc_date"} %>
+                <%= select_year nil, {start_year: Date.today.year, end_year: Date.today.year+15}, {name: nil, id: "card_year", class: "form-control cc_date"} %>
+              </div>
+              <div id="stripe_error">
+                  <noscript>JavaScript is not enabled and is required for this form. First enable it in your web browser settings.</noscript>
+              </div>
+
+                <%= button_tag "Upgrade", data: { disable_with: "Please wait..." }, class: "btn btn-success", id: "stripe-submit" %>
+            </div>
+
 		<div id="paypal_checkout">
 		  <%= link_to image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"), paypal_checkout_path(user_id: @subscription.user_id) %>
 		</div>
-        
-
-
-	 <% if @subscription && @subscription.errors.any? %>
-	    <div>
-	     <%= pluralize(@subscription.errors.count, "error") %> prevented the question from being saved
-	      <ul>
-	        <% @subscription.errors.messages.each do |attr, msg| %>
-	          <% msg.each do |val| %>
-	        <li><%= val %></li>
-	        <% end %>
-	        <% end %>
-	      </ul>
-	    </div>
-	  <% end %>
-
-	<%= form_for @subscription do |f| %>
-
-    <%= f.hidden_field :stripe_card_token %>
-
-	<%= f.hidden_field :paypal_customer_token %>
-	<%= f.hidden_field :paypal_payment_token %>
-	<%= f.hidden_field :paypal_email %>
-
-		  <div class="row">
-                <div class="text-center">
-                    <h1>Complete Upgrade</h1>
-                </div>
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Product</th>
-                            <th class="text-center">Price</th>
-                            <th class="text-center">Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="col-md-9"><em>Makeanexam.com Upgraded Membership</em></h4></td>
-                            <td class="col-md-1 text-center">$19.99</td>
-                            <td class="col-md-1 text-center">$19.99</td>
-                        </tr>
-
-                        <tr>
-         
-                            <td>   </td>
-                            <td class="text-right">
-                            <p>
-                                <strong>Subtotal: </strong>
-                            </p>
-                            <p>
-                                <strong>Tax: </strong>
-                            </p></td>
-                            <td class="text-center">
-                            <p>
-                                <strong>$19.99</strong>
-                            </p>
-                            <p>
-                                <strong>$0.00</strong>
-                            </p></td>
-                        </tr>
-                        <tr>
-                    
-                            <td>   </td>
-                            <td class="text-right"><h4><strong>Total: </strong></h4></td>
-                            <td class="text-center text-danger"><h4><strong>$19.99</strong></h4></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-</div>
-	  <div class="actions">
-	    <%= f.submit "Complete Upgrade", class: "btn btn-success btn-lg btn-block" %>
-	  </div>
-	<% end %>
+    </div>
+    <div id="after-pay"></div>
+<% else %>
+	<%= render 'form' %>
 <% end %>
 
 
 <script>
 $( function() {
           
+        $('#paypal_checkout').hide();
+        $('#pay_with_paypal').click(function() {
+              $('#paypal_checkout').show();
+              $('#billing_fields').hide();
+              // $('#features').hide();
+              return true;
+            });
+        $('#pay_with_card').click(function() {
+              $('#paypal_checkout').hide();
+              $('#billing_fields').show();
+              // $('#features').hide();
+              return true;
+            });
        
 
         var subscription = {
@@ -132,6 +97,7 @@ $( function() {
               // $('input[type=submit]').attr('disabled', true);
               if ($('#card_number').length) {
                 subscription.processCard();
+                
                 // return false;
               }
               //  else {
@@ -155,9 +121,12 @@ $( function() {
           
           handleStripeResponse(status, response) {
             if (status === 200) {
-              $('#subscription_stripe_card_token').val(response.id);
+              
               // return $('#new_subscription')[0].submit();
               $('#stripe_error').text(response.id);
+              $('#before-pay').hide();
+              $('#after-pay').html('<%= j render "form" %>');
+              $('#subscription_stripe_card_token').val(response.id);
             } else {
               $('#stripe_error').text(response.error.message);
               // return $('input[type=submit]').attr('disabled', false);

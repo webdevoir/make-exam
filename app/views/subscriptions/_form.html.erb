@@ -1,0 +1,72 @@
+	 <% if @subscription && @subscription.errors.any? %>
+	    <div>
+	     <%= pluralize(@subscription.errors.count, "error") %> prevented the question from being saved
+	      <ul>
+	        <% @subscription.errors.messages.each do |attr, msg| %>
+	          <% msg.each do |val| %>
+	        <li><%= val %></li>
+	        <% end %>
+	        <% end %>
+	      </ul>
+	    </div>
+	  <% end %>
+
+	<%= form_for @subscription do |f| %>
+
+    <%= f.hidden_field :stripe_card_token %>
+
+	<%= f.hidden_field :paypal_customer_token %>
+	<%= f.hidden_field :paypal_payment_token %>
+	<%= f.hidden_field :paypal_email %>
+
+		  <div class="row">
+                <div class="text-center">
+                    <h1>Complete Upgrade</h1>
+                </div>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th class="text-center">Price</th>
+                            <th class="text-center">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="col-md-9"><em>Makeanexam.com Upgraded Membership</em></h4></td>
+                            <td class="col-md-1 text-center">$19.99</td>
+                            <td class="col-md-1 text-center">$19.99</td>
+                        </tr>
+
+                        <tr>
+         
+                            <td>   </td>
+                            <td class="text-right">
+                            <p>
+                                <strong>Subtotal: </strong>
+                            </p>
+                            <p>
+                                <strong>Tax: </strong>
+                            </p></td>
+                            <td class="text-center">
+                            <p>
+                                <strong>$19.99</strong>
+                            </p>
+                            <p>
+                                <strong>$0.00</strong>
+                            </p></td>
+                        </tr>
+                        <tr>
+                    
+                            <td>   </td>
+                            <td class="text-right"><h4><strong>Total: </strong></h4></td>
+                            <td class="text-center text-danger"><h4><strong>$19.99</strong></h4></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+</div>
+	  <div class="actions">
+	    <%= f.submit "Complete Upgrade", class: "btn btn-success btn-lg btn-block" %>
+	  </div>
+	<% end %>

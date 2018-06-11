@@ -10,6 +10,15 @@ class Subscription < ApplicationRecord
 
 	def save_with_payment
 		if valid?
+		  if paypal_payment_token.present?
+	        save!
+	      else
+	        save_with_stripe_payment
+	      end
+		end
+	end
+
+	def save_with_stripe_payment
 			Stripe.api_key = ENV['Stripe.api_key']
 
 			Stripe::Charge.create(
@@ -19,7 +28,5 @@ class Subscription < ApplicationRecord
 			  :description => "Upgrade account for Makeanexam.com"
 			)
 			save!
-		end
 	end
-
 end
