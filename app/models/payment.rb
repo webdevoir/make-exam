@@ -18,7 +18,7 @@ class Payment < ApplicationRecord
 	end
 
 	def save_with_stripe_payment
-			Stripe.api_key = ENV['Stripe.api_key']
+			Stripe.api_key = ENV['STRIPE_API_KEY']
 
 			Stripe::Charge.create(
 			  :amount => cost.to_i*100,

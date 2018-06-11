@@ -8,10 +8,14 @@ branch-defaults:
   master:
     environment: make-exam-env
     group_suffix: null
+environment-defaults:
+  make-exam-env:
+    branch: null
+    repository: null
 global:
   application_name: make-an-exam
   branch: null
-  default_ec2_keyname: aws-eb
+  default_ec2_keyname: nick2
   default_platform: Ruby 2.5 (Puma)
   default_region: us-west-2
   include_git_submodules: true
