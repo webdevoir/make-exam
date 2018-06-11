@@ -1,12 +1,20 @@
-<% unless @payment.paypal_payment_token %>
-    <div id="before-pay">
-		<h2>Please pay for your ad</h2>
+<% ad = @payment.ad %>
 
-		Once we receive payment your ad will become active according to the options that you choose.
+	 <% if @payment && @payment.errors.any? %>
+	    <div>
+	     <%= pluralize(@payment.errors.count, "error") %> prevented the question from being saved
+	      <ul>
+	        <% @payment.errors.messages.each do |attr, msg| %>
+	          <% msg.each do |val| %>
+	        <li><%= val %></li>
+	        <% end %>
+	        <% end %>
+	      </ul>
+	    </div>
+	  <% end %>
 
 
-        <% ad = @ad %>
-         <div class="row">
+               <div class="row">
                 <div class="text-center">
                     <h1>Costs for your ad</h1>
                 </div>
@@ -140,118 +148,19 @@
 
 </div>
 
+	<%= form_for @payment do |f| %>
 
-         <h3>Choose Payment Method</h3>
-
-         <div class="field">
-            <%= radio_button_tag :pay_with, :card, true %>
-            <%= label_tag :pay_with_card do %>
-              <%= image_tag "visa.png" %>
-              <%= image_tag "mastercard.png" %>
-              <%= image_tag "discover.png" %>
-              <%= image_tag "american_express.png" %>
-              <%= image_tag "jcb.png" %>
-            <% end %>
-            </br>
-            <%= radio_button_tag :pay_with, :paypal %>
-            <%= label_tag :pay_with_paypal do %>
-              <%= image_tag "paypal.png" %>
-            <% end %>
-          </div>
+	<%= f.hidden_field :paypal_customer_token %>
+	<%= f.hidden_field :paypal_payment_token %>
+	<%= f.hidden_field :paypal_email %>
+    <%= f.hidden_field :ad_id, value: ad.id %>
+    <%= f.hidden_field :amount %>
+    <%= f.hidden_field :stripe_card_token %>
+    <%= f.hidden_field :cost, value: total_cost %>
 
 
-
-
-
-
-        
-
-         <div id="billing_fields">
-             <div class="field">
-                <%= label_tag :card_number, "Credit Card Number" %></br>
-                <%= text_field_tag :card_number, nil, name: nil, class: "form-control" %>
-              </div>
-              <div class="field">
-                <%= label_tag :card_code, "Security Code on Card (CVV)" %></br>
-                <%= text_field_tag :card_code, nil, name: nil, class: "form-control" %>
-              </div>
-              <div class="field">
-                <%= label_tag :card_month, "Card Expiration" %></br>
-                <%= select_month nil, {add_month_numbers: true}, {name: nil, id: "card_month", class: "form-control cc_date"} %>
-                <%= select_year nil, {start_year: Date.today.year, end_year: Date.today.year+15}, {name: nil, id: "card_year", class: "form-control cc_date"} %>
-              </div>
-              <div id="stripe_error">
-                  <noscript>JavaScript is not enabled and is required for this form. First enable it in your web browser settings.</noscript>
-              </div>
-
-                <%= button_tag "Upgrade", data: { disable_with: "Please wait..." }, class: "btn btn-success", id: "stripe-submit" %>
-            </div>
-		<div id="paypal_checkout">
-		  <%= link_to image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"), payment_checkout_path(ad_id: @payment.ad_id, cost: total_cost) %>
-		</div>
-    </div>
-    <div id="after-pay"></div>
-<% else %>
-    <%= render 'form' %>
-<% end %>
-
-
-<script>
-$( function() {
-          
-        $('#paypal_checkout').hide();
-        $('#pay_with_paypal').click(function() {
-              $('#paypal_checkout').show();
-              $('#billing_fields').hide();
-              // $('#features').hide();
-              return true;
-            });
-        $('#pay_with_card').click(function() {
-              $('#paypal_checkout').hide();
-              $('#billing_fields').show();
-              // $('#features').hide();
-              return true;
-            });
-       
-
-        var subscription = {
-          setupForm() {
-            return $('#stripe-submit').click(function() {
-              if ($('#card_number').length) {
-                subscription.processCard();
-              }
-
-            });
-          },
-          
-          processCard() {
-            const card = {
-              number: $('#card_number').val(),
-              cvc: $('#card_code').val(),
-              expMonth: $('#card_month').val(),
-              expYear: $('#card_year').val()
-            };
-            return Stripe.createToken(card, subscription.handleStripeResponse);
-          console.log("Process Card Triggered")
-          console.log(card)
-          },
-          
-          
-          handleStripeResponse(status, response) {
-            if (status === 200) {
-            
-              $('#stripe_error').text(response.id);
-               $('#before-pay').hide();
-              $('#after-pay').html('<%= j render "form" %>');
-    
-              $('#payment_stripe_card_token').val(response.id);
-            } else {
-              $('#stripe_error').text(response.error.message);;
-            }
-          
-            }
-        };
-        Stripe.setPublishableKey($('meta[name="stripe-key"]').attr('content'));
-          return subscription.setupForm();
-});
-</script>
+		 
+	  <div class="actions">
+	    <%= f.submit "Complete Payment", class: "btn btn-success btn-lg btn-block" %>
+	  </div>
+	<% end %>

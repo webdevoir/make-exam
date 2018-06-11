@@ -14,9 +14,16 @@ class PaymentsController < ApplicationController
   def create
   	@payment = Payment.new(payment_params)
   	# @payment.ad_id = Ad.find(params[:ad_id])
-  	if @payment.save
-  		redirect_to @payment, notice: "thanks for paying for your ad"
+  	# if @payment.save
+  	# 	redirect_to @payment, notice: "thanks for paying for your ad"
+  	# 	MainMailer.ad_paid(@payment).deliver
+
+  	cost = params[:cost]
+
+  	if @payment.save_with_payment
+  		redirect_to @payment, notice: "thanks for subscribing"
   		MainMailer.ad_paid(@payment).deliver
+
   	else
   		logger.info "$$$$$$$$$$$$$$$$  #{@payment.errors.full_messages.to_sentence} $$$$$$$$$$$$$$$$$$$$$$$"
   		render :new, ad_id: @payment.ad_id
@@ -55,6 +62,7 @@ class PaymentsController < ApplicationController
   private
 
   def payment_params
-    params.require(:payment).permit(:paypal_customer_token, :paypal_payment_token, :paypal_email, :ad_id, :amount)
+    params.require(:payment).permit(:paypal_customer_token, :paypal_payment_token, :paypal_email, :ad_id, :amount, :stripe_card_token,
+:cost)
   end
 end
