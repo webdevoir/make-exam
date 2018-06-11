@@ -21,7 +21,7 @@ class Payment < ApplicationRecord
 			Stripe.api_key = ENV['Stripe.api_key']
 
 			Stripe::Charge.create(
-			  :amount => cost,
+			  :amount => cost.to_i*100,
 			  :currency => "usd",
 			  :source => stripe_card_token, # obtained with Stripe.js
 			  :description => "Upgrade account for Makeanexam.com"

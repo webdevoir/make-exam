@@ -184,7 +184,7 @@
                   <noscript>JavaScript is not enabled and is required for this form. First enable it in your web browser settings.</noscript>
               </div>
 
-                <%= button_tag "Upgrade", data: { disable_with: "Please wait..." }, class: "btn btn-success", id: "stripe-submit" %>
+                <%= button_tag "Review Payment", data: { disable_with: "Please wait..." }, class: "btn btn-success exam_button", id: "stripe-submit" %>
             </div>
 		<div id="paypal_checkout">
 		  <%= link_to image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"), payment_checkout_path(ad_id: @payment.ad_id, cost: total_cost) %>
