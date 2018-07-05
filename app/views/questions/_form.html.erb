@@ -1,5 +1,7 @@
+<div id='remote_container'></div>
 
 <%= link_to "Back to exam",examination_path(@exam) %><br/>
+
 
 <div class="col-md-8 col-sm-12">
 
@@ -45,7 +47,7 @@
     <%= f.text_area :body, class: "question_new_body tinymce"%>
   </div>
   <div style="clear: both; width:100%">
-    <%= link_to "Preview Question", examination_question_path(@exam, @question), class: " form-control  exam_button", style: "width:auto;float: left", id: "question-preview-button"  %>
+    <%= link_to "Preview Question", examination_question_path(@exam, @question), data:  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#remote_container'}, class: " form-control  exam_button", style: "width:auto;float: left", id: "question-preview-button"  %>
   </div>
 
 <div style="clear: both;"></div>

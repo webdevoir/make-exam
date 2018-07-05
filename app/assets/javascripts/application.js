@@ -18,7 +18,6 @@
 //= require_tree .
 
 
-
 // $(document).on('turbolinks:load', function () {
 //    tinymce.remove();
 //    tinymce.init({
