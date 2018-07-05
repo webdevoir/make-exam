@@ -43,6 +43,7 @@ gem 'fog-aws'
 gem 'dotenv-rails'
 gem 'stripe'
 gem 'mathjax-rails'
+gem 'bootstrap', '~> 4.1.1'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

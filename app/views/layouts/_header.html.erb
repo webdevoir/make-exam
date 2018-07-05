@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container">
           <% if current_user
               logo_link = "/"
@@ -8,10 +8,12 @@
 
              
           <div class="navbar-header"><%= link_to (image_tag "logo_trans.png" , style: 'height:45px;width:auto;'), logo_link, class: "navbar-left" %>
-              <button data-toggle="collapse" data-target="#navcol-1" class="navbar-toggle collapsed"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navcol-1" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon" style="float: right"></span>
+              </button>
           </div>
-          <div class="collapse navbar-collapse" id="navcol-1">
-              <ul class="nav navbar-nav navbar-right">
+          <div class="collapse navbar-collapse navbar-toggleable-sm" id="navcol-1">
+              <ul class="navbar-nav mr-auto">
                   
                   <% if current_user && current_user.role == "Admin" %>  
                    <li class="nav-item dropdown">
@@ -29,33 +31,33 @@
                   <% end %>
 
                   <% if current_user %>  
-                  <li role="presentation" class="nav_links"><%= link_to "Profile", '/pages/profile'%></li>  
-                      <li role="presentation" class="nav_links"><%= link_to "Forum", posts_path%></li>
-                      <li role="presentation" class="nav_links"><%= link_to "New Exam", new_examination_path%></li>
-                      <li role="presentation" class="nav_links"><%= link_to "Search Exams", examinations_path%></li>
-                      <li role="presentation" class="nav_links"><%= link_to "Your Exams", examinations_path(:user_exams => current_user.id)%></li>
-                      <li role="presentation" class="nav_links"><%= link_to "Your Scores", user_scores_path %></li>
+                  <li role="presentation" class="nav_links"><%= link_to "Profile", '/pages/profile', class: "nav-link"%></li>  
+                      <li role="presentation" class="nav_links"><%= link_to "Forum", posts_path, class: "nav-link"%></li>
+                      <li role="presentation" class="nav_links"><%= link_to "New Exam", new_examination_path, class: "nav-link" %></li>
+                      <li role="presentation" class="nav_links"><%= link_to "Search Exams", examinations_path , class: "nav-link"%></li>
+                      <li role="presentation" class="nav_links"><%= link_to "Your Exams", examinations_path(:user_exams => current_user.id) , class: "nav-link"%></li>
+                      <li role="presentation" class="nav_links"><%= link_to "Your Scores", user_scores_path, class: "nav-link" %></li>
 
                       
                   <% else %>
-                    <li role="presentation" class="nav_links"><%= link_to "Log In", new_user_session_path %></li>
-                    <li role="presentation" class="nav_links"><%= link_to "Sign Up", new_user_registration_path %></li>
-                    <li role="presentation" class="nav_links" ><%= link_to "Blog", logo_link%></li>
-                    <li role="presentation" class="nav_links" ><%= link_to "Advertisers", new_ad_path %></a></li>
+                    <li role="presentation" class="nav_links"><%= link_to "Log In", new_user_session_path, class: "nav-link" %></li>
+                    <li role="presentation" class="nav_links"><%= link_to "Sign Up", new_user_registration_path, class: "nav-link" %></li>
+                    <li role="presentation" class="nav_links" ><%= link_to "Blog", logo_link, class: "nav-link" %></li>
+                    <li role="presentation" class="nav_links" ><%= link_to "Advertisers", new_ad_path, class: "nav-link" %></a></li>
                     <li role="presentation" class="nav_links" ><a href="/">About Us</a></li>
-                    <li role="presentation" class="nav_links" ><%= link_to "FAQ", logo_link%></li>
-                    <li role="presentation" class="nav_links" ><%= link_to "Features", logo_link%></li>
+                    <li role="presentation" class="nav_links" ><%= link_to "FAQ", logo_link, class: "nav-link" %></li>
+                    <li role="presentation" class="nav_links" ><%= link_to "Features", logo_link, class: "nav-link" %></li>
                       
                   <% end %>
               
-                  <li role="presentation" class="nav_links" ><%= link_to "Contact Us", logo_link%></li>
+                  <li role="presentation" class="nav_links" ><%= link_to "Contact Us", logo_link, class: "nav-link" %></li>
                   
 
 
                   
                   <% if current_user %>
-                    <li role="presentation"><%= link_to "Log out", destroy_user_session_path, method: :delete %></li>
-                    <li role="presentation"><%= link_to "Upgrade", new_subscription_path %></li>
+                    <li role="presentation"><%= link_to "Log out", destroy_user_session_path, method: :delete , class: "nav-link"%></li>
+                    <li role="presentation"><%= link_to "Upgrade", new_subscription_path, class: "nav-link" %></li>
                   <% end %>
               </ul>
           </div>
