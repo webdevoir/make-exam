@@ -1,6 +1,5 @@
 <%= form_for [@exam, @score] do |f| %>
   <%= f.hidden_field :user_id, value: current_user.id  %>
-  
     <%= f.fields_for :responses do |res_f| %>
 
       <h2 class="question_no">Question # <%= res_f.object.question.position %></h2>
@@ -17,7 +16,7 @@
              <p><%= res_f.collection_check_boxes :answer_ids, res_f.object.question.answers, :id, :body do |b| %></p>
                 <div style="clear: both;">
                   <div class="score_input"><%= b.check_box %></div>
-                  <div class="score_input_label"><%= b.label %></div>
+                  <div class="score_input_label question-modal-label"><%= b.label %></div>
                   <%= res_f.hidden_field :question_id, value: res_f.object.question.id %>
 
                 </div>
@@ -32,7 +31,7 @@
 
                 <div style="clear: both;">
                   <div class="score_input"><%= b.radio_button %></div>
-                  <div class="score_input_label"><%= b.label %></div>
+                  <div class="score_input_label question-modal-label"><%= b.label %></div>
                   <%= res_f.hidden_field :question_id, value: res_f.object.question.id %>
 
                 </div>
@@ -44,5 +43,7 @@
     <% end %>
 
   </br></br></br></br>  
-  <%= f.submit 'Submit', class: "exam_button" %>
+  <button type="button" class="exam_button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">Close</span>
+        </button>
 <% end %>

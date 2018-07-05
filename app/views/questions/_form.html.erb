@@ -2,106 +2,108 @@
 
 <%= link_to "Back to exam",examination_path(@exam) %><br/>
 
+<div class="row">
+  <div class="col-md-8 col-sm-12">
 
-<div class="col-md-8 col-sm-12">
-
-<h2>Write a question for <em><%= @exam.name %></em>.</h2>
-<div class="question-header">
-<% if @question.position %>
-  <span class="question-number">Question <%= @question.position %> out of <%= @exam.questions.count %></span>
-<% else %>
-  <span class="question-number">Question <%= @exam.questions.count + 1%> out of <%= @exam.questions.count + 1 %></span>
-<% end %>
-  <span class="question-prev-next">
-    <% prev = Question.find_by(examination_id: @exam.id, position: @exam.questions.count) if !@question.position %>
-    <% prev = Question.find_by(examination_id: @exam.id, position: @question.position - 1) if @question.position%>
-    <% if prev %>
-      <%= link_to "Prev", edit_examination_question_path(@exam, prev), id: "prevlink" %>
-    <% else %>
-      Prev
-    <% end %>
-     /
-    <% next_ques = Question.find_by(examination_id: @exam.id, position: @question.position + 1) if @question.position%>
-    <% if next_ques %>
-      <%= link_to "Next", edit_examination_question_path(@exam, next_ques), id: "nextlink" %>
-    <% else %>
-      Next
-    <% end %>
-  </span>
-</div>
-<%= form_for([@exam, @question]) do |f| %>
-  <% if @question.errors.any? %>
-    <div>
-     <!--  <%= pluralize(@question.errors.count, "error") %> prevented the question from being saved: -->
-      <ul>
-        <% @question.errors.messages.each do |attr, msg| %>
-          <% msg.each do |val| %>
-        <li><%= val %></li>
+      <h2>Write a question for <em><%= @exam.name %></em>.</h2>
+      <div class="question-header">
+      <% if @question.position %>
+        <span class="question-number">Question <%= @question.position %> out of <%= @exam.questions.count %></span>
+      <% else %>
+        <span class="question-number">Question <%= @exam.questions.count + 1%> out of <%= @exam.questions.count + 1 %></span>
+      <% end %>
+        <span class="question-prev-next">
+          <% prev = Question.find_by(examination_id: @exam.id, position: @exam.questions.count) if !@question.position %>
+          <% prev = Question.find_by(examination_id: @exam.id, position: @question.position - 1) if @question.position%>
+          <% if prev %>
+            <%= link_to "Prev", edit_examination_question_path(@exam, prev), id: "prevlink" %>
+          <% else %>
+            Prev
+          <% end %>
+           /
+          <% next_ques = Question.find_by(examination_id: @exam.id, position: @question.position + 1) if @question.position%>
+          <% if next_ques %>
+            <%= link_to "Next", edit_examination_question_path(@exam, next_ques), id: "nextlink" %>
+          <% else %>
+            Next
+          <% end %>
+        </span>
+      </div>
+      <%= form_for([@exam, @question]) do |f| %>
+        <% if @question.errors.any? %>
+          <div>
+           <!--  <%= pluralize(@question.errors.count, "error") %> prevented the question from being saved: -->
+            <ul>
+              <% @question.errors.messages.each do |attr, msg| %>
+                <% msg.each do |val| %>
+              <li><%= val %></li>
+              <% end %>
+              <% end %>
+            </ul>
+          </div>
         <% end %>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
 
-  <div style="clear: both;">
-    <%= f.text_area :body, class: "question_new_body tinymce"%>
-  </div>
-  <div style="clear: both; width:100%">
-    <%= link_to "Preview Question", examination_question_path(@exam, @question), data:  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#remote_container'}, class: " form-control  exam_button", style: "width:auto;float: left", id: "question-preview-button"  %>
-  </div>
-
-<div style="clear: both;"></div>
-
-  <div class="question_type_points" >
-    <div style="float: left;">
-      <%= f.label :question_type %><br>
-      <%= f.select :question_type, ["Multiple Choice", "True/False", "Multiple Response", "Fill in the blank"], {}, { class: "form-control" } %>
-    </div>
-    <div style="float: right;">
-      <%= f.label :points %><br>
-      <%= f.select :points, [1 ,2, 3, 4, 5, 6, 7, 8, 9 , 10], {},{ class: "form-control" }%>
-    </div>
-  </div>
-  <p>Enter the answer choices, and mark which answer is correct</p>
-  <div style="clear: both;">
-    
-    <%= f.fields_for :answers do |ans_f| %>
-      <%= render 'answer_fields', f: ans_f %>
-  <% end %>
-  <%= link_to_add_association 'add answer', f, :answers %>
-</div>
-    <div><%= f.submit "Save", class: 'form-control question_buttons exam_button', data: { disable_with: false } %></div>
-    <div><%= f.submit "Save and Add Question", name: "add", class: 'form-control question_buttons exam_button', data: { disable_with: false } %></div>
-    <%= button_tag t('buttons.cancel'), type: "submit", name: "cancel", value: true, class: 'form-control question_buttons exam_button' %>
-  <% end %>
-</div>
-
-<div class="col-md-4 col-sm-12 question_sidebar">
-  <% if @question.position && @question.position > 10
-        @start = @question.position.to_i - 5
-        @fin = @question.position.to_i + 5
-        sorted_ques = @exam.questions.sort_by { |a| a.position }
-      elsif @question.position
-        @start = 0
-        @fin = 9
-        sorted_ques = @exam.questions.sort_by { |a| a.position }
-      else
-        @start = 0
-        @fin = 9
-        sorted_ques = @exam.questions
-    end %>
-  <% sorted_ques[@start..@fin].each do |ques| %>
-    <% if ques.id %>
-      <%= link_to edit_examination_question_path(@exam, ques) do %>
-        <div class="question_sidebar_list">
-            <h4>Question <%= ques.position %></h4>
-            <%= strip_tags(ques.body) %>
+        <div style="clear: both;">
+          <%= f.text_area :body, class: "question_new_body tinymce"%>
         </div>
-    <% end %>
-  <% end %>
+        <div style="clear: both; width:100%">
+          <%= link_to "Preview Question", examination_question_path(@exam, @question), data:  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#remote_container'}, class: " form-control  exam_button", style: "width:auto;float: left", id: "question-preview-button"  %>
+          <%= link_to "Math Equations", "/pages/math", data:  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#remote_container'}, class: " form-control  exam_button", style: "width:auto;float: left", id: "question-preview-button"  %>
+        </div>
 
-  <% end %>
+      <div style="clear: both;"></div>
 
+        <div class="question_type_points" >
+          <div style="float: left;">
+            <%= f.label :question_type %><br>
+            <%= f.select :question_type, ["Multiple Choice", "True/False", "Multiple Response", "Fill in the blank"], {}, { class: "form-control" } %>
+          </div>
+          <div style="float: right;">
+            <%= f.label :points %><br>
+            <%= f.select :points, [1 ,2, 3, 4, 5, 6, 7, 8, 9 , 10], {},{ class: "form-control" }%>
+          </div>
+        </div>
+        <p>Enter the answer choices, and mark which answer is correct</p>
+        <div style="clear: both;">
+          
+          <%= f.fields_for :answers do |ans_f| %>
+            <%= render 'answer_fields', f: ans_f %>
+        <% end %>
+        <%= link_to_add_association 'add answer', f, :answers %>
+      </div>
+          <div><%= f.submit "Save", class: 'form-control question_buttons exam_button', data: { disable_with: false } %></div>
+          <div><%= f.submit "Save and Add Question", name: "add", class: 'form-control question_buttons exam_button', data: { disable_with: false } %></div>
+          <%= button_tag t('buttons.cancel'), type: "submit", name: "cancel", value: true, class: 'form-control question_buttons exam_button' %>
+        <% end %>
+  </div>
+
+  <div class="col-md-4 col-sm-12 question_sidebar">
+        <% if @question.position && @question.position > 10
+              @start = @question.position.to_i - 5
+              @fin = @question.position.to_i + 5
+              sorted_ques = @exam.questions.sort_by { |a| a.position }
+            elsif @question.position
+              @start = 0
+              @fin = 9
+              sorted_ques = @exam.questions.sort_by { |a| a.position }
+            else
+              @start = 0
+              @fin = 9
+              sorted_ques = @exam.questions
+          end %>
+        <% sorted_ques[@start..@fin].each do |ques| %>
+          <% if ques.id %>
+            <%= link_to edit_examination_question_path(@exam, ques) do %>
+              <div class="question_sidebar_list">
+                  <h4>Question <%= ques.position %></h4>
+                  <%= strip_tags(ques.body) %>
+              </div>
+          <% end %>
+        <% end %>
+
+        <% end %>
+
+  </div>
 </div>
 <%= tinymce_assets %>
 <%= tinymce %>

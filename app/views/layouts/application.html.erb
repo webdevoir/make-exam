@@ -9,7 +9,11 @@
     <%= javascript_include_tag "https://js.stripe.com/v1/", "application" %>
     <%= tag :meta, :name => "stripe-key", :content => ENV["STRIPE_PUBLIC_KEY"] %>
     <%= favicon_link_tag 'favicon.ico' %>
-    <%= mathjax_tag %>
+    <script type="text/javascript" async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML">
+    </script>
+
+    
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,200,400,800" rel="stylesheet">
 
   </head>
@@ -42,10 +46,16 @@
 			  <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %> -->
 			
 			<% end %>
+
     	<%= yield %>
 
     <% unless current_page?(new_user_session_path) %></div><% end %> 
  <%= render 'layouts/footer' %>
-
+       <%= mathjax_tag %>
+<script>
+  // (function () {
+  //  MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+  // });
+</script>
   </body>
 </html>
