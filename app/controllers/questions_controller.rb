@@ -9,6 +9,13 @@ class QuestionsController < ApplicationController
   def show
     @exam = Examination.find(params[:examination_id])
     @question  = Question.find(params[:id])
+     @score = @exam.scores.build(user_id: current_user.id)
+      # @exam.questions.each do |question|
+        res = @score.responses.build(question_id: @question.id)
+      #   logger.info question.id
+      #   logger.info res
+
+      # end
   end
 
   def new

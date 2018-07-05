@@ -1,24 +1,48 @@
- <%= link_to "Back to all exams", examinations_path %><br/>
+<%= form_for [@exam, @score] do |f| %>
+  <%= f.hidden_field :user_id, value: current_user.id  %>
+  
+    <%= f.fields_for :responses do |res_f| %>
 
-<h2><%= @question.position %> (<%= link_to "edit", edit_examination_path(@exam) %>, <%= link_to "delete", examination_path(@exam), method: :delete, data: {confirm: "You sure?"} %>)</h2>
-<p> <%= @question.position %> out of <%= @exam.questions.count %> (<%= link_to "edit", edit_examination_question_path(@exam, @question) %>, <%= link_to "delete", examination_question_path(@exam, @question), method: :delete, data: {confirm: "Are you sure you want to delete  #{@question.position}?"} %>)</p>
-<p>ID: <%= @question.id %></p>
-<p>Question: <%= @question.body %></p>
-<p>Type: <%= @question.question_type %></p>
-<p>Points: <%= @question.points %></p>
+      <h2 class="question_no">Question # <%= res_f.object.question.position %></h2>
+      
+      <span style="font-size: 30px; font-weight: normal">
+        (<%= res_f.object.question.points %> Points)
+      </span>
+      <hr class="hr_exam">
+      <h3><%= res_f.object.question.body.html_safe %></h3>
+      <div class="score_questions">
+        <% if res_f.object.question.question_type == "Multiple Response" %>
+              <h4>Check all that apply:</h4>
 
+             <p><%= res_f.collection_check_boxes :answer_ids, res_f.object.question.answers, :id, :body do |b| %></p>
+                <div style="clear: both;">
+                  <div class="score_input"><%= b.check_box %></div>
+                  <div class="score_input_label"><%= b.label %></div>
+                  <%= res_f.hidden_field :question_id, value: res_f.object.question.id %>
 
+                </div>
+            <% end %>
+        <% elsif res_f.object.question.question_type == "Fill in the blank" %> 
+            <div class="question_answer_body">
+              <%= res_f.text_area :fill_blank %>
+              <%= res_f.hidden_field :question_id, value: res_f.object.question.id %>
+            </div>
+        <% else %>    
+         <p><%= res_f.collection_radio_buttons :answer, res_f.object.question.answers, :id, :body do |b| %></p>
 
-  <table>
-	  <% for answer in @question.answers %>
-			
-				<tr>
-					<td><%= answer.order %></td>
-					<td><%= answer.body %></td>
-					<td><%= answer.correct %></td>
-					<td><%= answer.created_at %></td>
-				</tr>
-			
-		<% end %>
-	</table>
+                <div style="clear: both;">
+                  <div class="score_input"><%= b.radio_button %></div>
+                  <div class="score_input_label"><%= b.label %></div>
+                  <%= res_f.hidden_field :question_id, value: res_f.object.question.id %>
 
+                </div>
+            <% end %>
+
+        <% end %>
+      </div>
+
+    <% end %>
+
+  </br></br></br></br>  
+  <%= f.submit 'Submit', class: "exam_button" %>
+<% end %>

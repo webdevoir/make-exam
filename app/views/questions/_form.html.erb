@@ -45,7 +45,7 @@
     <%= f.text_area :body, class: "question_new_body tinymce"%>
   </div>
   <div style="clear: both; width:100%">
-    <%= link_to "Preview Question", examination_path(@exam), class: " form-control  exam_button", style: "width:auto;float: left", id: "question-preview-button"  %>
+    <%= link_to "Preview Question", examination_question_path(@exam, @question), class: " form-control  exam_button", style: "width:auto;float: left", id: "question-preview-button"  %>
   </div>
 
 <div style="clear: both;"></div>
