@@ -96,6 +96,10 @@
 	transition: all ease 0.5s;
 } 
 
+#question-preview-button:hover {
+	text-decoration: none;
+}
+
 @media screen and (max-width: 1000px) {
 	.question_sidebar_list {
 		margin-left: 10%;

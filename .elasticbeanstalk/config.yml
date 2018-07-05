@@ -8,6 +8,8 @@ branch-defaults:
   master:
     environment: make-exam-env
     group_suffix: null
+  mathjax:
+    environment: make-exam-env
 environment-defaults:
   make-exam-env:
     branch: null

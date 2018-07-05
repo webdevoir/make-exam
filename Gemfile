@@ -42,6 +42,7 @@ gem 'carrierwave'
 gem 'fog-aws'
 gem 'dotenv-rails'
 gem 'stripe'
+gem 'mathjax-rails'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

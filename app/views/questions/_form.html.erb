@@ -44,7 +44,13 @@
   <div style="clear: both;">
     <%= f.text_area :body, class: "question_new_body tinymce"%>
   </div>
-  <div class="question_type_points">
+  <div style="clear: both; width:100%">
+    <%= link_to "Preview Question", examination_path(@exam), class: " form-control  exam_button", style: "width:auto;float: left", id: "question-preview-button"  %>
+  </div>
+
+<div style="clear: both;"></div>
+
+  <div class="question_type_points" >
     <div style="float: left;">
       <%= f.label :question_type %><br>
       <%= f.select :question_type, ["Multiple Choice", "True/False", "Multiple Response", "Fill in the blank"], {}, { class: "form-control" } %>
