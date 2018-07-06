@@ -47,12 +47,9 @@
           <%= f.text_area :body, class: "question_new_body tinymce"%>
         </div>
         <div style="clear: both; width:100%">
-          <%= link_to "Preview Question", preview_examination_questions_path(@exam, question: {points: 1, question_type: "Multiple Choice"}), data:  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#remote_container'}, class: " form-control  exam_button", style: "width:auto;float: left", id: "question-preview-button"  %>
+          <%= link_to "Preview Question", examination_question_path(@exam, @question), data:  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#remote_container'}, class: " form-control  exam_button", style: "width:auto;float: left", id: "question-preview-button"  %>
           <%= link_to "Math Equations", "/pages/math", data:  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#remote_container'}, class: " form-control  exam_button", style: "width:auto;float: left", id: "question-preview-button"  %>
-          <%= f.hidden_field :preview, value: nil%>
-          <%= f.submit "preview", id: "preview_sumbit", class: 'form-control question_buttons exam_button' %>
-          <%= button_tag t('buttons.cancel'), type: "submit", name: "cancel", value: true, class: 'form-control question_buttons exam_button' %>
-          <%= button_tag "Preview JS", class: 'form-control question_buttons exam_button', id: "preview_button" %>
+
         </div>
 
       <div style="clear: both;"></div>
@@ -303,50 +300,4 @@ console.log("ques1 => " + ques1)
      //        });
 
 
-     // $('#remote_container').on(‘ajax:success’, preview)
-     $(document).ajaxSuccess(function(event, data) {
-      console.log("SUCCESS TRIGGERED FUNCTION");
-    });
-
-     $("#preview_sumbit").on("click", function(e) {
-       console.log("PREVIEW CLICKED");
-       var exam = "<%= @exam.id %>";
-       var ques = "<%= @question.id %>";
-       // action = $(this).attr('action')
-       var action = "/examinations/" + exam+ "/questions/" + ques + "/preview"
-       var data = $(this).serialize()
-       console.log(action);
-        $.ajax({
-            url: action,
-            data: data,
-            type: "PUT",
-            dataType: "json",
-            success: function(response) {
-                console.log(response)
-
-                console.log("SUCCESS TRIGGERED");
-            },
-            error: function(xhr, textStatus, errorThrown) {}
-        });
-        e.preventDefault(); //THIS IS VERY IMPORTANT
-
-    });
-
-     function previewModalShow(response) {
-                if (response.length) {
-                  console.log(response)
-                
-                 }
-        }
-    
-      $("#preview_button").on("click", function(e) {
-        console.log("preview_button_clicked");
-        var body = $("#question_body").val()
-        var type = $("#question_question_type").val()
-        console.log("body --> " + body);
-        console.log("type --> " + type);
-        question_answers_attributes_0_body
-      })
-
-});
  </script>

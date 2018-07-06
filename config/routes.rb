@@ -33,10 +33,6 @@ Rails.application.routes.draw do
     resources :scores
   	resources :questions do
   		resources :answers
-      put :preview
-      collection do
-        get :preview
-      end
   	end
   end
 
