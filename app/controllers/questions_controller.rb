@@ -1,6 +1,7 @@
 class QuestionsController < ApplicationController
   # before_action :set_question, only: [:show, :edit, :update, :destroy]
   before_action :redirect_cancel, only: [:create, :update]
+  # before_action :redirect_preview, only: [:create, :update]
 
   def index
     @questions = Question.all
@@ -90,6 +91,27 @@ class QuestionsController < ApplicationController
       redirect_back(fallback_location: examinations_path)
   end
 
+   def preview
+       @exam = Examination.find(params[:examination_id])
+         @score = @exam.scores.build(user_id: current_user.id)
+         # if params[:question_id]
+         #  @question  = Question.find(params[:question_id])
+         # else
+          @question = @exam.questions.build(question_params)
+         # end
+         # render json: @question
+
+         # render json: { question: render_to_string('questions/_showmodal', layout: false, locals: { question: @question})} 
+         # render json: @question
+
+          respond_to do |format|
+              format.js
+              format.html 
+              format.json { render json: @question }
+          #     format.json { render json: { question: render_to_string('preview', layout: false, locals: { question: @question, exam: @exam})} }
+          end
+  end
+
   private
 
     def question_params
@@ -101,4 +123,33 @@ class QuestionsController < ApplicationController
       @exam = Examination.find(params[:examination_id])
       redirect_to examination_path(@exam) if params[:cancel]
     end
+
+    # def redirect_preview
+
+    #    if params[:preview]
+    #      @exam = Examination.find(params[:examination_id])
+    #      @score = @exam.scores.build(user_id: current_user.id)
+    #      if params[:id]
+    #       @question  = Question.find(params[:id])
+    #      else
+    #       @question = @exam.questions.build(question_params)
+    #      end
+    #      # render json: @question
+
+    #      # render json: { question: render_to_string('questions/_showmodal', layout: false, locals: { question: @question})} 
+    #      # render json: @question
+
+    #       respond_to do |format|
+    #           format.js
+    #           format.html 
+    #           format.json { render json: @question }
+    #       end
+
+    #       #       format.js { render :template => 'questions/preview.js.erb' }
+    #       #       #I'm assuming its js request
+    #       #       render json: @book 
+    #       #     end
+    #       #   render :template => 'questions/preview.js.erb'
+    #   end
+    # end
 end
