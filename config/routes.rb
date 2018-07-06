@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'messages/new'
+
   namespace :admin do
     resources :dashboard, only: [:landing]
     root to: "/admin/dashboard#landing"
@@ -36,6 +38,8 @@ Rails.application.routes.draw do
   	end
   end
 
+  resources :messages, only: [:new, :create]
+  
   devise_for :users, controllers: {
         sessions: 'users/sessions',
         registrations: 'users/registrations',

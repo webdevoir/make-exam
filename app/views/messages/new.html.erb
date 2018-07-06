@@ -1,0 +1,25 @@
+<div class="landing-image-message">
+
+
+
+<div class="login_container"> 
+  
+            <%= form_for @message ,   :html => { :class => "article-form" } do |f| %>
+                <h2 class="text-center"><strong>Questions? Comments?</strong></h2>
+                <h3 class="text-center">Send us a message, and we'll get back to you!</h3>
+                <div class="form-group">
+                  <%= f.text_field :name, placeholder: "Name", class: 'form-control' %>
+                </div>
+                <div class="form-group">
+                  <%= f.text_field :email, placeholder: "Email", class: 'form-control' %>
+                </div>
+                <div class="form-group">
+                <%= f.text_area :body,  placeholder: "Message", style: "height:200px; resize: none;", class: 'form-control' %>
+                </div>
+                <div >
+                <%= f.submit 'Send', class: "exam_button", id: "login_button", style: "font-size: 20px; font-weight: bolder;", id: "message_button" %>
+                </div>  
+            <% end %>       
+
+    </div>
+     </div>
