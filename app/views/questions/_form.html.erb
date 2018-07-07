@@ -47,7 +47,11 @@
           <%= f.text_area :body, class: "question_new_body tinymce"%>
         </div>
         <div style="clear: both; width:100%">
+          <% unless @question.id == nil %>
           <%= link_to "Preview Question", examination_question_path(@exam, @question), data:  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#remote_container'}, class: " form-control  exam_button", style: "width:auto;float: left", id: "question-preview-button"  %>
+          <% else %>
+            <%= link_to "Preview Question", "#", data: {confirm: "This only works on existing questions, under construction..."}, class: " form-control  exam_button", style: "width:auto;float: left", id: "question-preview-button"  %>
+          <% end %>
           <%= link_to "Math Equations", "/pages/math", data:  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#remote_container'}, class: " form-control  exam_button", style: "width:auto;float: left", id: "question-preview-button"  %>
 
         </div>
