@@ -57,7 +57,7 @@ class ExaminationsController < ApplicationController
   def destroy
     @exam = Examination.find(params[:id])
     @exam.destroy
-    redirect_to exams_path
+    redirect_to examinations_path
   end
 
    protected

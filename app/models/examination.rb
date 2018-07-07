@@ -2,7 +2,7 @@ class Examination < ApplicationRecord
   belongs_to :user
   has_many :questions, dependent: :destroy
   has_many :answers, :through => :questions
-  has_many :scores
+  has_many :scores, dependent: :destroy
   has_secure_password :validations => false
 
   validates_presence_of :name
