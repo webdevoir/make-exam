@@ -1,7 +1,7 @@
 
 
 	<div  class= "row"  style= "clear: both;">
-	    <hr>
+	
 	    <% if @scores.length > 0 %>
 		    <% @scores.each do |score| %>
 
@@ -55,7 +55,7 @@
 
 
 
-
+		   <div class="user-score">
 		      <h2>Exam Name: <%= score.examination.name %></h2>
 		      <h3>Date Taken: <%= score.created_at.strftime("%b %d, %Y")  %></h3>
 		      <% if @percent %>
@@ -71,3 +71,4 @@
 		  <% else %>
 		  	<h1>You haven't taken any tests yet</h1>
 		  <% end %>
+		</div>
