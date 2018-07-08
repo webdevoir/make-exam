@@ -142,6 +142,8 @@
               }
             });
 //////////////////////////////////////////////////
+
+
 console.log("ques1 => " + ques1)
 
       var q_type = $('#question_question_type');
@@ -159,29 +161,6 @@ console.log("ques1 => " + ques1)
         }
         console.log(val);
         if (val == "True/False") {
-        //   $('.question_radio').find("[type='checkbox']").prop('type', "radio");
-        //   $('#question_answers_attributes_0_body').val("True").parent().parent().show()
-        //   $('#question_answers_attributes_1_body').val("False").parent().parent().show()
-        //   $('#question_answers_attributes_2_body').parent().parent().hide()
-        //   $('#question_answers_attributes_3_body').parent().parent().hide()
-        // } else if(val == "Multiple Choice") {
-        //   $('.question_radio').find("[type='checkbox']").prop('type', "radio");
-        //   $('#question_answers_attributes_0_body').parent().parent().show().val(ques1)
-        //   $('#question_answers_attributes_1_body').parent().parent().show().val(ques2)
-        //   $('#question_answers_attributes_2_body').parent().parent().show().val(ques3)
-        //   $('#question_answers_attributes_3_body').parent().parent().show().val(ques4)
-        // } else if(val == "Multiple Response") {
-        //   $('.question_radio').find("[type='radio']").prop('type', "checkbox");
-        //   $('#question_answers_attributes_0_body').parent().parent().show().val(ques1)
-        //   $('#question_answers_attributes_1_body').parent().parent().show().val(ques2)
-        //   $('#question_answers_attributes_2_body').parent().parent().show().val(ques3)
-        //   $('#question_answers_attributes_3_body').parent().parent().show().val(ques4)
-        // } else if(val == "Fill in the blank") {
-        //   $('.question_radio').find("[type='radio']").prop('type', "radio");
-        //   $('#question_answers_attributes_0_body').parent().parent().show().val(ques1)
-        //   $('#question_answers_attributes_1_body').parent().parent().hide()
-        //   $('#question_answers_attributes_2_body').parent().parent().hide()
-        //   $('#question_answers_attributes_3_body').parent().parent().hide()
 
           $('.question_radio').find("[type='checkbox']").prop('type', "radio");
           $('.question_answer_body').each(function( index ) {
@@ -203,6 +182,7 @@ console.log("ques1 => " + ques1)
           });
         } else if(val == "Multiple Choice") {
            $('.question_radio').find("[type='checkbox']").prop('type', "radio");
+          
             $('.question_answer_body').each(function( index ) {
               // console.log( index + ": " + $( this ).text() );
               var textBox = $(this).find('textarea')
@@ -303,5 +283,5 @@ console.log("ques1 => " + ques1)
      //                e=null; // i.e; if form state change show warning box, else don't show it.
      //        });
 
-
+ });
  </script>
