@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180706195052) do
+ActiveRecord::Schema.define(version: 20180709191918) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,13 @@ ActiveRecord::Schema.define(version: 20180706195052) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "status"
+  end
+
+  create_table "ads_placements", id: false, force: :cascade do |t|
+    t.bigint "ad_id", null: false
+    t.bigint "placement_id", null: false
+    t.index ["ad_id", "placement_id"], name: "index_ads_placements_on_ad_id_and_placement_id"
+    t.index ["placement_id", "ad_id"], name: "index_ads_placements_on_placement_id_and_ad_id"
   end
 
   create_table "answers", force: :cascade do |t|
@@ -82,6 +89,15 @@ ActiveRecord::Schema.define(version: 20180706195052) do
     t.string "stripe_card_token"
     t.string "cost"
     t.index ["ad_id"], name: "index_payments_on_ad_id"
+  end
+
+  create_table "placements", force: :cascade do |t|
+    t.string "country"
+    t.string "month"
+    t.string "age"
+    t.string "page"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "posts", force: :cascade do |t|

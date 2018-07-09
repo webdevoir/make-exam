@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  country: MyString
+  month: MyString
+  age: MyString
+  page: MyString
+
+two:
+  country: MyString
+  month: MyString
+  age: MyString
+  page: MyString
