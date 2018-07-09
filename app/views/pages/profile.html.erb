@@ -1,8 +1,9 @@
 
 	<%= render 'scores/banner_ad' %>
-	<div  style= "clear: both;"></div>
+
+	<div class="container" style= "clear: both;">
 <% @employer = current_user %>
-	
+	<div class="row">
 			<div class="col-md-4 col-12 prime-profile-logo">
 				<h2 class="emp_name_profile"><%= @employer.username %></h2>
 		    	<div class="prime_logo"><%= print_image ('profile-icon.png') %></div>
@@ -124,59 +125,62 @@
 
 
 				    </table>
-				  </div>
-				 </div>
-				 <div style="clear:both; margin-bottom: 40px;"></div>
-				 <div class="row">
-					<h3>Recent Forum Posts</h3>
+							  </div>
+							 </div>
+							 <div style="clear:both; margin-bottom: 40px;"></div>
+							 <div class="row">
+								<h3>Recent Forum Posts</h3>
+							</div>
+							<div class="row">
+					
+							<div class="violations-table">
+								<table class="table">
+							      <tr>
+
+							        
+							        
+							        <th>Post Title</th>
+							        <th>Date</th>
+							        <th>Comments</th>
+							      </tr>
+							
+							      <% @posts = Post.where(user_id: current_user.id).limit(5) %>
+							       <% if @posts.length > 0 %>
+					    			<% @posts.each do |post| %>
+
+							  
+							      <tr>
+							   
+							        
+							       <td><%= post.title %></td>
+							   		<td><%= post.created_at.strftime("%b %d, %Y")  %></td>
+							        <% if post.comments %>
+								      <td> <%= post.comments.count %></td>
+								      <% else %>
+								        <td> style="color: red">None</td>
+								      <% end %>
+							        
+							      </tr>
+							      <% end %>
+							   <% end %>
+							
+
+
+							    </table>
+							  </div>
+							 </div>
+							
+					
+				
+
+							
+					    </div>
+					
 				</div>
-				<div class="row">
-		
-				<div class="violations-table">
-					<table class="table">
-				      <tr>
 
-				        
-				        
-				        <th>Post Title</th>
-				        <th>Date</th>
-				        <th>Comments</th>
-				      </tr>
-				
-				      <% @posts = Post.where(user_id: current_user.id).limit(5) %>
-				       <% if @posts.length > 0 %>
-		    			<% @posts.each do |post| %>
-
-				  
-				      <tr>
-				   
-				        
-				       <td><%= post.title %></td>
-				   		<td><%= post.created_at.strftime("%b %d, %Y")  %></td>
-				        <% if post.comments %>
-					      <td> <%= post.comments.count %></td>
-					      <% else %>
-					        <td> style="color: red">None</td>
-					      <% end %>
-				        
-				      </tr>
-				      <% end %>
-				   <% end %>
-				
-
-
-				    </table>
-				  </div>
-				 </div>
-				
-		
-	
-
-				
-		    </div>
-		
-	</div>
-
-		
+					
+			</div>
 </div>
+</div>
+
 
