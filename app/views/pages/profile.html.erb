@@ -1,5 +1,13 @@
 
-	<%= render 'scores/banner_ad' %>
+	<% unless upgraded? %>
+		<div class="ad_wrapper">
+			<% if display_ad("profile") %>
+				<%= link_to (image_tag display_ad.image_url.to_s, class: "banner_ad"), display_ad.url %>
+			<% else %>
+				<%= image_tag "default.gif", class: "banner_ad" %>
+			<% end %>
+		</div>
+	<% end %>
 
 	<div class="container" style= "clear: both;">
 <% @employer = current_user %>

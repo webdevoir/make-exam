@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
 
 	  helper_method :upgraded?
 
-	  def display_ad
+	  def display_ad(page = nil)
       date = Date.today.strftime("%b %Y")
       if current_user
         age = current_user.age
@@ -43,7 +43,14 @@ class ApplicationController < ActionController::Base
         age = "n/a"
         country = "n/a"
       end
-	  	ads = Ad.where(status: "active")
+	  	# ads = Ad.where(status: "active")
+        if page = "profile"
+          logger.info "XXXXXXXXXXXXXXXXXXX  PROFILE AD TEST  XXXXXXXXXXXXXXXXXXXXXXXx"
+          ads = Ad.includes(:placements).where('placements.country' => "United States").where(status: "active")
+        else
+          ads = Ad.where(status: "active")
+        end
+
       ads_slot = []
       ads.each do |ad|
         if (ad.months.include? date) && (ad.age.include? age)  && (ad.countries.include? country)
