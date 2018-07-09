@@ -115,8 +115,31 @@
                             <td class="col-md-1 text-center"><%= ad_countries %></td>
                             <td class="col-md-1 text-center"><%= number_to_currency(ad_countries * 100) %></td>
                         </tr>
+                          <tr>
+                            <td class="col-md-9">
+                            Pages: 
+                             <% pages = []
+                                ad.placements.each do |place|
+                                  if place.page
+                                    pages.push(place.page) unless pages.include?(place.page) 
+                                  end
+                                end %>
+                            <% if pages.include?("Profile") %>
+                              All site including profile page (additional $100 per placement)
+                            <% else %>
+                              All site except profile page
+                            <% end %>
+                            </td>
+
+                            <td class="col-md-1 text-center">$100</td>
+                            <td class="col-md-1 text-center"><%= ad_countries + ad_age + ad_months %></td>
+                            <td class="col-md-1 text-center"><%= number_to_currency((ad_countries + ad_age + ad_months) * 100) %></td>
+                        </tr>
+                        
 
                         <% total_cost = (ad_countries + ad_age + ad_months) * 100 %>
+
+                        <%  total_cost = total_cost * 2 if pages.include?("Profile")%>
                         <tr>
          
                             <td>   </td>
