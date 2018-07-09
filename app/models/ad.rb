@@ -2,6 +2,7 @@ class Ad < ApplicationRecord
 
 	
 	before_validation :make_placements
+	
 
 	serialize :countries
 	serialize :months
@@ -20,7 +21,7 @@ class Ad < ApplicationRecord
 	validates_presence_of :age
 	validates_presence_of :image
 	validates_presence_of :url
-
+	validate :check_placements
 
 	def make_placements
 	    self.countries.each do |country|
@@ -52,6 +53,17 @@ class Ad < ApplicationRecord
 			  end
 		  end
 	  	end
+	end
+
+
+	def check_placements
+    	self.placements.each do |place|
+    		count = place.ads.count
+    		if count >= 10
+    			errors.add(:placement, "We only allow 10 ads per placement.  The spot for: #{place.country}, #{place.age}, #{place.month}, is already filled")
+    		end
+    	end
+
 	end
 	
 end
