@@ -76,6 +76,6 @@ class Admin::AdsController < Admin::BaseAdminController
     protected
 
       def ad_params
-        params.require(:ad).permit(:id, :compname, :email, :contact, :phoneno, :age, :image, :url, :status,  :countries => [], :months => [])
+        params.require(:ad).permit(:page, :id, :compname, :email, :contact, :phoneno, :age, :image, :url, :status,  :countries => [], :months => [])
       end
 end

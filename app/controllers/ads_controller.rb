@@ -52,10 +52,13 @@ class AdsController < ApplicationController
   	 redirect_to admin_ads_path, notice: "#{@ad.id} was deleted successfully!"
   end
 
+
+
+
     protected
 
       def ad_params
-        params.require(:ad).permit(:id, :compname, :email, :contact, :phoneno, :image, :url, :status, :age => [], :countries => [], :months => [])
+        params.require(:ad).permit(:page, :id, :compname, :email, :contact, :phoneno, :image, :url, :status, :age => [], :countries => [], :months => [])
       end
 end
 

@@ -46,7 +46,7 @@ class ApplicationController < ActionController::Base
 	  	# ads = Ad.where(status: "active")
         if page = "profile"
           logger.info "XXXXXXXXXXXXXXXXXXX  PROFILE AD TEST  XXXXXXXXXXXXXXXXXXXXXXXx"
-          ads = Ad.includes(:placements).where('placements.country' => "United States").where(status: "active")
+          ads = Ad.includes(:placements).where('placements.page' => "Profile").where(status: "active")
         else
           ads = Ad.where(status: "active")
         end

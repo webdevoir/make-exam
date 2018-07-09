@@ -1,6 +1,6 @@
 class Placement < ApplicationRecord
 	has_and_belongs_to_many :ads
-	validates :country, uniqueness: { scope: [:month, :age] }
+	validates :country, uniqueness: { scope: [:month, :age, :page] }
 
 	# validate :unique_attrs
 

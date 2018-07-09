@@ -11,7 +11,7 @@
         <th>Manage</th>
         <th>Payment Date</th> 
         <th>Payment Amount</th> 
-        
+        <th>Pages</th>
         <th>Contact Person</th>
         <th>Phone Number</th>
 
@@ -40,6 +40,19 @@
           <td style="color:red">None</td>
           <td>  <%= link_to "Request Payment", admin_ad_payment_path(ad) %></td>
 
+        <% end %>
+        <% pages = []
+            ad.placements.each do |place|
+              if place.page
+                pages.push(place.page) unless pages.include?(place.page) 
+              end
+            end %>
+        <% if pages && pages.length > 1 %>
+          <td><%= pages.to_sentence %></td>
+        <% elsif pages &&  pages.length == 1 %>
+          <td><%= pages[0] %></td>
+        <% else %>
+          <td>Except Profile</td>
         <% end %>
         <td><%= ad.contact %></td>
         <td><%= ad.phoneno %></td>
