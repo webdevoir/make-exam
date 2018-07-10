@@ -26,6 +26,19 @@
 
 }
 
+#users-reg-container {
+    // width: 800px;
+    margin-left: calc((100vw - 800px)/2);
+    margin-right: calc((100vw - 800px)/2);
+
+    form {
+        width: 600px;
+    }
+    .container {
+        padding-left: 0px;
+    }
+}
+
 
 .login_container input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0 100px #f2f2f2 inset;
@@ -70,9 +83,47 @@
     border: 3px solid #0e83cd;
 }
 
+#message_button {
+    color: #fff;
+    background:  #0e83cd;
+    border: 3px solid #fff;
+    // border: none;
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    cursor: pointer;
+    padding: 15px 80px;
+    display: inline-block;
+    // margin: 10px 30px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    // outline: none;
+    // position: relative;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
+  }
+#message_button:hover {
+    color: #0e83cd;
+    background: #fff;
+    border: 3px solid #0e83cd;
+}
+@media screen and (max-width: 700px) {
+    #users-reg-container {
+        width: 100vw;
+    margin-left: 0px;
+    margin-right: 0px;
+    // background-color: #fff;
+    padding: 0px;
 
+        form {
+            width: 95%;;
+        }
+    }
+}
 @media screen and (max-width: 500px) {
-.login_container {
+.login_container{
 	width: 100vw;
 	margin-left: 0px;
 	margin-right: 0px;

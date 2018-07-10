@@ -1,4 +1,13 @@
-<h2>Sign up</h2>
+
+
+<div class="landing-image-message">
+
+
+
+  <div class="login_container" id="users-reg-container">
+
+
+    <div class="container">
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
@@ -36,13 +45,16 @@
   </div>
   <div class="field">
     <%= f.label :country %><br />
-    <%= f.select :country, ['Canada', 'Australia', 'United Kingdom', 'United States', 'New Zealand', 'Brazil', 'Mexico', 'Germany', 'Japan', 'Rest of the World'], {}%>
+     <%= f.select :country, options_for_select(CS.countries.map {|k, v| v }, selected: 'Canada' ), {}%> 
   </div>
 
   <br /><br />
   <div class="actions">
-    <%= f.submit "Sign up" %>
+    <%= f.submit "Sign up", id: "message_button" %>
   </div>
 <% end %>
 
-<%= render "devise/shared/links" %>
+  </div>
+  </div>
+</div>
+

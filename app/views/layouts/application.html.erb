@@ -20,7 +20,7 @@
 
   <body>
   	<%= render 'layouts/header' %>
- 	<% unless current_location?(controller:'sessions', action:'new')  || current_page?(root_path) || current_page?('/pages/profile') || current_location?(controller:'messages', action:'new')%>
+ 	<% unless current_location?(controller:'sessions', action:'new')  || current_page?(root_path) || current_page?('/pages/profile') || current_location?(controller:'messages', action:'new') || current_location?(controller:'registrations', action:'edit') || current_location?(controller:'registrations', action:'update') || current_location?(controller:'registrations', action:'new')  %>
   		<div class="container white">
   	<% end %> 
   	<% if current_page?('/pages/profile') %>
@@ -46,7 +46,7 @@
 			  <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %> -->
 			
 			<% end %>
-
+  <!--   <%= request.path  + " " + params[:controller] + " " + params[:action]%>  -->
     	<%= yield %>
 
     <% unless current_page?(new_user_session_path) %></div><% end %> 
