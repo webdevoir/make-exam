@@ -46,7 +46,9 @@
   </div>
   <div class="field">
     <%= f.label :country %><br />
-    <%= f.select :country, ['Canada', 'Australia', 'United Kingdom', 'United States', 'New Zealand', 'Brazil', 'Mexico', 'Germany', 'Japan', 'Rest of the World'], {}%>
+<!--     <%= f.select :country, ['Canada', 'Australia', 'United Kingdom', 'United States', 'New Zealand', 'Brazil', 'Mexico', 'Germany', 'Japan', 'Rest of the World'], {}%> -->
+
+<%= f.select :country, options_for_select(CS.countries.map {|k, v| v }, selected: 'Canada' ), {}%> 
   </div>
 
   <div class="actions">
