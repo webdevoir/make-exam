@@ -42,7 +42,7 @@
          </div> -->
          <div>
             <%= f.label :countries, "Countries for ad to appear" %><br>
-            <%= f.select :countries, ['Canada', 'Australia', 'United Kingdom', 'United States', 'New Zealand', 'Brazil', 'Mexico', 'Germany', 'Japan', 'Rest of the World'],{prompt: "Select Country"},{:multiple => true, class: "form-control exam_forms multi-select"}%>
+             <%= f.select :countries, options_for_select(CS.countries.map {|k, v| v }, selected: 'Canada'),{prompt: "Select Country"},{:multiple => true, class: "form-control exam_forms multi-select"}%>
           </div>
               <div>
             <%= f.label :months, "Months for ad to appear" %><br>
