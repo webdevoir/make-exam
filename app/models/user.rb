@@ -21,6 +21,8 @@ class User < ApplicationRecord
 
   validate :validate_username
 
+  mount_uploader :image, ImageUploader
+
 	def validate_username
 	  if User.where(email: username).exists?
 	    errors.add(:username, :invalid)

@@ -10,17 +10,19 @@
 	<% end %>
 
 	<div class="container" style= "clear: both;">
-<% @employer = current_user %>
+<% @user = current_user %>
 	<div class="row">
 			<div class="col-md-4 col-12 prime-profile-logo">
-				<h2 class="emp_name_profile"><%= @employer.username %></h2>
-		    	<div class="prime_logo"><%= print_image ('profile-icon.png') %></div>
+				<h2 class="emp_name_profile"><%= @user.username %></h2>
+				<% profile_pic = @user.image ? @user.image_url.to_s : 'profile-icon.png' %>
+				<div class="prime_logo"><%= print_image (profile_pic ) %></div>
+
 		    	<div class="profile-links">
 		    		<%= link_to examinations_path(:user_exams => current_user.id) do %>
 
 		    			<div class="profile-link-inner">
 		    				<span class=profile-link-header>Exams</span>
-		    				<span class=profile-link-data><%= @employer.examinations.count %></span>
+		    				<span class=profile-link-data><%= @user.examinations.count %></span>
 		    			</div>
 		    		<% end %>
 		    	</div>
@@ -29,7 +31,7 @@
 		    		
 		    		<div class="profile-link-inner">
 		    				<span class=profile-link-header>Scores</span>
-		    				<span class=profile-link-data><%= @employer.scores.count %></span>
+		    				<span class=profile-link-data><%= @user.scores.count %></span>
 		    			</div>
 		    		<% end %>
 		    	
@@ -39,14 +41,14 @@
 		    		
 		    		<div class="profile-link-inner">
 		    				<span class=profile-link-header>Forum Posts</span>
-		    				<span class=profile-link-data><%= @employer.posts.count %></span>
+		    				<span class=profile-link-data><%= @user.posts.count %></span>
 		    			</div>
 		    		<% end %>
 		    	
 		    	</div>
 		    </div>
 			<div class="col-md-8 col-12 prime-main">
-				<h2 class="emp_name"><%= @employer.username %></h2>
+				<h2 class="emp_name"><%= @user.username %></h2>
 				<hr>
 				<div class="row">
 					<h3>Recent Scores</h3>
