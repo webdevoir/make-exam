@@ -43,10 +43,11 @@
     <%= f.label :age %><br />
     <%= f.select :age, [['K-11 Years Old', 'K-11'], ['12-19 Years Old', '12-19'], ['20+ Years Old', '20+']], {}%>
   </div>
-  <div class="field">
-    <%= f.label :country %><br />
-     <%= f.select :country, options_for_select(CS.countries.map {|k, v| v }, selected: 'Canada' ), {}%> 
-  </div>
+          <div class="field">
+            <%= f.label :country %><br />
+            <% countries_list = CS.countries.values.sort[0..-3]%>
+            <%= f.select :country, options_for_select(countries_list, selected: 'Canada' ), {}%> 
+          </div>
 
     <br />
              <%= f.label :image, class: "form-control file-upload"  do %>

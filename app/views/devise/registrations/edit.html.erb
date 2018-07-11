@@ -53,8 +53,8 @@
           </div>
           <div class="field">
             <%= f.label :country %><br />
-
-            <%= f.select :country, options_for_select(CS.countries.map {|k, v| v }, selected: 'Canada' ), {}%> 
+            <% countries_list = CS.countries.values.sort[0..-3]%>
+            <%= f.select :country, options_for_select(countries_list, selected: 'Canada' ), {}%> 
           </div>
 <!-- 
            <div>
