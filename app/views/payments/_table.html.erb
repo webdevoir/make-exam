@@ -24,9 +24,9 @@
                               <% end %>
                             </td>
 
-                            <td class="col-md-1 text-center"><%=number_to_currency(page_price)%></td>
+                            <td class="col-md-1 text-center"></td>
                             <td class="col-md-1 text-center"><%= @ad_months %></td>
-                            <td class="col-md-1 text-center"><%= number_to_currency(@ad_months * page_price) %></td>
+                            <td class="col-md-1 text-center"></td>
                         </tr>
 
                         <tr>
@@ -53,9 +53,9 @@
                               <% end %>
                             </td>
 
-                            <td class="col-md-1 text-center"><%=number_to_currency(page_price)%></td>
+                            <td class="col-md-1 text-center"></td>
                             <td class="col-md-1 text-center"><%= @ad_age %></td>
-                            <td class="col-md-1 text-center"><%= number_to_currency(@ad_age * page_price) %></td>
+                            <td class="col-md-1 text-center"></td>
                         </tr>
 
                          <tr>
@@ -63,26 +63,27 @@
                             Countries: 
                             <% if ad.countries && ad.countries.length > 0 && ad.countries.kind_of?(Array) %>
 
-                                <% @ad_countries = 0 %>
+                                <% ad_countries = 0 %>
                                 <% countries_arr = [] %>
                                 <%  ad.countries.each do |adv| %>
                                   <% if adv.length > 0 %>
-                                    <% @ad_countries += 1
+                                    <% ad_countries += 1
                                     countries_arr.push(adv) %>
                                     
                                   <%end %>
                                 <%end %>
                                 <%= countries_arr.to_sentence %>
                               <% elsif ad.countries %>
-                                <% @ad_countries = 1 %>
+                                <% ad_countries = 1 %>
                                 <%= ad.countries %>
                               <% else %>
-                                <% @ad_countries = 0 %>
+                                <% ad_countries = 0 %>
                                 None
                               <% end %>
                             </td>
 
-                            <td class="col-md-1 text-center"><%=number_to_currency(page_price)%></td>
-                            <td class="col-md-1 text-center"><%= @ad_countries %></td>
-                            <td class="col-md-1 text-center"><%= number_to_currency(@ad_countries * page_price) %></td>
+                            <td class="col-md-1 text-center"></td>
+                            <td class="col-md-1 text-center"><%= ad_countries %></td>
+                            <td class="col-md-1 text-center"></td>
                         </tr>
+                       

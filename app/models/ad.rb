@@ -77,13 +77,12 @@ class Ad < ApplicationRecord
 			page = place_data[:pages]
 			place = Placement.find_by(country: country, month: month, age: age, page: page)
 
-	      		unless place
-	            	newplace = Placement.create(month: month, country: country, age: age, page: page)
-
-	            	place_new.push(newplace.id)
-	            end
-
-	            place_new.push(place.id)
+      		unless place
+            	newplace = Placement.create(month: month, country: country, age: age, page: page)
+            	place_new.push(Placement.last.id)
+    		else
+            	place_new.push(place.id)
+            end
 
 	    end
 	    place_new.each do |new|

@@ -14,7 +14,13 @@
 	  <% end %>
 
 
-               <div class="row">
+
+           <% ad = @ad %>
+        <% total_profile = ad.placements.where(page: "Profile").count %>
+        <% total_exam = ad.placements.where.not(page: "Profile").count  %>
+        <% total_cost = (total_profile * 200 + total_exam * 100) %>
+
+         <div class="row">
                 <div class="text-center">
                     <h1>Costs for your ad</h1>
                 </div>
@@ -28,118 +34,21 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <% ad.pages.each do |page| %>
+                          <% @page_price = page == "Profile" ? 100 : 200 %> 
+                          <th colspan="2">Costs for <%= page %> placement</th>
+                          <%= render 'payments/table' %>
+                           <tr>
+                            <td class="col-md-9">Total ad placements for <%= page %> </td>
 
-                        <tr>
-                            <td class="col-md-9">
-                            Months Active: 
-                            <% if ad.months && ad.months.length > 0 && ad.months.kind_of?(Array) %>
-
-                                <% ad_months = 0 %>
-                                <% months_arr = [] %>
-                                <%  ad.months.each do |adv| %>
-                                  <% if adv.length > 0 %>
-                                    <% ad_months += 1
-                                    months_arr.push(adv) %>
-                                    
-                                  <%end %>
-                                <%end %>
-                                <%= months_arr.to_sentence %>
-                              <% elsif ad.months %>
-                                <% ad_months = 1 %>
-                                <%= ad.months %>
-                              <% else %>
-                                <% ad_months = 0 %>
-                                None
-                              <% end %>
-                            </td>
-
-                            <td class="col-md-1 text-center">$100</td>
-                            <td class="col-md-1 text-center"><%= ad_months %></td>
-                            <td class="col-md-1 text-center"><%= number_to_currency(ad_months * 100) %></td>
+                            <td class="col-md-1 text-center"><%= number_to_currency(@page_price) %></td>
+                            <td class="col-md-1 text-center"><%= page == "Profile" ? total_profile : total_exam %></td>
+                            <td class="col-md-1 text-center"><%= number_to_currency(page == "Profile" ? total_profile * 200 : total_exam * 100) %></td>
                         </tr>
-
-                        <tr>
-                            <td class="col-md-9">
-                            Age Range: 
-                            <% if ad.age && ad.age.length > 0 && ad.age.kind_of?(Array) %>
-
-                                <% ad_age = 0 %>
-                                <% age_arr = [] %>
-                                <%  ad.age.each do |adv| %>
-                                  <% if adv.length > 0 %>
-                                    <% ad_age += 1
-                                    age_arr.push(adv) %>
-                                    
-                                  <%end %>
-                                <%end %>
-                                <%= age_arr.to_sentence %>
-                              <% elsif ad.age %>
-                                <% ad_age = 1 %>
-                                <%= ad.age %>
-                              <% else %>
-                                <% ad_age = 0 %>
-                                None
-                              <% end %>
-                            </td>
-
-                            <td class="col-md-1 text-center">$100</td>
-                            <td class="col-md-1 text-center"><%= ad_age %></td>
-                            <td class="col-md-1 text-center"><%= number_to_currency(ad_age * 100) %></td>
-                        </tr>
-
-                         <tr>
-                            <td class="col-md-9">
-                            Countries: 
-                            <% if ad.countries && ad.countries.length > 0 && ad.countries.kind_of?(Array) %>
-
-                                <% ad_countries = 0 %>
-                                <% countries_arr = [] %>
-                                <%  ad.countries.each do |adv| %>
-                                  <% if adv.length > 0 %>
-                                    <% ad_countries += 1
-                                    countries_arr.push(adv) %>
-                                    
-                                  <%end %>
-                                <%end %>
-                                <%= countries_arr.to_sentence %>
-                              <% elsif ad.countries %>
-                                <% ad_countries = 1 %>
-                                <%= ad.countries %>
-                              <% else %>
-                                <% ad_countries = 0 %>
-                                None
-                              <% end %>
-                            </td>
-
-                            <td class="col-md-1 text-center">$100</td>
-                            <td class="col-md-1 text-center"><%= ad_countries %></td>
-                            <td class="col-md-1 text-center"><%= number_to_currency(ad_countries * 100) %></td>
-                        </tr>
-                          <tr>
-                            <td class="col-md-9">
-                            Pages: 
-                             <% pages = []
-                                ad.placements.each do |place|
-                                  if place.page
-                                    pages.push(place.page) unless pages.include?(place.page) 
-                                  end
-                                end %>
-                            <% if pages.include?("Profile") %>
-                              All site including profile page (additional $100 per placement)
-                            <% else %>
-                              All site except profile page
-                            <% end %>
-                            </td>
-
-                            <td class="col-md-1 text-center">$100</td>
-                            <td class="col-md-1 text-center"><%= ad_countries + ad_age + ad_months %></td>
-                            <td class="col-md-1 text-center"><%= number_to_currency((ad_countries + ad_age + ad_months) * 100) %></td>
-                        </tr>
+                        <% end %>
                         
-
-                        <% total_cost = (ad_countries + ad_age + ad_months) * 100 %>
-
-                        <%  total_cost = total_cost * 2 if pages.include?("Profile")%>
+                       
+                  
                         <tr>
          
                             <td>   </td>
@@ -168,7 +77,6 @@
                         </tr>
                     </tbody>
                 </table>
-
 </div>
 
 	<%= form_for @payment do |f| %>
