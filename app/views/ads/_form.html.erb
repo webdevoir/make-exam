@@ -63,8 +63,10 @@
 		    <%= f.select :age, [['K-11 Years Old', 'K-11'], ['12-19 Years Old', '12-19'], ['20+ Years Old', '20+']],{prompt: "Select Age"},{:multiple => true, class: "form-control multi-select exam_forms"}%>
 		  </div>
      <div>
-            <%= f.label :page, "Pages to display (Profile costs $200 per placement)" %><br>
-            <%= f.select :page, ['Profile', 'Rest of the Site'],{}, {class: "form-control"}%>
+     
+
+            <%= check_box_tag "ad[pages][]", 'Profile' %> Profile page ($200/per ad slot)</br>
+            <%= check_box_tag "ad[pages][]", 'Exam' %> Exam Pages ($100/per ad slot)
           </div>
 		  <div>
         <br /><br />

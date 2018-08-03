@@ -23,7 +23,7 @@ class Ad < ApplicationRecord
 	validates_presence_of :url
 	validate :check_placements
 
-	attr_accessor :page
+	attr_accessor :pages
 
 	def make_placements
 	    self.countries.each do |country|
@@ -32,23 +32,27 @@ class Ad < ApplicationRecord
 		        if age.length > 0
 			        self.months.each do |month|
 			          if month.length > 0
-			          	place = Placement.find_by(country: country, month: month, age: age, page: page)
-			          	if place
-			          		# self.placement_ids.push(place.id)
-			          		unless self.placements.include?(place)
-			          			self.placements << place
-			          			self.save
-			          		end
-			          	else
-				            place = Placement.create(month: month, country: country, age: age, page: page)
-				            # place.save
-				            # self.placement_ids.push(place.id)
-				            unless self.placements.include?(place)
-					            self.placements << place
-					            self.save
-					        end
-				        end
-			            # place.errors.messages
+			          	self.pages.each do |page|
+			          		if page.length > 0
+					          	place = Placement.find_by(country: country, month: month, age: age, page: page)
+					          	if place
+					          		# self.placement_ids.push(place.id)
+					          		unless self.placements.include?(place)
+					          			self.placements << place
+					          			self.save
+					          		end
+					          	else
+						            place = Placement.create(month: month, country: country, age: age, page: page)
+						            # place.save
+						            # self.placement_ids.push(place.id)
+						            unless self.placements.include?(place)
+							            self.placements << place
+							            self.save
+							        end
+						        end
+					            # place.errors.messages
+					       	end
+					      end
 			          end
 			      	end
 		      	end
