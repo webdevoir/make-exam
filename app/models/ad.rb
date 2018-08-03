@@ -1,7 +1,7 @@
 class Ad < ApplicationRecord
 
 	
-	before_validation :make_placements
+	before_save :make_placements
 	
 
 	serialize :countries
@@ -22,6 +22,7 @@ class Ad < ApplicationRecord
 	validates_presence_of :age
 	validates_presence_of :image
 	validates_presence_of :url
+	validates_presence_of :pages, :message => "You must select Profile, Exam or both placements!" 
 	validate :check_placements
 
 	# attr_accessor :pages

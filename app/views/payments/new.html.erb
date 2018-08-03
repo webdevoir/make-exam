@@ -6,68 +6,7 @@
 
 
         <% ad = @ad %>
-        <% total_profile = ad.placements.where(page: "Profile").count %>
-        <% total_exam = ad.placements.where.not(page: "Profile").count  %>
-        <% total_cost = (total_profile * 200 + total_exam * 100) %>
-
-         <div class="row">
-                <div class="text-center">
-                    <h1>Costs for your ad</h1>
-                </div>
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Product</th>
-                            <th class="text-center">Price</th>
-                            <th class="text-center">Quantity</th>
-                            <th class="text-center">Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% ad.pages.each do |page| %>
-                          <% @page_price = page == "Profile" ? 100 : 200 %> 
-                          <th colspan="2">Costs for <%= page %> placement</th>
-                          <%= render 'payments/table' %>
-                           <tr>
-                            <td class="col-md-9">Total ad placements for <%= page %> </td>
-
-                            <td class="col-md-1 text-center"><%= number_to_currency(@page_price) %></td>
-                            <td class="col-md-1 text-center"><%= page == "Profile" ? total_profile : total_exam %></td>
-                            <td class="col-md-1 text-center"><%= number_to_currency(page == "Profile" ? total_profile * 200 : total_exam * 100) %></td>
-                        </tr>
-                        <% end %>
-                        
-                       
-                  
-                        <tr>
-         
-                            <td>   </td>
-                            <td>   </td>
-                            <td class="text-right">
-                            <p>
-                                <strong>Subtotal: </strong>
-                            </p>
-                            <p>
-                                <strong>Tax: </strong>
-                            </p></td>
-                            <td class="text-center">
-                            <p>
-                                <strong><%= number_to_currency(total_cost) %></strong>
-                            </p>
-                            <p>
-                                <strong>$0.00</strong>
-                            </p></td>
-                        </tr>
-                        <tr>
-                    
-                            <td>   </td>
-                            <td>   </td>
-                            <td class="text-right"><h4><strong>Total: </strong></h4></td>
-                            <td class="text-center text-danger"><h4><strong><%= number_to_currency(total_cost) %></strong></h4></td>
-                        </tr>
-                    </tbody>
-                </table>
-</div>
+      <%= render 'payments/invoice' %>
 
 
          <h3>Choose Payment Method</h3>
@@ -116,7 +55,7 @@
                 <%= button_tag "Review Payment", data: { disable_with: "Please wait..." }, class: "btn btn-success exam_button", id: "stripe-submit" %>
             </div>
 		<div id="paypal_checkout">
-		  <%= link_to image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"), payment_checkout_path(ad_id: @payment.ad_id, cost: total_cost) %>
+		  <%= link_to image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"), payment_checkout_path(ad_id: @payment.ad_id, cost: @total_cost) %>
 		</div>
     </div>
     <div id="after-pay"></div>
