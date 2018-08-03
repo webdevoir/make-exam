@@ -2,6 +2,8 @@ class Ad < ApplicationRecord
 
 	
 	before_save :make_placements
+
+
 	
 
 	serialize :countries
@@ -9,7 +11,7 @@ class Ad < ApplicationRecord
 	serialize :age
 	serialize :pages
 
-	has_many :payments
+	has_many :payments, dependent: :destroy
 	has_and_belongs_to_many :placements
 
 	mount_uploader :image, ImageUploader
@@ -26,6 +28,7 @@ class Ad < ApplicationRecord
 	validate :check_placements
 
 	# attr_accessor :pages
+
 
 	def make_placements
 		placements = {}

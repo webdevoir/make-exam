@@ -11,6 +11,7 @@
         <th>Manage</th>
         <th>Payment Date</th> 
         <th>Payment Amount</th> 
+        <th>Payment Method</th>
         <th>Pages</th>
         <th>Contact Person</th>
         <th>Phone Number</th>
@@ -35,12 +36,14 @@
         <% pay = Payment.find_by(ad_id: ad.id) %>
         <% if pay %>
           <td><%= pay.created_at.strftime("%b %d, %Y")  %></td>
-          <td><%= number_to_currency(pay.amount.to_f) %> (<%= link_to "invoice", payment_path(pay)  %>)</td>
+          <td><%= number_to_currency(pay.cost.to_f) %> (<%= link_to "invoice", payment_path(pay)  %>)</td>
         <% else %>
           <td style="color:red">None</td>
           <td>  <%= link_to "Request Payment", admin_ad_payment_path(ad) %></td>
 
         <% end %>
+        <td><%= ad.payments && ad.payments.last.stripe_card_token ? "Stripe" : "PayPal" %></td>
+
         <% pages = []
             ad.placements.each do |place|
               if place.page
