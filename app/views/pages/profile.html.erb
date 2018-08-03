@@ -4,7 +4,7 @@
 			<% if display_ad("profile") %>
 				<%= link_to (image_tag display_ad.image_url.to_s, class: "banner_ad"), display_ad.url %>
 			<% else %>
-				<%= image_tag "default.gif", class: "banner_ad" %>
+				<%= link_to (image_tag "default.gif", class: "banner_ad"), new_ad_path %>
 			<% end %>
 		</div>
 	<% end %>

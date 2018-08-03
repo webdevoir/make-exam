@@ -21,7 +21,7 @@ class User < ApplicationRecord
 
   validate :validate_username
 
-  mount_uploader :image, ImageUploader
+  mount_uploader :image, ProfileUploader
 
 	def validate_username
 	  if User.where(email: username).exists?
