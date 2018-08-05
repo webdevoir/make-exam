@@ -44,7 +44,8 @@
           </div>
          <div>
         <%= f.label :age %><br />
-        <%= f.select :age, [['K-11 Years Old', 'K-11'], ['12-19 Years Old', '12-19'], ['20+ Years Old', '20+']],{prompt: "Select Age"},{:multiple => true, class: "form-control multi-select exam_forms"}%>
+        <%= f.select :age, [['K-11 Years Old', 'K-11'], ['12-19 Years Old', '12-19'], ['20-29  Years Old', '20-29  Years Old'], ['30-39  Years Old', '30-39'], ['40-49  Years Old', '40-49'], ['50-59  Years Old', '50-59'], ['Over 60', '60+']],{prompt: "Select Age"},{:multiple => true, class: "form-control multi-select exam_forms"}%>
+
       </div>
         <div>
             <%= f.label :page, "Pages to display (Profile costs $200 per placement)" %><br>

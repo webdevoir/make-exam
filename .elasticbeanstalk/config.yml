@@ -19,7 +19,7 @@ environment-defaults:
 global:
   application_name: make-an-exam
   branch: null
-  default_ec2_keyname: nick2
+  default_ec2_keyname: aug3
   default_platform: Ruby 2.5 (Puma)
   default_region: us-west-2
   include_git_submodules: true
