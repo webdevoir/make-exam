@@ -1,9 +1,16 @@
     <div class="col-md-8 col-sm-12">
       <h2>Submit an advertisment!</h2>
-      <p>Banner ads are rotated in a series of ten banner ads so you pay for one banner ad at a time. Payment of each banner ad is currently $ 100.00 USD per banner ad per month per country per age category.</p>
+     <p>Advertising is easy with us.  Select which categories you want your ad to appear in.  You have choices of age group, gender, country and number of months.  Your banner ad will rotate among the chosen categories.  There are ten banner ads per selection in each category.  For example for gender, male and female, there are ten rotating banner ads for males and ten rotating banner ads for females.</p>
 
-		<p>ie: If you wish to advertise in United States for three months in the 12-19 age category and you would like three ads out of the possible ten rotating ads this would total 1,125.00 US dollars for the ads.
-		We reserve the right to restrict displaying ads if we deem them to be inappropriate for the advertising audience. Receipt of payment and submission of advertising information by email is no guarantee of banner ads being placed. We review each ad that is submitted on an individual case-by-case study to determine if it is suitable for posting on makeanexam.com. This is a first-come-first-serve basis service.</p>
+      <p>Proceed with selecting a banner ad placement on either the profile page or on the exam pages.</p>
+
+      <p>Banner ad prices can change without notice so reserve your spots before they change.  We reserve the right to deny ads on the website.</p>  
+
+      <p>Ads must be approved individually before they are placed on the website.  We are not obligated to provide an explanation for ads that are denied.</p>
+
+      <p>Children use this website and as such we monitor and check ads frequently to ensure that there are no offensive ads or links.  We will not permit ads catering to the tobacco industry or pornography to any age category.  Ads promoting alcohol are permitted in the adult age categories for persons 20+.  We reserve the right to make special exceptions to deny advertising an ad on this website.</p>
+
+
 
   <% if @ad.errors.any? %>
     <div id="error_explanation">
@@ -63,8 +70,6 @@
 		    <%= f.select :age, [['K-11 Years Old', 'K-11'], ['12-19 Years Old', '12-19'], ['20-29  Years Old', '20-29  Years Old'], ['30-39  Years Old', '30-39'], ['40-49  Years Old', '40-49'], ['50-59  Years Old', '50-59'], ['Over 60', '60+']],{prompt: "Select Age"},{:multiple => true, class: "form-control multi-select exam_forms"}%>
 		  </div>
      <div>
-     
-
             <%= check_box_tag "ad[pages][]", 'Profile' %> Profile page ($200/per ad slot)</br>
             <%= check_box_tag "ad[pages][]", 'Exam' %> Exam Pages ($100/per ad slot)
           </div>
