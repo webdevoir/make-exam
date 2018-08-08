@@ -36,6 +36,7 @@ class Ad < ApplicationRecord
 		countries_fix = []
 		months_fix = []
 		age_fix = []
+		gender = []
 		self.pages.each do |page|
 			if page.length > 0
 				pages_fix.push(page)
@@ -56,10 +57,17 @@ class Ad < ApplicationRecord
 				months_fix.push(month)
 			end
 		end
+		unless self.gender == "both"
+			gender.push(self.gender)
+		else 
+			gender = ["male", "female"]
+		end
+		# puts "XXXXXXXXXXXXXX Gender ---> #{gender}"
 		placements[:pages] = pages_fix
 		placements[:countries] = countries_fix
 		placements[:months] = months_fix
 		placements[:ages] = age_fix
+		placements[:gender] = gender
 		test = product_hash(placements)
 		check_make_placements(test)
 		# self.save
@@ -79,18 +87,29 @@ class Ad < ApplicationRecord
 			month = place_data[:months]
 			age = place_data[:ages]
 			page = place_data[:pages]
-			place = Placement.find_by(country: country, month: month, age: age, page: page)
+			gender = place_data[:gender]
+			place = Placement.find_by(country: country, month: month, age: age, page: page, gender: gender)
 
       		unless place
-            	newplace = Placement.create(month: month, country: country, age: age, page: page)
-            	place_new.push(Placement.last.id)
+            	newplace = Placement.create(month: month, country: country, age: age, page: page, gender: gender)
+            	puts "XXXXXXXXXXXXXX new place ---> #{ap newplace}"
+            	puts "XXXXXXXXXXXXXX new place id ---> #{newplace.id}"
+            	if newplace.save
+            		place_new.push(newplace.id)
+            	else
+            		puts "XXXXXXXXXXXXXXX  ERROR ERROR XXXXXXXXXXXXXXXXXXX"
+            		puts newplace.errors.full_messages.to_sentence
+            	end
     		else
+    			puts "XXXXXXXXXXXXXX place ID---> #{place.id}"
+				puts "XXXXXXXXXXXXXX place ---> #{ap place}"
             	place_new.push(place.id)
             end
+            puts "XXXXXXXXXXXXXX place array ---> #{place_new}"
 
 	    end
-	    place_new.each do |new|
-	    	test = Placement.find(new)
+	    place_new.each do |list|
+	    	test = Placement.find(list)
 	     	unless self.placements.include?(test)
 	            self.placements << test
 			end

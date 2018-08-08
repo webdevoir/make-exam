@@ -69,10 +69,17 @@
 		    <%= f.label :age %><br />
 		    <%= f.select :age, [['K-11 Years Old', 'K-11'], ['12-19 Years Old', '12-19'], ['20-29  Years Old', '20-29  Years Old'], ['30-39  Years Old', '30-39'], ['40-49  Years Old', '40-49'], ['50-59  Years Old', '50-59'], ['Over 60', '60+']],{prompt: "Select Age"},{:multiple => true, class: "form-control multi-select exam_forms"}%>
 		  </div>
-     <div>
-            <%= check_box_tag "ad[pages][]", 'Profile' %> Profile page ($200/per ad slot)</br>
-            <%= check_box_tag "ad[pages][]", 'Exam' %> Exam Pages ($100/per ad slot)
-          </div>
+      <div class="form-group">
+        <%= f.label :gender %><br />
+        <%= f.radio_button :gender, 'male' %> Male<br />
+        <%= f.radio_button :gender, 'female' %> Female<br />
+        <%= f.radio_button :gender, 'both' %> Male and Female<br />
+      </div>
+      <div class="form-group">
+        <%= f.label :pages, "Ad Placement" %><br />
+        <%= check_box_tag "ad[pages][]", 'Profile' %> Profile page ($200/per ad slot)<br />
+        <%= check_box_tag "ad[pages][]", 'Exam' %> Exam Pages ($100/per ad slot)<br />      
+      </div>
 		  <div>
         <br /><br />
         <p>images must be 728x90 px resolution</p> 

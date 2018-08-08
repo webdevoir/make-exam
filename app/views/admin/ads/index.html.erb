@@ -42,7 +42,11 @@
           <td>  <%= link_to "Request Payment", admin_ad_payment_path(ad) %></td>
 
         <% end %>
-        <td><%= ad.payments && ad.payments.last.stripe_card_token ? "Stripe" : "PayPal" %></td>
+         <%if ad.payments && ad.payments.length > 0 %>
+            <td><%= ad.payments && ad.payments.last.stripe_card_token ? "Stripe" : "PayPal" %></td>
+         <% else %>
+            <td>Not Paid</td>
+        <% end %>
 
         <% pages = []
             ad.placements.each do |place|

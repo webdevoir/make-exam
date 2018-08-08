@@ -57,6 +57,26 @@
                             <td class="col-md-1 text-center"><%= @ad_age %></td>
                             <td class="col-md-1 text-center"></td>
                         </tr>
+                        <tr>
+                            <td class="col-md-9">
+                            Gender(s): 
+                            <% if ad.gender && ad.gender.length > 0 %>
+                             <% unless ad.gender == "both" %>
+                                <%= ad.gender.titleize %>
+                                <% gender_count = 1 %>
+                              <% else %>
+                                Male and Female
+                                <% gender_count = 2 %>
+                              <% end %>
+                            <% else %>
+                              Error
+                            <% end %>
+                            </td>
+
+                            <td class="col-md-1 text-center"></td>
+                            <td class="col-md-1 text-center"><%= @ad_age %></td>
+                            <td class="col-md-1 text-center"></td>
+                        </tr>
 
                          <tr>
                             <td class="col-md-9">
