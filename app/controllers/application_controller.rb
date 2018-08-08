@@ -39,16 +39,18 @@ class ApplicationController < ActionController::Base
       if current_user
         age = current_user.age
         country = current_user.country
+        gender = current_user.gender
       else
         age = "n/a"
         country = "n/a"
+        gender = "n/a"
       end
 	  	# ads = Ad.where(status: "active")
         if page == "profile"
           logger.info "XXXXXXXXXXXXXXXXXXX  PROFILE AD TEST  XXXXXXXXXXXXXXXXXXXXXXXx"
-          ads = Ad.includes(:placements).where('placements.page' => "Profile").where(status: "active")
+          ads = Ad.includes(:placements).where('placements.page' => "Profile").where('placements.gender' => gender).where(status: "active")
         else
-          ads = Ad.where(status: "active")
+          ads = Ad.includes(:placements).where('placements.gender' => gender).where(status: "active")
         end
 
       ads_slot = []
